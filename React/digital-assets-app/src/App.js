@@ -1,12 +1,33 @@
+import React, { useContext } from "react";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import AuthContext from "./store/AuthContext/auth-context";
+import MainLayout from "./components/Layout/MainLayout";
+import InRoute from "./components/Generic/Routing/InRoute";
+import OutRoute from "./components/Generic/Routing/OutRoute";
+import AppContext from "./store/AppContext/app-context";
 import './App.css';
-import { Typography } from "@material-ui/core";
 
-function App() {
+
+const App = () => {
+  const authCtx = useContext(AuthContext);
+  const appCtx = useContext(AppContext);
+
+  const appTheme = createMuiTheme({
+    palette: {
+      type: appCtx.isDarkTheme ? "dark" : "light",
+    },
+  });
+
   return (
-    <div className="App">
-     <Typography variant="h1">Welcome to React</Typography>
-    </div>
+    <ThemeProvider theme={appTheme}>
+      {!authCtx.isLoggedIn && <OutRoute />}
+      {authCtx.isLoggedIn && (
+        <MainLayout>
+          <InRoute />
+        </MainLayout>
+      )}
+    </ThemeProvider>
   );
-}
+};
 
 export default App;
