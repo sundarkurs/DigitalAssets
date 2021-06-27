@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitalAssets.Domain", "Dig
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitalAssets.Persistence", "DigitalAssets.Persistence\DigitalAssets.Persistence.csproj", "{470EA2C5-FECA-465C-BA4F-E6C47DFDE831}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebJob", "WebJob", "{3DB527BA-2C07-4F2B-863F-0293E8160AEB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{84AE9E05-D12B-4157-AFE4-3716BC2100C8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
