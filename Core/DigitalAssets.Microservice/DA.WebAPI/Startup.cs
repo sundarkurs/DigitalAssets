@@ -1,3 +1,7 @@
+using DA.Application;
+using DA.Application.Queries.AssetTypes;
+using DA.Persistence;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 
 namespace DA.WebAPI
 {
@@ -26,12 +31,17 @@ namespace DA.WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddApplicationServices();
+            services.AddPersistenceServices(Configuration);
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "DA.WebAPI", Version = "v1" });
             });
+
+            //services.AddMediatR(typeof(Startup));
+            services.AddMediatR(typeof(List.Handler).Assembly);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

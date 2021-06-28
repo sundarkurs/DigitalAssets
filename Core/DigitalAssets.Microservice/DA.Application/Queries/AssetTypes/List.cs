@@ -14,25 +14,24 @@ namespace DA.Application.Queries.AssetTypes
     public class List
     {
         public class Query : IRequest<List<AssetType>> { }
-    }
 
-    public class Handler : IRequestHandler<Query, List<AssetType>>
-    {
-        private readonly IAssetTypeRepository _assetTypeRepository;
-        private readonly IMapper _mapper;
-
-        public Handler(IAssetTypeRepository assetTypeRepository, IMapper mapper)
+        public class Handler : IRequestHandler<Query, List<AssetType>>
         {
-            _assetTypeRepository = assetTypeRepository;
-            _mapper = mapper;
-        }
+            private readonly IAssetTypeRepository _assetTypeRepository;
+            private readonly IMapper _mapper;
 
-        public async Task<List<AssetType>> Handle(Query request, CancellationToken cancellationToken)
-        {
-            var activities = await _assetTypeRepository.GetAllAsync();
+            public Handler(IAssetTypeRepository assetTypeRepository, IMapper mapper)
+            {
+                _assetTypeRepository = assetTypeRepository;
+                _mapper = mapper;
+            }
 
-            return (List<AssetType>)activities;
+            public async Task<List<AssetType>> Handle(Query request, CancellationToken cancellationToken)
+            {
+                var activities = await _assetTypeRepository.GetAllAsync();
+
+                return (List<AssetType>)activities;
+            }
         }
     }
-
 }
