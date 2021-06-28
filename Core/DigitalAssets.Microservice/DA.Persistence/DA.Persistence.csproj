@@ -5,12 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DA.Application\DA.Application.csproj" />
     <ProjectReference Include="..\DA.Domain\DA.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Migrations\" />
-    <Folder Include="Repositories\" />
   </ItemGroup>
 
 </Project>

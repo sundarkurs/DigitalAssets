@@ -6,13 +6,16 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DA.Domain\DA.Domain.csproj" />
-    <ProjectReference Include="..\DA.Persistence\DA.Persistence.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Interfaces\Repositories\" />
     <Folder Include="Commands\" />
-    <Folder Include="Queries\" />
+    <Folder Include="DTO\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
   </ItemGroup>
 
 </Project>
