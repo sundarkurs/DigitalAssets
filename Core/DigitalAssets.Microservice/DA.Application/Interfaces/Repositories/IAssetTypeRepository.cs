@@ -2,7 +2,7 @@
 
 namespace DA.Application.Interfaces.Repositories
 {
-    public interface IAssetTypeRepository : IRepository<AssetType>
+    public interface IAssetTypeRepository : IBaseRepository<AssetType>
     {
     }
 }

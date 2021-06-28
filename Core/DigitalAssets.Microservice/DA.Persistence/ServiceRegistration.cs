@@ -11,12 +11,12 @@ namespace DA.Persistence
     {
         public static void AddPersistenceServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<DataContext>(options =>
+            services.AddDbContext<AppDataContext>(options =>
                options.UseSqlServer(
                    configuration.GetConnectionString("DefaultConnection"),
-                   b => b.MigrationsAssembly(typeof(DataContext).Assembly.FullName)));
+                   b => b.MigrationsAssembly(typeof(AppDataContext).Assembly.FullName)));
 
-            services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+            services.AddTransient(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             services.AddTransient<IAssetTypeRepository, AssetTypeRepository>();
         }
     }

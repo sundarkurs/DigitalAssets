@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DA.Application.Interfaces.Repositories
 {
-    public interface IRepository<T> where T : class
+    public interface IBaseRepository<T> where T : class
     {
         Task<T> GetByIdAsync(int id);
 
