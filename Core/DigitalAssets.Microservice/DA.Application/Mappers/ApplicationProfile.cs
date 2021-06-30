@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using DA.Application.DTO.AssetType;
+using DA.Domain.Models;
 
 namespace DA.Application.Mappers
 {
@@ -6,7 +8,7 @@ namespace DA.Application.Mappers
     {
         public ApplicationProfile()
         {
-
+            CreateMap<AssetType, AssetTypeResponse>().ReverseMap();
         }
     }
 }

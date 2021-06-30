@@ -38,10 +38,6 @@ namespace DA.WebAPI
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "DA.WebAPI", Version = "v1" });
             });
-
-            //services.AddMediatR(typeof(Startup));
-            services.AddMediatR(typeof(List.Handler).Assembly);
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -25,9 +25,9 @@ namespace DA.WebAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<AssetType>>> List()
+        public async Task<IActionResult> List()
         {
-            return await _mediator.Send(new List.Query());
+            return Ok(await _mediator.Send(new GetAllAssetTypes.Query()));
         }
 
     }
