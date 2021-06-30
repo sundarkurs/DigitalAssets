@@ -1,11 +1,9 @@
-﻿using DA.Application.Queries.AssetTypes;
-using DA.Domain.Models;
+﻿using DA.Application.Commands.AssetType;
+using DA.Application.DTO.AssetType;
+using DA.Application.Queries.AssetType;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace DA.WebAPI.Controllers
@@ -28,6 +26,13 @@ namespace DA.WebAPI.Controllers
         public async Task<IActionResult> List()
         {
             return Ok(await _mediator.Send(new GetAllAssetTypes.Query()));
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<Unit>> Create(AssetTypeRequest assetType)
+        {
+            var response = await _mediator.Send(new CreateAssetType.Command { AssetType = assetType });
+            return Ok(response);
         }
 
     }

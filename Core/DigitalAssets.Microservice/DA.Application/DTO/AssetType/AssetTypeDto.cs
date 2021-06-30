@@ -1,6 +1,6 @@
 ﻿namespace DA.Application.DTO.AssetType
 {
-    public class AssetTypeResponse
+    public class AssetTypeDto
     {
         public int Id { get; set; }
         public string Code { get; set; }

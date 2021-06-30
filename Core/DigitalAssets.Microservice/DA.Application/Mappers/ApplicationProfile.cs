@@ -8,7 +8,8 @@ namespace DA.Application.Mappers
     {
         public ApplicationProfile()
         {
-            CreateMap<AssetType, AssetTypeResponse>().ReverseMap();
+            CreateMap<AssetType, AssetTypeDto>().ReverseMap();
+            CreateMap<AssetTypeRequest, AssetType>();
         }
     }
 }
