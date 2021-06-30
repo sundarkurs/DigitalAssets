@@ -29,11 +29,18 @@ namespace DA.WebAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Unit>> Create(AssetTypeRequest assetType)
+        public async Task<IActionResult> Create(AssetTypeRequest assetType)
         {
             var response = await _mediator.Send(new CreateAssetType.Command { AssetType = assetType });
             return Ok(response);
         }
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Edit(int id, AssetTypeDto assetType)
+        {
+            assetType.Id = id;
+            var response = await _mediator.Send(new EditAssetType.Command { AssetType = assetType });
+            return Ok(response);
+        }
     }
 }
