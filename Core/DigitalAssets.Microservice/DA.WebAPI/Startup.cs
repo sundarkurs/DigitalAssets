@@ -1,5 +1,6 @@
 using DA.Application;
 using DA.Persistence;
+using DA.WebAPI.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -24,10 +25,9 @@ namespace DA.WebAPI
             services.AddApplicationServices();
             services.AddPersistenceServices(Configuration);
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "DA.WebAPI", Version = "v1" });
-            });
+            services.AddSwaggerExtension();
+            services.AddApiVersioningExtension();
+            services.AddHealthChecks();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -36,8 +36,7 @@ namespace DA.WebAPI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DA.WebAPI v1"));
+                app.UseSwaggerExtension();
             }
 
             app.UseHttpsRedirection();
