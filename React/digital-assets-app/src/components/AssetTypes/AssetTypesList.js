@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AssetTypesList = () => {
+const AssetTypesList = (props) => {
   const history = useHistory();
   const location = useLocation();
   const appCtx = useContext(AppContext);
@@ -50,6 +50,7 @@ const AssetTypesList = () => {
           color="primary"
           className={classes.button}
           startIcon={<AddBoxIcon />}
+          onClick={props.onOpenPanel}
         >
           Add
         </Button>
@@ -58,6 +59,7 @@ const AssetTypesList = () => {
           color="secondary"
           className={classes.button}
           startIcon={<DeleteIcon />}
+          onClick={props.onClosePanel}
         >
           Delete
         </Button>
