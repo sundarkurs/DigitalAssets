@@ -15,4 +15,10 @@
     <ProjectReference Include="..\DA.Persistence\DA.Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="DigitalAssets.Microservice.WebAPI.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
