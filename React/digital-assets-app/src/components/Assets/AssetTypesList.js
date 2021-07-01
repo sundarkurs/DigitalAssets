@@ -3,11 +3,29 @@ import AssetTypeCard from "./AssetTypeCard";
 import Grid from "@material-ui/core/Grid";
 import { useHistory, useLocation } from "react-router";
 import AppContext from "../../store/AppContext/app-context";
+import Button from "@material-ui/core/Button";
+import Box from "@material-ui/core/Box";
+import AddBoxIcon from "@material-ui/icons/AddBox";
+import { makeStyles } from "@material-ui/core/styles";
+import DeleteIcon from "@material-ui/icons/Delete";
+import Divider from "@material-ui/core/Divider";
+
+const useStyles = makeStyles((theme) => ({
+  button: {
+    marginRight: theme.spacing(1),
+  },
+  divider: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+  },
+}));
 
 const AssetTypesList = () => {
   const history = useHistory();
   const location = useLocation();
   const appCtx = useContext(AppContext);
+
+  const classes = useStyles();
 
   const onAssetTypeClickHandler = (assetType) => {
     history.push(location.pathname + "/" + assetType.code.toLowerCase());
@@ -26,9 +44,32 @@ const AssetTypesList = () => {
 
   return (
     <Fragment>
-      <Grid container spacing={2}>
-        {listItems}
-      </Grid>
+      <Box display="flex" flexDirection="row-reverse" component="div">
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          startIcon={<AddBoxIcon />}
+        >
+          Add
+        </Button>
+        <Button
+          variant="contained"
+          color="secondary"
+          className={classes.button}
+          startIcon={<DeleteIcon />}
+        >
+          Delete
+        </Button>
+      </Box>
+
+      <Divider className={classes.divider}></Divider>
+      {appCtx.assetTypes.length > 0 && (
+        <Grid container spacing={2}>
+          {listItems}
+        </Grid>
+      )}
+      {appCtx.assetTypes.length <= 0 && <p>No asset types to show.</p>}
     </Fragment>
   );
 };

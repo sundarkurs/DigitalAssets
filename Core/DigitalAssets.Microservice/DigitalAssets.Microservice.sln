@@ -15,13 +15,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{26E85C2D-D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{092894B1-0084-491B-9A06-4EED25C56161}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DA.WebAPI", "DA.WebAPI\DA.WebAPI.csproj", "{FC61A7FE-65BE-41D9-8920-45D9F20A332E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DA.WebAPI", "DA.WebAPI\DA.WebAPI.csproj", "{FC61A7FE-65BE-41D9-8920-45D9F20A332E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DA.Domain", "DA.Domain\DA.Domain.csproj", "{91E295F7-BEC5-4F2C-91AD-576E7C59DD99}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DA.Domain", "DA.Domain\DA.Domain.csproj", "{91E295F7-BEC5-4F2C-91AD-576E7C59DD99}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DA.Application", "DA.Application\DA.Application.csproj", "{073FD11F-3099-4E56-A304-E989347F5E01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DA.Application", "DA.Application\DA.Application.csproj", "{073FD11F-3099-4E56-A304-E989347F5E01}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DA.Persistence", "DA.Persistence\DA.Persistence.csproj", "{0E4151B2-7700-4185-BCCB-4184FE93BD9D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DA.Persistence", "DA.Persistence\DA.Persistence.csproj", "{0E4151B2-7700-4185-BCCB-4184FE93BD9D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{341E9923-D439-4DF6-A8E5-63D00BE291EE}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\Design\Database\CreateScript.sql = ..\..\Design\Database\CreateScript.sql
+		..\..\Design\Database\DropScript.sql = ..\..\Design\Database\DropScript.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +63,7 @@ Global
 		{91E295F7-BEC5-4F2C-91AD-576E7C59DD99} = {B874E687-F800-401B-B15A-B561AABA61CE}
 		{073FD11F-3099-4E56-A304-E989347F5E01} = {B874E687-F800-401B-B15A-B561AABA61CE}
 		{0E4151B2-7700-4185-BCCB-4184FE93BD9D} = {9E75E43A-6F12-4396-92EC-230CE97D4CB6}
+		{341E9923-D439-4DF6-A8E5-63D00BE291EE} = {092894B1-0084-491B-9A06-4EED25C56161}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {63DA7949-636C-406A-95D1-E9709AD9432F}

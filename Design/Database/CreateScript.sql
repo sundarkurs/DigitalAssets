@@ -45,7 +45,8 @@ CREATE TABLE AssetType
     Id				INT IDENTITY PRIMARY KEY,
     Code			NameType NOT NULL,
     Name			NameType NOT NULL,
-    Description		DescriptionType
+    Description		DescriptionType,
+	ImageUrl		VARCHAR(500)
 )
 
 GO
