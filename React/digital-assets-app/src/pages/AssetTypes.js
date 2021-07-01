@@ -1,6 +1,6 @@
 import React from "react";
 import PageSettings from "./Settings/PageSettings";
-import AssetTypesList from "../components/Assets/AssetTypesList";
+import AssetTypesList from "../components/AssetTypes/AssetTypesList";
 
 const Assets = (props) => {
   return (

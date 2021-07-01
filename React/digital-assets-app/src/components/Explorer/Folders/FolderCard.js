@@ -1,15 +1,14 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
 import CardHeader from "@material-ui/core/CardHeader";
 import { red } from "@material-ui/core/colors";
 import FolderIcon from "@material-ui/icons/Folder";
-import FolderImage from "../../media/folder-image.png";
+import FolderImage from "../../../media/folder-image.png";
 
 const useStyles = makeStyles((theme) => ({
   root: {

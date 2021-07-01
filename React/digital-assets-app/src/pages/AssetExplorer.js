@@ -1,13 +1,12 @@
 import React, { useContext, useState } from "react";
-import BreadcrumbMenu from "../components/Assets/BreadcrumbMenu";
+import BreadcrumbMenu from "../components/Explorer/BreadcrumbMenu";
 import PageSettings from "./Settings/PageSettings";
 import Divider from "@material-ui/core/Divider";
 import { useParams } from "react-router";
 import AppContext from "../store/AppContext/app-context";
 import { productImageAssets } from "../common/Data/MockData";
-import AssetsList from "../components/Assets/AssetsList";
-import FoldersList from "../components/Assets/FoldersList";
-import { CssBaseline } from "@material-ui/core";
+import AssetsList from "../components/Explorer/Assets/AssetsList";
+import FoldersList from "../components/Explorer/Folders/FoldersList";
 import mClasses from "./AssetExplorer.module.css";
 
 const AssetExplorer = (props) => {

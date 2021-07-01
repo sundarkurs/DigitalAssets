@@ -1,22 +1,25 @@
 import { Fragment, useContext } from "react";
-import AssetCard from "./AssetCard";
+import FolderCard from "./FolderCard";
 import Grid from "@material-ui/core/Grid";
 import { useHistory, useLocation } from "react-router";
-import AppContext from "../../store/AppContext/app-context";
+import AppContext from "../../../store/AppContext/app-context";
 
-const AssetsList = (props) => {
+const FoldersList = (props) => {
   const history = useHistory();
   const location = useLocation();
   const appCtx = useContext(AppContext);
 
-  const onAssetClickHandler = (asset) => {
+  const onFolderClickHandler = (asset) => {
     history.push(location.pathname + "/" + asset.id.toLowerCase());
   };
 
-  const listItems = props.assets.map((item) => {
+  const listItems = props.folders.map((item) => {
     return (
       <Grid item xs={12} sm={6} md={4} lg={3} key={item.id}>
-        <AssetCard asset={item} onAssetClick={onAssetClickHandler}></AssetCard>
+        <FolderCard
+          folder={item}
+          onFolderClick={onFolderClickHandler}
+        ></FolderCard>
       </Grid>
     );
   });
@@ -30,4 +33,4 @@ const AssetsList = (props) => {
   );
 };
 
-export default AssetsList;
+export default FoldersList;
