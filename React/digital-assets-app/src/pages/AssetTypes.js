@@ -2,7 +2,7 @@ import React from "react";
 import PageSettings from "./Settings/PageSettings";
 import AssetTypesList from "../components/AssetTypes/AssetTypesList";
 
-const Assets = (props) => {
+const AssetTypes = (props) => {
   return (
     <PageSettings title="Assets">
       <AssetTypesList />
@@ -10,4 +10,4 @@ const Assets = (props) => {
   );
 };
 
-export default Assets;
+export default AssetTypes;
