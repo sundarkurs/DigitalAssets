@@ -59,7 +59,6 @@ const AssetTypesList = (props) => {
           color="secondary"
           className={classes.button}
           startIcon={<DeleteIcon />}
-          onClick={props.onClosePanel}
         >
           Delete
         </Button>

@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import BreadcrumbMenu from "../components/Explorer/BreadcrumbMenu";
 import PageSettings from "./Settings/PageSettings";
+import PageSection from "./Settings/PageSection";
 import Divider from "@material-ui/core/Divider";
 import { useParams } from "react-router";
 import AppContext from "../store/AppContext/app-context";
@@ -26,14 +27,16 @@ const AssetExplorer = (props) => {
 
   return (
     <PageSettings title="Asset Explorer">
-      <BreadcrumbMenu
-        menuItems={breadcrumbItems}
-        onMenuClick={onMenuClickHandler}
-      />
-      <Divider className={mClasses.divider}></Divider>
-      <FoldersList folders={appCtx.folders}></FoldersList>
-      <div style={{ paddingTop: 50 }}></div>
-      <AssetsList assets={productImageAssets}></AssetsList>
+      <PageSection>
+        <BreadcrumbMenu
+          menuItems={breadcrumbItems}
+          onMenuClick={onMenuClickHandler}
+        />
+        <Divider className={mClasses.divider}></Divider>
+        <FoldersList folders={appCtx.folders}></FoldersList>
+        <div style={{ paddingTop: 50 }}></div>
+        <AssetsList assets={productImageAssets}></AssetsList>
+      </PageSection>
     </PageSettings>
   );
 };

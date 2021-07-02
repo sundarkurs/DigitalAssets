@@ -12,6 +12,7 @@ import PageTitle from "./PageTitle";
 import ProfileIcon from "./ProfileIcon";
 import ThemeSelector from "./ThemeSelector";
 import AppContext from "../../../store/AppContext/app-context";
+import { Typography } from "@material-ui/core";
 
 const drawerWidth = 240;
 
