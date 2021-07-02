@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   less: {
     width: "70%",
   },
-  addOnPanel: {
+  detailsPanel: {
     marginLeft: "10px",
     width: "30%",
   },
@@ -24,11 +24,11 @@ const AssetTypes = (props) => {
 
   const [panelOpen, setPanelOpen] = useState(false);
 
-  const openPanelHandler = () => {
+  const openDetailsPanelHandler = () => {
     setPanelOpen(true);
   };
 
-  const closePanelHandler = () => {
+  const closeDetailsPanelHandler = () => {
     setPanelOpen(false);
   };
 
@@ -37,14 +37,14 @@ const AssetTypes = (props) => {
       <Box display="flex">
         <Box className={panelOpen ? classes.less : classes.full}>
           <PageSection>
-            <AssetTypesList onOpenPanel={openPanelHandler} />
+            <AssetTypesList openDetailsPanel={openDetailsPanelHandler} />
           </PageSection>
         </Box>
         {panelOpen && (
-          <Box className={classes.addOnPanel}>
+          <Box className={classes.detailsPanel}>
             <PageSection>
               <CreateAssetType
-                onClosePanel={closePanelHandler}
+                closeDetailsPanel={closeDetailsPanelHandler}
               ></CreateAssetType>
             </PageSection>
           </Box>

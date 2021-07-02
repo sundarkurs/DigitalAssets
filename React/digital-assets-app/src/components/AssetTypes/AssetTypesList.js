@@ -50,7 +50,7 @@ const AssetTypesList = (props) => {
           color="primary"
           className={classes.button}
           startIcon={<AddBoxIcon />}
-          onClick={props.onOpenPanel}
+          onClick={props.openDetailsPanel}
         >
           Add
         </Button>
