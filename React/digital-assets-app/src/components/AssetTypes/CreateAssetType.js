@@ -9,13 +9,14 @@ import CancelIcon from "@material-ui/icons/Cancel";
 import IconButton from "@material-ui/core/IconButton";
 import { Typography } from "@material-ui/core";
 import Toolbar from "@material-ui/core/Toolbar";
+import AddBoxIcon from "@material-ui/icons/AddBox";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "30%",
   },
   closeIcon: {
-    curson: "pointer",
+    cursor: "pointer",
   },
   toolbar: {
     justifyContent: "space-between",
@@ -28,7 +29,10 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(2),
   },
   inputs: {
-    marginTop: "5px",
+    marginTop: theme.spacing(2),
+  },
+  button: {
+    marginTop: theme.spacing(2),
   },
 }));
 
@@ -70,6 +74,14 @@ const CreateAssetType = (props) => {
           variant="outlined"
           label="Image Url"
         />
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          onClick={props.openDetailsPanel}
+        >
+          Save
+        </Button>
       </Box>
     </Fragment>
   );
