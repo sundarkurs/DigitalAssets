@@ -1,17 +1,20 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { AuthContextProvider } from "./store/AuthContext/auth-context-provider";
 import { AppContextProvider } from "./store/AppContext/app-context-provider";
+import { SnackbarProvider } from "notistack";
 
 ReactDOM.render(
   <AuthContextProvider>
     <AppContextProvider>
       <BrowserRouter>
-        <App />
+        <SnackbarProvider maxSnack={3}>
+          <App />
+        </SnackbarProvider>
       </BrowserRouter>
     </AppContextProvider>
   </AuthContextProvider>,
