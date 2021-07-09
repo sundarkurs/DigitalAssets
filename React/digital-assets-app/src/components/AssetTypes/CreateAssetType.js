@@ -41,7 +41,9 @@ const CreateAssetType = (props) => {
   const [name, setName] = useState("");
   const [code, setCode] = useState("");
   const [description, setDescription] = useState("");
-  const [imageUrl, setImageUrl] = useState("/images/asset-type-images/product-image.png");
+  const [imageUrl, setImageUrl] = useState(
+    "/images/asset-type-images/product-image.png"
+  );
 
   const [nameValid, setNameValid] = useState(true);
   const [codeValid, setCodeValid] = useState(true);
@@ -68,6 +70,9 @@ const CreateAssetType = (props) => {
       .post("/AssetType", newAssetType)
       .then((response) => {
         console.log(response);
+        setName("");
+        setCode("");
+        setDescription("");
       })
       .catch((error) => {
         console.log(error);
@@ -130,6 +135,7 @@ const CreateAssetType = (props) => {
           label="Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
+          error={!nameValid}
         />
         <TextField
           className={classes.inputs}
@@ -138,6 +144,7 @@ const CreateAssetType = (props) => {
           label="Code"
           value={code}
           onChange={(e) => setCode(e.target.value)}
+          error={!codeValid}
         />
         <TextField
           className={classes.inputs}
@@ -146,6 +153,7 @@ const CreateAssetType = (props) => {
           label="Description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
+          error={!descriptionValid}
         />
         <TextField
           className={classes.inputs}
@@ -154,6 +162,7 @@ const CreateAssetType = (props) => {
           label="Image Url"
           value={imageUrl}
           onChange={(e) => setImageUrl(e.target.value)}
+          error={!imageUrlValid}
         />
         <Button
           type="submit"
