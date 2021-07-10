@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PageTitle = (props) => {
+const AppPageTitle = (props) => {
   const classes = useStyles();
 
   return (
@@ -24,8 +24,8 @@ const PageTitle = (props) => {
   );
 };
 
-export default PageTitle;
+export default AppPageTitle;
 
-PageTitle.propTypes = {
+AppPageTitle.propTypes = {
   title: PropTypes.string,
 };

@@ -1,7 +1,7 @@
 import React from "react";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import AssignmentIcon from "@material-ui/icons/Assignment";
-import AppNavItem from "./AppNavItem";
+import AppNavItem from "../../UI/AppNavItem";
 
 export const secondaryMenuItems = (
   <div>

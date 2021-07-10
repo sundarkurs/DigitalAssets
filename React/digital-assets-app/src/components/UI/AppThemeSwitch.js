@@ -3,7 +3,7 @@ import Switch from "@material-ui/core/Switch";
 import { useContext } from "react";
 import AppContext from "../../store/AppContext/app-context";
 
-const ThemeSwitch = () => {
+const AppThemeSwitch = () => {
   const appCtx = useContext(AppContext);
 
   const changeHandler = () => {
@@ -23,4 +23,4 @@ const ThemeSwitch = () => {
   );
 };
 
-export default ThemeSwitch;
+export default AppThemeSwitch;

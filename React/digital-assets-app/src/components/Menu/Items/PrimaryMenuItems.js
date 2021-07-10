@@ -1,7 +1,7 @@
 import React from "react";
 import CollectionsIcon from "@material-ui/icons/Collections";
 import DashboardIcon from "@material-ui/icons/Dashboard";
-import AppNavItem from "./AppNavItem";
+import AppNavItem from "../../UI/AppNavItem";
 
 export const primaryMenuItems = (
   <div>
