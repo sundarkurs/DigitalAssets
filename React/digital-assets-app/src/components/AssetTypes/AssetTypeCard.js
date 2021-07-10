@@ -28,16 +28,17 @@ const useStyles = makeStyles((theme) => ({
 export default function AssetTypeCard(props) {
   const classes = useStyles();
 
-  console.log(window.location.origin);
-
-  const getAvatarText = (name) => {
-    var matches = name.match(/\b(\w)/g);
+  const getAvatarText = (text) => {
+    var matches = text.match(/\b(\w)/g);
     var acronym = matches.join("");
     return acronym;
   };
 
   return (
-    <Card onClick={() => props.onAssetTypeClick(props.assetType)} elevation={10}>
+    <Card
+      onClick={() => props.onAssetTypeClick(props.assetType)}
+      elevation={10}
+    >
       <CardActionArea>
         <CardHeader
           avatar={

@@ -1,7 +1,7 @@
 import { Fragment, useState, useContext } from "react";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import IconButton from "@material-ui/core/IconButton";
-import AuthContext from "../../../store/AuthContext/auth-context";
+import AuthContext from "../../store/AuthContext/auth-context";
 import { useHistory } from "react-router-dom";
 import ProfileMenu from "../Menu/ProfileMenu";
 

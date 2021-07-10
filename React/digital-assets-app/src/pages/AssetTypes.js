@@ -1,27 +1,12 @@
 import React, { useState } from "react";
 import PageSettings from "./Settings/PageSettings";
-import PageSection from "./Settings/PageSection";
+import AppSection from "../components/UI/AppSection";
 import AssetTypesList from "../components/AssetTypes/AssetTypesList";
 import CreateAssetType from "../components/AssetTypes/CreateAssetType";
-import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
-
-const useStyles = makeStyles((theme) => ({
-  full: {
-    width: "100%",
-  },
-  less: {
-    width: "70%",
-  },
-  detailsPanel: {
-    marginLeft: "10px",
-    width: "30%",
-  },
-}));
+import styles from "./AssetTypes.module.css";
 
 const AssetTypes = (props) => {
-  const classes = useStyles();
-
   const [panelOpen, setPanelOpen] = useState(false);
 
   const openDetailsPanelHandler = () => {
@@ -35,18 +20,18 @@ const AssetTypes = (props) => {
   return (
     <PageSettings title="Asset Types">
       <Box display="flex">
-        <Box className={panelOpen ? classes.less : classes.full}>
-          <PageSection>
+        <Box className={panelOpen ? styles.lessWidth : styles.fullWidth}>
+          <AppSection>
             <AssetTypesList openDetailsPanel={openDetailsPanelHandler} />
-          </PageSection>
+          </AppSection>
         </Box>
         {panelOpen && (
-          <Box className={classes.detailsPanel}>
-            <PageSection>
+          <Box className={styles.addOnPanel}>
+            <AppSection>
               <CreateAssetType
                 closeDetailsPanel={closeDetailsPanelHandler}
               ></CreateAssetType>
-            </PageSection>
+            </AppSection>
           </Box>
         )}
       </Box>

@@ -8,8 +8,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PageSection = (props) => {
+const AppSection = (props) => {
   const classes = useStyles();
   return <Paper className={clsx(classes.paper)}>{props.children}</Paper>;
 };
-export default PageSection;
+export default AppSection;

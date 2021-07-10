@@ -1,13 +1,13 @@
 import React from "react";
 import PageSettings from "./Settings/PageSettings";
-import PageSection from "./Settings/PageSection";
+import AppSection from "../components/UI/AppSection";
 
 const NotFound = (props) => {
   return (
     <PageSettings title="Not found">
-      <PageSection>
+      <AppSection>
         <p>Resource not found.</p>
-      </PageSection>
+      </AppSection>
     </PageSettings>
   );
 };

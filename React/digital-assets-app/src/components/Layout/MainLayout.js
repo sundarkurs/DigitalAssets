@@ -2,8 +2,8 @@ import React, { useContext, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
-import TopHeader from "./Header/TopHeader";
-import LeftMenu from "./Menu/LeftMenu";
+import TopHeader from "../Header/TopHeader";
+import LeftMenu from "../Menu/LeftMenu";
 import AppContext from "../../store/AppContext/app-context";
 
 const useStyles = makeStyles((theme) => ({

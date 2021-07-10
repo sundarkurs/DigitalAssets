@@ -1,9 +1,9 @@
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import { useContext } from "react";
-import AppContext from "../../../store/AppContext/app-context";
+import AppContext from "../../store/AppContext/app-context";
 
-const ThemeSelector = () => {
+const ThemeSwitch = () => {
   const appCtx = useContext(AppContext);
 
   const changeHandler = () => {
@@ -23,4 +23,4 @@ const ThemeSelector = () => {
   );
 };
 
-export default ThemeSelector;
+export default ThemeSwitch;

@@ -8,11 +8,10 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import PropTypes from "prop-types";
 import Notification from "./Notification";
-import PageTitle from "./PageTitle";
+import PageTitle from "../UI/PageTitle";
 import ProfileIcon from "./ProfileIcon";
-import ThemeSelector from "./ThemeSelector";
-import AppContext from "../../../store/AppContext/app-context";
-import { Typography } from "@material-ui/core";
+import ThemeSwitch from "../UI/ThemeSwitch";
+import AppContext from "../../store/AppContext/app-context";
 
 const drawerWidth = 240;
 
@@ -76,7 +75,7 @@ const TopHeader = (props) => {
           <MenuIcon />
         </IconButton>
         <PageTitle pageTitle={props.pageTitle} />
-        <ThemeSelector />
+        <ThemeSwitch />
         <Notification />
         <ProfileIcon />
       </Toolbar>

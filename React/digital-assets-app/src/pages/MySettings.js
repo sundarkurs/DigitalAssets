@@ -1,13 +1,13 @@
 import React from "react";
 import PageSettings from "./Settings/PageSettings";
-import PageSection from "./Settings/PageSection";
+import AppSection from "../components/UI/AppSection";
 
 const MySettings = (props) => {
   return (
     <PageSettings title="My Settings">
-      <PageSection>
+      <AppSection>
         <p>Some content goes here...</p>
-      </PageSection>
+      </AppSection>
     </PageSettings>
   );
 };

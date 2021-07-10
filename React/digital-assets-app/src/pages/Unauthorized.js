@@ -1,13 +1,13 @@
 import React from "react";
 import PageSettings from "./Settings/PageSettings";
-import PageSection from "./Settings/PageSection";
+import AppSection from "../components/UI/AppSection";
 
 const Unauthorized = (props) => {
   return (
     <PageSettings title="Unauthorized">
-      <PageSection>
+      <AppSection>
         <p>Unauthorized.</p>
-      </PageSection>
+      </AppSection>
     </PageSettings>
   );
 };

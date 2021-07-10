@@ -1,0 +1,12 @@
+.addOnPanel {
+  margin-left: 10px;
+  width: 30%;
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.lessWidth {
+  width: 70%;
+}
