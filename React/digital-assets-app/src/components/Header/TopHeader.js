@@ -74,7 +74,7 @@ const TopHeader = (props) => {
         >
           <MenuIcon />
         </IconButton>
-        <PageTitle pageTitle={props.pageTitle} />
+        <PageTitle title={props.pageTitle} />
         <ThemeSwitch />
         <Notification />
         <ProfileIcon />

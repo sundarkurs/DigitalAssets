@@ -19,7 +19,7 @@ const PageTitle = (props) => {
       noWrap
       className={classes.title}
     >
-      {props.pageTitle}
+      {props.title}
     </Typography>
   );
 };
@@ -27,5 +27,5 @@ const PageTitle = (props) => {
 export default PageTitle;
 
 PageTitle.propTypes = {
-  pageTitle: PropTypes.string,
+  title: PropTypes.string,
 };
