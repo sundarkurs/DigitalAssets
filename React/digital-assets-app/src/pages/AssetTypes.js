@@ -26,16 +26,18 @@ const AssetTypes = (props) => {
 
   const onDeleteHandler = (assetType) => {
     setAssetType(assetType);
+    setPanelOpen(false);
     setMode("delete");
   };
 
   const closeDetailsPanelHandler = () => {
-    setPanelOpen(false);
     setMode("");
+    setPanelOpen(false);
   };
 
   const onDeleteEndHandler = () => {
     setMode("");
+    setPanelOpen(false);
   };
 
   return (
@@ -72,7 +74,6 @@ const AssetTypes = (props) => {
       {mode === "delete" && (
         <DeleteAssetType
           assetType={assetType}
-          show={true}
           onDeleteEnd={onDeleteEndHandler}
         ></DeleteAssetType>
       )}
