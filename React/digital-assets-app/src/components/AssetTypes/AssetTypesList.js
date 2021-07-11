@@ -9,6 +9,9 @@ import AddBoxIcon from "@material-ui/icons/AddBox";
 import { makeStyles } from "@material-ui/core/styles";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Divider from "@material-ui/core/Divider";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import classes from "./AssetTypesList.module.css";
+import { Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -25,7 +28,7 @@ const AssetTypesList = (props) => {
   const location = useLocation();
   const appCtx = useContext(AppContext);
 
-  const classes = useStyles();
+  const styles = useStyles();
 
   const onAssetTypeClickHandler = (assetType) => {
     history.push(location.pathname + "/" + assetType.code.toLowerCase());
@@ -36,7 +39,8 @@ const AssetTypesList = (props) => {
       <Grid item xs={12} sm={6} md={4} key={item.id}>
         <AssetTypeCard
           assetType={item}
-          onAssetTypeClick={onAssetTypeClickHandler}
+          onClick={onAssetTypeClickHandler}
+          onEdit={() => props.onEdit(item)}
         ></AssetTypeCard>
       </Grid>
     );
@@ -48,29 +52,36 @@ const AssetTypesList = (props) => {
         <Button
           variant="contained"
           color="primary"
-          className={classes.button}
+          className={styles.button}
           startIcon={<AddBoxIcon />}
-          onClick={props.openDetailsPanel}
+          onClick={props.onAdd}
         >
           Add
         </Button>
         <Button
           variant="contained"
           color="secondary"
-          className={classes.button}
+          className={styles.button}
           startIcon={<DeleteIcon />}
         >
           Delete
         </Button>
       </Box>
 
-      <Divider className={classes.divider}></Divider>
+      <Divider className={styles.divider}></Divider>
       {appCtx.assetTypes.length > 0 && (
         <Grid container spacing={2}>
           {listItems}
         </Grid>
       )}
-      {appCtx.assetTypes.length <= 0 && <p>No asset types to show.</p>}
+      {appCtx.assetTypesLoaded && appCtx.assetTypes.length <= 0 && (
+        <Typography>No asset types to show.</Typography>
+      )}
+      {!appCtx.assetTypesLoaded && (
+        <div className={classes.loading}>
+          <CircularProgress disableShrink />
+        </div>
+      )}
     </Fragment>
   );
 };

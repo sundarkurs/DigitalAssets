@@ -7,6 +7,7 @@ export const AppContextProvider = (props) => {
   const [isDarkTheme, setIsDarkTheme] = useState(true);
   const [pageTitle, setPageTitle] = useState("Dashboard");
   const [assetTypes, setAssetTypes] = useState([]);
+  const [assetTypesLoaded, setAssetTypesLoaded] = useState(false);
 
   const toggleThemeHandler = () => {
     setIsDarkTheme((prevState) => !prevState);
@@ -17,14 +18,17 @@ export const AppContextProvider = (props) => {
   };
 
   useEffect(() => {
-    axios
-      .get("AssetType")
-      .then((response) => {
-        setAssetTypes(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (!assetTypesLoaded) {
+      axios
+        .get("AssetType")
+        .then((response) => {
+          setAssetTypes(response.data);
+          setAssetTypesLoaded(true);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   }, []);
 
   return (
@@ -35,6 +39,7 @@ export const AppContextProvider = (props) => {
         pageTitle: pageTitle,
         onTitleChange: onTitleChangeHandler,
         assetTypes: assetTypes,
+        assetTypesLoaded: assetTypesLoaded,
         folders: folders,
       }}
     >

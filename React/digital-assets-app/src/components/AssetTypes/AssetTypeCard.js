@@ -8,6 +8,9 @@ import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
 import CardHeader from "@material-ui/core/CardHeader";
 import { red } from "@material-ui/core/colors";
+import CardActions from "@material-ui/core/CardActions";
+import Button from "@material-ui/core/Button";
+import classes from "./AssetTypeCard.module.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function AssetTypeCard(props) {
-  const classes = useStyles();
+  const styles = useStyles();
 
   const getAvatarText = (text) => {
     var matches = text.match(/\b(\w)/g);
@@ -35,14 +38,11 @@ export default function AssetTypeCard(props) {
   };
 
   return (
-    <Card
-      onClick={() => props.onAssetTypeClick(props.assetType)}
-      elevation={10}
-    >
-      <CardActionArea>
+    <Card elevation={10}>
+      <CardActionArea onClick={() => props.onClick(props.assetType)}>
         <CardHeader
           avatar={
-            <Avatar aria-label="recipe" className={classes.avatar}>
+            <Avatar aria-label="recipe" className={styles.avatar}>
               {getAvatarText(props.assetType.name)}
             </Avatar>
           }
@@ -67,6 +67,14 @@ export default function AssetTypeCard(props) {
           </Typography>
         </CardContent>
       </CardActionArea>
+      <CardActions disableSpacing className={classes.actions}>
+        <Button size="small" color="secondary">
+          Delete
+        </Button>
+        <Button size="small" color="default" onClick={props.onEdit}>
+          Edit
+        </Button>
+      </CardActions>
     </Card>
   );
 }

@@ -3,18 +3,29 @@ import PageSettings from "./Settings/PageSettings";
 import AppSection from "../components/UI/AppSection";
 import AssetTypesList from "../components/AssetTypes/AssetTypesList";
 import CreateAssetType from "../components/AssetTypes/CreateAssetType";
+import EditAssetType from "../components/AssetTypes/EditAssetType";
 import Box from "@material-ui/core/Box";
 import styles from "./AssetTypes.module.css";
 
 const AssetTypes = (props) => {
   const [panelOpen, setPanelOpen] = useState(false);
+  const [mode, setMode] = useState("");
+  const [assetType, setAssetType] = useState({});
 
-  const openDetailsPanelHandler = () => {
+  const onAddHandler = () => {
     setPanelOpen(true);
+    setMode("add");
+  };
+
+  const onEditHandler = (assetType) => {
+    setAssetType(assetType);
+    setPanelOpen(true);
+    setMode("edit");
   };
 
   const closeDetailsPanelHandler = () => {
     setPanelOpen(false);
+    setMode("");
   };
 
   return (
@@ -22,15 +33,23 @@ const AssetTypes = (props) => {
       <Box display="flex">
         <Box className={panelOpen ? styles.lessWidth : styles.fullWidth}>
           <AppSection>
-            <AssetTypesList openDetailsPanel={openDetailsPanelHandler} />
+            <AssetTypesList onAdd={onAddHandler} onEdit={onEditHandler} />
           </AppSection>
         </Box>
+
         {panelOpen && (
           <Box className={styles.addOnPanel}>
             <AppSection>
-              <CreateAssetType
-                closeDetailsPanel={closeDetailsPanelHandler}
-              ></CreateAssetType>
+              {mode === "add" && (
+                <CreateAssetType
+                  closeDetailsPanel={closeDetailsPanelHandler}
+                ></CreateAssetType>
+              )}
+              {mode === "edit" && (
+                <EditAssetType assetType={assetType}
+                  closeDetailsPanel={closeDetailsPanelHandler}
+                ></EditAssetType>
+              )}
             </AppSection>
           </Box>
         )}

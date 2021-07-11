@@ -2,8 +2,8 @@ import React, { useContext } from "react";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import AuthContext from "./store/AuthContext/auth-context";
 import MainLayout from "./components/Layout/MainLayout";
-import InRoute from "./components/Generic/Routing/InRoute";
-import OutRoute from "./components/Generic/Routing/OutRoute";
+import InRoute from "./components/Layout/Routing/InRoute";
+import OutRoute from "./components/Layout/Routing/OutRoute";
 import AppContext from "./store/AppContext/app-context";
 import './App.css';
 
