@@ -50,8 +50,8 @@ const DeleteAssetType = (props) => {
       <DialogTitle id="form-dialog-title">Delete asset type</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          To delete an asset type, please enter the name here to confirm the
-          delete.
+          To delete an asset type "{props.assetType.name}", please enter the
+          name here to confirm the delete.
         </DialogContentText>
         <TextField
           inputRef={nameRef}
