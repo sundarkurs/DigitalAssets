@@ -4,6 +4,7 @@ import AppSection from "../components/UI/AppSection";
 import AssetTypesList from "../components/AssetTypes/AssetTypesList";
 import CreateAssetType from "../components/AssetTypes/CreateAssetType";
 import EditAssetType from "../components/AssetTypes/EditAssetType";
+import DeleteAssetType from "../components/AssetTypes/DeleteAssetType";
 import Box from "@material-ui/core/Box";
 import styles from "./AssetTypes.module.css";
 
@@ -23,8 +24,17 @@ const AssetTypes = (props) => {
     setMode("edit");
   };
 
+  const onDeleteHandler = (assetType) => {
+    setAssetType(assetType);
+    setMode("delete");
+  };
+
   const closeDetailsPanelHandler = () => {
     setPanelOpen(false);
+    setMode("");
+  };
+
+  const onDeleteEndHandler = () => {
     setMode("");
   };
 
@@ -33,7 +43,11 @@ const AssetTypes = (props) => {
       <Box display="flex">
         <Box className={panelOpen ? styles.lessWidth : styles.fullWidth}>
           <AppSection>
-            <AssetTypesList onAdd={onAddHandler} onEdit={onEditHandler} />
+            <AssetTypesList
+              onAdd={onAddHandler}
+              onEdit={onEditHandler}
+              onDelete={onDeleteHandler}
+            />
           </AppSection>
         </Box>
 
@@ -46,7 +60,8 @@ const AssetTypes = (props) => {
                 ></CreateAssetType>
               )}
               {mode === "edit" && (
-                <EditAssetType assetType={assetType}
+                <EditAssetType
+                  assetType={assetType}
                   closeDetailsPanel={closeDetailsPanelHandler}
                 ></EditAssetType>
               )}
@@ -54,6 +69,13 @@ const AssetTypes = (props) => {
           </Box>
         )}
       </Box>
+      {mode === "delete" && (
+        <DeleteAssetType
+          assetType={assetType}
+          show={true}
+          onDeleteEnd={onDeleteEndHandler}
+        ></DeleteAssetType>
+      )}
     </PageSettings>
   );
 };

@@ -38,5 +38,12 @@ namespace DA.WebAPI.Controllers.v1
             var response = await Mediator.Send(new EditAssetType.Command { AssetType = assetType });
             return Ok(response);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var response = await Mediator.Send(new DeleteAssetType.Command { Id = id });
+            return Ok(response);
+        }
     }
 }

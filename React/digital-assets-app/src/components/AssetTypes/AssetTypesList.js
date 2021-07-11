@@ -41,6 +41,7 @@ const AssetTypesList = (props) => {
           assetType={item}
           onClick={onAssetTypeClickHandler}
           onEdit={() => props.onEdit(item)}
+          onDelete={() => props.onDelete(item)}
         ></AssetTypeCard>
       </Grid>
     );
@@ -57,14 +58,6 @@ const AssetTypesList = (props) => {
           onClick={props.onAdd}
         >
           Add
-        </Button>
-        <Button
-          variant="contained"
-          color="secondary"
-          className={styles.button}
-          startIcon={<DeleteIcon />}
-        >
-          Delete
         </Button>
       </Box>
 
