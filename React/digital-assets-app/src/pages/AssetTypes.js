@@ -6,9 +6,20 @@ import CreateAssetType from "../components/AssetTypes/CreateAssetType";
 import EditAssetType from "../components/AssetTypes/EditAssetType";
 import DeleteAssetType from "../components/AssetTypes/DeleteAssetType";
 import Box from "@material-ui/core/Box";
-import styles from "./AssetTypes.module.css";
+import classes from "./AssetTypes.module.css";
+import AssetTypeActions from "../components/AssetTypes/AssetTypeActions";
+import { makeStyles } from "@material-ui/core/styles";
+import Divider from "@material-ui/core/Divider";
+
+const useStyles = makeStyles((theme) => ({
+  divider: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+  },
+}));
 
 const AssetTypes = (props) => {
+  const styles = useStyles();
   const [panelOpen, setPanelOpen] = useState(false);
   const [mode, setMode] = useState("");
   const [assetType, setAssetType] = useState({});
@@ -43,18 +54,16 @@ const AssetTypes = (props) => {
   return (
     <PageSettings title="Asset Types">
       <Box display="flex">
-        <Box className={panelOpen ? styles.lessWidth : styles.fullWidth}>
+        <Box className={panelOpen ? classes.lessWidth : classes.fullWidth}>
           <AppSection>
-            <AssetTypesList
-              onAdd={onAddHandler}
-              onEdit={onEditHandler}
-              onDelete={onDeleteHandler}
-            />
+            <AssetTypeActions onAdd={onAddHandler} />
+            <Divider className={styles.divider} />
+            <AssetTypesList onEdit={onEditHandler} onDelete={onDeleteHandler} />
           </AppSection>
         </Box>
 
         {panelOpen && (
-          <Box className={styles.addOnPanel}>
+          <Box className={classes.addOnPanel}>
             <AppSection>
               {mode === "add" && (
                 <CreateAssetType
@@ -75,7 +84,7 @@ const AssetTypes = (props) => {
         <DeleteAssetType
           assetType={assetType}
           onDeleteEnd={onDeleteEndHandler}
-        ></DeleteAssetType>
+        />
       )}
     </PageSettings>
   );

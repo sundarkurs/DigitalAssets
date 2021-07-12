@@ -24,8 +24,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
   },
   divider: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
+    marginTop: theme.spacing(2.5),
   },
   inputs: {
     marginTop: theme.spacing(2),
