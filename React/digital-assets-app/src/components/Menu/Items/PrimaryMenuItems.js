@@ -7,13 +7,13 @@ export const primaryMenuItems = (
   <div>
     <AppNavItem
       to="/dashboard"
-      text="Asset Types"
+      text="Dashboard"
       icon={<DashboardIcon />}
     ></AppNavItem>
 
     <AppNavItem
       to="/asset-types"
-      text="Dashboard"
+      text="Asset Types"
       icon={<CollectionsIcon />}
     ></AppNavItem>
   </div>
