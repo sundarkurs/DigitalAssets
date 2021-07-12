@@ -8,6 +8,7 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { primaryMenuItems } from "./Items/PrimaryMenuItems";
 import { secondaryMenuItems } from "./Items/SecondaryMenuItems";
 import { makeStyles } from "@material-ui/core/styles";
+import { Typography } from "@material-ui/core";
 
 const drawerWidth = 240;
 
@@ -15,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   toolbarIcon: {
     display: "flex",
     alignItems: "center",
-    justifyContent: "flex-end",
+    justifyContent: "space-between",
     padding: "0 8px",
     ...theme.mixins.toolbar,
   },
@@ -39,6 +40,9 @@ const useStyles = makeStyles((theme) => ({
       width: theme.spacing(9),
     },
   },
+  logoText: {
+    color: "#61dafb;",
+  }
 }));
 
 const LeftMenu = (props) => {
@@ -56,6 +60,9 @@ const LeftMenu = (props) => {
       open={props.menuDrawerOpen}
     >
       <div className={classes.toolbarIcon}>
+        <Typography className={classes.logoText} variant="h4" color="textSecondary">
+          assets
+        </Typography>
         <IconButton onClick={props.onDrawerClose}>
           <ChevronLeftIcon />
         </IconButton>
