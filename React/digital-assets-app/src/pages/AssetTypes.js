@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import PageSettings from "./Settings/PageSettings";
 import AppSection from "../components/UI/AppSection";
-import AssetTypesList from "../components/AssetTypes/AssetTypesList";
-import CreateAssetType from "../components/AssetTypes/CreateAssetType";
-import EditAssetType from "../components/AssetTypes/EditAssetType";
-import DeleteAssetType from "../components/AssetTypes/DeleteAssetType";
+import AssetTypesList from "../components/AssetTypes/List/AssetTypesList";
+import CreateAssetType from "../components/AssetTypes/Create/CreateAssetType";
+import EditAssetType from "../components/AssetTypes/Edit/EditAssetType";
+import DeleteAssetType from "../components/AssetTypes/Delete/DeleteAssetType";
+import AssetTypeActions from "../components/AssetTypes/Actions/AssetTypeActions";
 import Box from "@material-ui/core/Box";
-import classes from "./AssetTypes.module.css";
-import AssetTypeActions from "../components/AssetTypes/AssetTypeActions";
-import { makeStyles } from "@material-ui/core/styles";
 import Divider from "@material-ui/core/Divider";
+import classes from "./AssetTypes.module.css";
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   divider: {

@@ -6,9 +6,9 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import axios from "../../store/DbContext/assets-db-context";
+import axios from "../../../store/DbContext/assets-db-context";
 import { useSnackbar } from "notistack";
-import AppContext from "../../store/AppContext/app-context";
+import AppContext from "../../../store/AppContext/app-context";
 import { Typography } from "@material-ui/core";
 
 const DeleteAssetType = (props) => {

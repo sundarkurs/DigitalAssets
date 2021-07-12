@@ -1,8 +1,8 @@
 import { Fragment, useContext } from "react";
-import AssetTypeCard from "./AssetTypeCard";
+import AssetTypeCard from "../Card/AssetTypeCard";
 import Grid from "@material-ui/core/Grid";
 import { useHistory, useLocation } from "react-router";
-import AppContext from "../../store/AppContext/app-context";
+import AppContext from "../../../store/AppContext/app-context";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import classes from "./AssetTypesList.module.css";
 import { Typography } from "@material-ui/core";

@@ -1,57 +1,32 @@
-import React, { Fragment, useContext, useState } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import TextField from "@material-ui/core/TextField";
-import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
 import Box from "@material-ui/core/Box";
 import CloseIcon from "@material-ui/icons/Close";
 import { Typography } from "@material-ui/core";
-import axios from "../../store/DbContext/assets-db-context";
+import axios from "../../../store/DbContext/assets-db-context";
 import { useSnackbar } from "notistack";
-import AppContext from "../../store/AppContext/app-context";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: "30%",
-  },
-  closeIcon: {
-    cursor: "pointer",
-  },
-  toolbar: {
-    justifyContent: "space-between",
-  },
-  content: {
-    flexDirection: "column",
-  },
-  divider: {
-    marginTop: theme.spacing(2.5),
-  },
-  inputs: {
-    marginTop: theme.spacing(2),
-  },
-  button: {
-    marginTop: theme.spacing(2),
-  },
-}));
+import AppContext from "../../../store/AppContext/app-context";
+import useStyles from "../Styles/RightPanelStyles";
 
 let IS_FORM_VALID = true;
 
-const CreateAssetType = (props) => {
+const EditAssetType = (props) => {
   const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
   const appCtx = useContext(AppContext);
 
-  const [name, setName] = useState("");
-  const [code, setCode] = useState("");
-  const [description, setDescription] = useState("");
-  const [imageUrl, setImageUrl] = useState(
-    "/images/asset-type-images/product-image.png"
-  );
+  const [description, setDescription] = useState(props.assetType.description);
+  const [imageUrl, setImageUrl] = useState(props.assetType.imageUrl);
 
-  const [nameValid, setNameValid] = useState(true);
-  const [codeValid, setCodeValid] = useState(true);
   const [descriptionValid, setDescriptionValid] = useState(true);
   const [imageUrlValid, setImageUrlValid] = useState(true);
+
+  useEffect(() => {
+    setDescription(props.assetType.description);
+    setImageUrl(props.assetType.imageUrl);
+  }, [props.assetType.description, props.assetType.imageUrl]);
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -60,48 +35,33 @@ const CreateAssetType = (props) => {
       return;
     }
 
-    const newAssetType = {
-      name: name,
-      code: code,
+    const editAssetType = {
+      id: props.assetType.id,
+      name: props.assetType.name,
+      code: props.assetType.code,
       description: description,
       imageUrl: imageUrl,
     };
 
-    console.log(newAssetType);
-
     axios
-      .post("/AssetType", newAssetType)
+      .put(`/AssetType/${props.assetType.id}`, editAssetType)
       .then((response) => {
-        enqueueSnackbar(`Asset type "${name}" created successfully.`, {
+        const message = `Asset type "${props.assetType.name}" updated successfully.`;
+        enqueueSnackbar(message, {
           variant: "success",
         });
-
         appCtx.resetAssetTypes();
-        setName("");
-        setCode("");
-        setDescription("");
       })
       .catch((error) => {
-        console.log(error);
+        const message = "Error occurred while updating the asset type.";
+        enqueueSnackbar(message, {
+          variant: "error",
+        });
       });
   };
 
   const vlaidateForm = () => {
     IS_FORM_VALID = true;
-
-    if (name.trim().length === 0) {
-      IS_FORM_VALID = false;
-      setNameValid(false);
-    } else {
-      setNameValid(true);
-    }
-
-    if (code.trim().length === 0) {
-      IS_FORM_VALID = false;
-      setCodeValid(false);
-    } else {
-      setCodeValid(true);
-    }
 
     if (description.trim().length === 0) {
       IS_FORM_VALID = false;
@@ -120,14 +80,13 @@ const CreateAssetType = (props) => {
 
   const isFormVallid = () => {
     vlaidateForm();
-
     return IS_FORM_VALID;
   };
 
   return (
     <form onSubmit={submitHandler}>
       <Box display="flex" className={classes.toolbar}>
-        <Typography variant="h6">Create asset type</Typography>
+        <Typography variant="h6">Edit asset type</Typography>
         <CloseIcon
           className={classes.closeIcon}
           onClick={props.closeDetailsPanel}
@@ -140,18 +99,16 @@ const CreateAssetType = (props) => {
           id="name"
           variant="outlined"
           label="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          error={!nameValid}
+          disabled={true}
+          value={props.assetType.name}
         />
         <TextField
           className={classes.inputs}
           id="code"
           variant="outlined"
           label="Code"
-          value={code}
-          onChange={(e) => setCode(e.target.value)}
-          error={!codeValid}
+          disabled={true}
+          value={props.assetType.code}
         />
         <TextField
           className={classes.inputs}
@@ -176,13 +133,12 @@ const CreateAssetType = (props) => {
           variant="contained"
           color="primary"
           className={classes.button}
-          onClick={props.openDetailsPanel}
         >
-          Save
+          Update
         </Button>
       </Box>
     </form>
   );
 };
 
-export default CreateAssetType;
+export default EditAssetType;
