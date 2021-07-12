@@ -17,8 +17,13 @@ export const AppContextProvider = (props) => {
     setPageTitle(title);
   };
 
+  const resetAssetTypesHandler = (title) => {
+    setAssetTypesLoaded(false);
+  };
+
   useEffect(() => {
     if (!assetTypesLoaded) {
+      console.log("load asset types");
       axios
         .get("AssetType")
         .then((response) => {
@@ -29,7 +34,7 @@ export const AppContextProvider = (props) => {
           console.log(error);
         });
     }
-  }, []);
+  }, [assetTypesLoaded]);
 
   return (
     <AppContext.Provider
@@ -40,6 +45,7 @@ export const AppContextProvider = (props) => {
         onTitleChange: onTitleChangeHandler,
         assetTypes: assetTypes,
         assetTypesLoaded: assetTypesLoaded,
+        resetAssetTypes: resetAssetTypesHandler,
         folders: folders,
       }}
     >

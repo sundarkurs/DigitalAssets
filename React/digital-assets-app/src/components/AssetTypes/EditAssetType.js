@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
@@ -8,6 +8,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import { Typography } from "@material-ui/core";
 import axios from "../../store/DbContext/assets-db-context";
 import { useSnackbar } from "notistack";
+import AppContext from "../../store/AppContext/app-context";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,6 +40,7 @@ let IS_FORM_VALID = true;
 const EditAssetType = (props) => {
   const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
+  const appCtx = useContext(AppContext);
 
   const [description, setDescription] = useState(props.assetType.description);
   const [imageUrl, setImageUrl] = useState(props.assetType.imageUrl);
@@ -66,23 +68,20 @@ const EditAssetType = (props) => {
       imageUrl: imageUrl,
     };
 
-    console.log(editAssetType);
-
     axios
       .put(`/AssetType/${props.assetType.id}`, editAssetType)
       .then((response) => {
-        enqueueSnackbar(
-          `Asset type "${props.assetType.name}" updated successfully.`,
-          {
-            variant: "success",
-          }
-        );
-
-        console.log(response);
-        setDescription("");
+        const message = `Asset type "${props.assetType.name}" updated successfully.`;
+        enqueueSnackbar(message, {
+          variant: "success",
+        });
+        appCtx.resetAssetTypes();
       })
       .catch((error) => {
-        console.log(error);
+        const message = "Error occurred while updating the asset type.";
+        enqueueSnackbar(message, {
+          variant: "error",
+        });
       });
   };
 
@@ -106,7 +105,6 @@ const EditAssetType = (props) => {
 
   const isFormVallid = () => {
     vlaidateForm();
-
     return IS_FORM_VALID;
   };
 
@@ -160,7 +158,6 @@ const EditAssetType = (props) => {
           variant="contained"
           color="primary"
           className={classes.button}
-          onClick={props.openDetailsPanel}
         >
           Update
         </Button>

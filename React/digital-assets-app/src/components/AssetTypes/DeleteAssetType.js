@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useContext, useRef, useState } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -8,11 +8,15 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import axios from "../../store/DbContext/assets-db-context";
 import { useSnackbar } from "notistack";
+import AppContext from "../../store/AppContext/app-context";
+import { Typography } from "@material-ui/core";
 
 const DeleteAssetType = (props) => {
   const [open, setOpen] = React.useState(true);
+  const [mismatch, setMismatch] = useState(false);
   const nameRef = useRef(null);
   const { enqueueSnackbar } = useSnackbar();
+  const appCtx = useContext(AppContext);
 
   const onConfirmHandler = () => {
     if (props.assetType.name === nameRef.current.value) {
@@ -25,6 +29,7 @@ const DeleteAssetType = (props) => {
               variant: "success",
             }
           );
+          appCtx.resetAssetTypes();
           props.onDeleteEnd();
           setOpen(false);
         })
@@ -32,7 +37,7 @@ const DeleteAssetType = (props) => {
           console.log(error);
         });
     } else {
-      console.log("Not valid");
+      setMismatch(true);
     }
   };
 
@@ -50,18 +55,26 @@ const DeleteAssetType = (props) => {
       <DialogTitle id="form-dialog-title">Delete asset type</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          To delete an asset type "{props.assetType.name}", please enter the
-          name here to confirm the delete.
+          This action cannot be undone. This will permanently delete the{" "}
+          <b>{props.assetType.name}</b> asset type.
+          <p>
+            Please type <b>{props.assetType.name}</b> to confirm.
+          </p>
         </DialogContentText>
         <TextField
           inputRef={nameRef}
           autoFocus
           margin="dense"
           id="name"
-          label="Name"
+          label="Asset type name"
           type="text"
           fullWidth
         />
+        {mismatch && (
+          <Typography color="secondary" variant="body2">
+            Asset type name doesn't match.
+          </Typography>
+        )}
       </DialogContent>
       <DialogActions>
         <Button onClick={onCloseHandler} color="default">

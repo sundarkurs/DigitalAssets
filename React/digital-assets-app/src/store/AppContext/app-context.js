@@ -6,6 +6,8 @@ const AppContext = React.createContext({
   pageTitle: "",
   onTitleChange: (title) => {},
   assetTypes: [],
+  assetTypesLoaded: false,
+  resetAssetTypes: () => {},
   folders: [],
 });
 

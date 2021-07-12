@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useContext, useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
@@ -8,6 +8,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import { Typography } from "@material-ui/core";
 import axios from "../../store/DbContext/assets-db-context";
 import { useSnackbar } from "notistack";
+import AppContext from "../../store/AppContext/app-context";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,6 +40,7 @@ let IS_FORM_VALID = true;
 const CreateAssetType = (props) => {
   const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
+  const appCtx = useContext(AppContext);
 
   const [name, setName] = useState("");
   const [code, setCode] = useState("");
@@ -75,7 +77,7 @@ const CreateAssetType = (props) => {
           variant: "success",
         });
 
-        console.log(response);
+        appCtx.resetAssetTypes();
         setName("");
         setCode("");
         setDescription("");
