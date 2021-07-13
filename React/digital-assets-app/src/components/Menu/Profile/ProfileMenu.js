@@ -3,7 +3,7 @@ import Divider from "@material-ui/core/Divider";
 import PersonIcon from "@material-ui/icons/Person";
 import SettingsIcon from "@material-ui/icons/Settings";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import AppNavItem from "../UI/AppNavItem";
+import AppNavItem from "../../UI/AppNavItem";
 
 const ProfileMenu = (props) => {
   const { onMenuClose, profileElement, onLogout } = props;

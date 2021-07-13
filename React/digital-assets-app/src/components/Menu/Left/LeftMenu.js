@@ -5,45 +5,10 @@ import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import { primaryMenuItems } from "./Items/PrimaryMenuItems";
-import { secondaryMenuItems } from "./Items/SecondaryMenuItems";
-import { makeStyles } from "@material-ui/core/styles";
+import { primaryMenuItems } from "../Items/PrimaryMenuItems"
+import { secondaryMenuItems } from "../Items/SecondaryMenuItems";
 import { Typography } from "@material-ui/core";
-
-const drawerWidth = 240;
-
-const useStyles = makeStyles((theme) => ({
-  toolbarIcon: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    padding: "0 8px",
-    ...theme.mixins.toolbar,
-  },
-  drawerPaper: {
-    position: "relative",
-    whiteSpace: "nowrap",
-    width: drawerWidth,
-    transition: theme.transitions.create("width", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  drawerPaperClose: {
-    overflowX: "hidden",
-    transition: theme.transitions.create("width", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    width: theme.spacing(7),
-    [theme.breakpoints.up("sm")]: {
-      width: theme.spacing(9),
-    },
-  },
-  logoText: {
-    color: "#61dafb;",
-  }
-}));
+import useStyles from "./LeftMenuStyles";
 
 const LeftMenu = (props) => {
   const classes = useStyles();
