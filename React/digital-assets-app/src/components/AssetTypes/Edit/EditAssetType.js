@@ -53,7 +53,7 @@ const EditAssetType = (props) => {
         appCtx.resetAssetTypes();
       })
       .catch((error) => {
-        const message = "Error occurred while updating the asset type.";
+        const message = "Error occurred while updating an asset type.";
         enqueueSnackbar(message, {
           variant: "error",
         });

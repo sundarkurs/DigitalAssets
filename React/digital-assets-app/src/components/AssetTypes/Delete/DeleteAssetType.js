@@ -13,12 +13,12 @@ import { Typography } from "@material-ui/core";
 
 const DeleteAssetType = (props) => {
   const [open, setOpen] = React.useState(true);
-  const [mismatch, setMismatch] = useState(false);
+  const [nameMismatch, setNameMismatch] = useState(false);
   const nameRef = useRef(null);
   const { enqueueSnackbar } = useSnackbar();
   const appCtx = useContext(AppContext);
 
-  const onConfirmHandler = () => {
+  const onDeleteConfirmHandler = () => {
     if (props.assetType.name === nameRef.current.value) {
       axios
         .delete(`/AssetType/${props.assetType.id}`)
@@ -37,7 +37,7 @@ const DeleteAssetType = (props) => {
           console.log(error);
         });
     } else {
-      setMismatch(true);
+      setNameMismatch(true);
     }
   };
 
@@ -70,7 +70,7 @@ const DeleteAssetType = (props) => {
           type="text"
           fullWidth
         />
-        {mismatch && (
+        {nameMismatch && (
           <Typography color="secondary" variant="body2">
             Asset type name doesn't match.
           </Typography>
@@ -80,7 +80,7 @@ const DeleteAssetType = (props) => {
         <Button onClick={onCloseHandler} color="default">
           Cancel
         </Button>
-        <Button onClick={onConfirmHandler} color="secondary">
+        <Button onClick={onDeleteConfirmHandler} color="secondary">
           Delete
         </Button>
       </DialogActions>

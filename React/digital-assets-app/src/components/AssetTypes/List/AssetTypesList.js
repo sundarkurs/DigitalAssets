@@ -12,16 +12,16 @@ const AssetTypesList = (props) => {
   const location = useLocation();
   const appCtx = useContext(AppContext);
 
-  const onAssetTypeClickHandler = (assetType) => {
+  const onExploreHandler = (assetType) => {
     history.push(location.pathname + "/" + assetType.code.toLowerCase());
   };
 
-  const listItems = appCtx.assetTypes.map((item) => {
+  const assetTypeCards = appCtx.assetTypes.map((item) => {
     return (
       <Grid item xs={12} sm={6} md={4} key={item.id}>
         <AssetTypeCard
           assetType={item}
-          onClick={onAssetTypeClickHandler}
+          onExplore={onExploreHandler}
           onEdit={() => props.onEdit(item)}
           onDelete={() => props.onDelete(item)}
         ></AssetTypeCard>
@@ -33,7 +33,7 @@ const AssetTypesList = (props) => {
     <Fragment>
       {appCtx.assetTypes.length > 0 && (
         <Grid container spacing={2}>
-          {listItems}
+          {assetTypeCards}
         </Grid>
       )}
       {appCtx.assetTypesLoaded && appCtx.assetTypes.length <= 0 && (

@@ -34,7 +34,7 @@ export default function AssetTypeCard(props) {
 
   return (
     <Card elevation={10}>
-      <CardActionArea onClick={() => props.onClick(props.assetType)}>
+      <CardActionArea onClick={() => props.onExplore(props.assetType)}>
         <CardHeader
           avatar={
             <Avatar aria-label="recipe" className={styles.avatar}>

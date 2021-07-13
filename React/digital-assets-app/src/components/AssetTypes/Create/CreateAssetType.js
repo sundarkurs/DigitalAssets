@@ -43,8 +43,6 @@ const CreateAssetType = (props) => {
       imageUrl: imageUrl,
     };
 
-    console.log(newAssetType);
-
     axios
       .post("/AssetType", newAssetType)
       .then((response) => {
@@ -58,7 +56,9 @@ const CreateAssetType = (props) => {
         setDescription("");
       })
       .catch((error) => {
-        console.log(error);
+        enqueueSnackbar("Error occurred while creating an asset type.", {
+          variant: "error",
+        });
       });
   };
 
