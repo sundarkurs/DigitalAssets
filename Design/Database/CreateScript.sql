@@ -43,7 +43,7 @@ GO
 CREATE TABLE AssetType 
 (
     Id				INT IDENTITY PRIMARY KEY,
-    Code			NameType NOT NULL,
+    Code			NameType UNIQUE NOT NULL,
     Name			NameType NOT NULL,
     Description		DescriptionType,
 	ImageUrl		VARCHAR(500)
@@ -53,10 +53,10 @@ GO
 
 CREATE TABLE Folder
 (
-	Id					INT IDENTITY PRIMARY KEY,
+	Id					UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
 	Code				NameType NOT NULL,
 	Name				NameType NOT NULL,
-	ParentId			INT,
+	ParentId			UNIQUEIDENTIFIER,
 	AssetType			INT NOT NULL,
 	UpdatedOn			DATETIME,
 	UpdatedBy			UsernameType NOT NULL,
@@ -76,8 +76,10 @@ CREATE TABLE AssetProductImage
 	LanguageCode		IsoType NOT NULL,
 	UpdatedOn			DATETIME NOT NULL,
 	UpdatedBy			UsernameType NOT NULL,
+	FolderId			UNIQUEIDENTIFIER NOT NULL,
 	FOREIGN KEY(CountryCode) REFERENCES Country(Iso),
 	FOREIGN KEY(LanguageCode) REFERENCES Language(Iso),
+	FOREIGN KEY(FolderId) REFERENCES Folder(Id),
 )
 
 GO
@@ -85,15 +87,16 @@ GO
 CREATE TABLE AssetProductImageFile
 (
 	Id				UNIQUEIDENTIFIER PRIMARY KEY,
+	AssetId			UNIQUEIDENTIFIER NOT NULL,
 	Name			NameType NOT NULL,
-	Size			INT,
 	Version			VersionType,
+	BlobId			UNIQUEIDENTIFIER NOT NULL,
 	Height			INT,
 	Width			INT,
+	Size			INT NOT NULL,
 	IsDefault		BIT,
 	UpdatedOn		DATETIME NOT NULL,
 	UpdatedBy		UsernameType NOT NULL,
-	AssetId			UNIQUEIDENTIFIER NOT NULL,
 	FOREIGN KEY (AssetId) REFERENCES AssetProductImage(Id)
 )
 
@@ -108,8 +111,10 @@ CREATE TABLE AssetImage
 	LanguageCode	IsoType NOT NULL,
 	UpdatedOn		DATETIME NOT NULL,
 	UpdatedBy		UsernameType NOT NULL,
+	FolderId		UNIQUEIDENTIFIER NOT NULL,
 	FOREIGN KEY(CountryCode) REFERENCES Country(Iso),
 	FOREIGN KEY(LanguageCode) REFERENCES Language(Iso),
+	FOREIGN KEY(FolderId) REFERENCES Folder(Id),
 )
 
 GO
@@ -117,16 +122,16 @@ GO
 CREATE TABLE AssetImageFile
 (
 	Id				UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+	AssetId			UNIQUEIDENTIFIER NOT NULL,
 	Name			NameType NOT NULL,
-	BlobId			UNIQUEIDENTIFIER NOT NULL,
-	Width			INT NOT NULL,
-	Height			INT NOT NULL,
-	Size			INT NOT NULL,
 	Version			VersionType,
+	BlobId			UNIQUEIDENTIFIER NOT NULL,
+	Height			INT NOT NULL,
+	Width			INT NOT NULL,
+	Size			INT NOT NULL,
 	IsDefault		BIT,
 	UpdatedOn		DATETIME NOT NULL,
 	UpdatedBy		UsernameType NOT NULL,
-	AssetId			UNIQUEIDENTIFIER NOT NULL,
 	FOREIGN KEY (AssetId) REFERENCES AssetImage(Id)
 )
 
@@ -134,7 +139,7 @@ GO
 
 CREATE TABLE AssetMaster
 (
-	Id					BIGINT IDENTITY PRIMARY KEY,
+	Id					UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
 	AssetId				UNIQUEIDENTIFIER NOT NULL,
 	AssetTypeId			INT NOT NULL,
 	Name				NameType NOT NULL,

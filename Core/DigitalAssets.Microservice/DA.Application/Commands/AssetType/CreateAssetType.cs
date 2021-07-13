@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DA.Application.DTO.AssetType;
 using DA.Application.Interfaces.Repositories;
+using DA.Application.Wrappers;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,12 +10,12 @@ namespace DA.Application.Commands.AssetType
 {
     public class CreateAssetType
     {
-        public class Command : IRequest<AssetTypeDto>
+        public class Command : IRequest<Response<AssetTypeDto>>
         {
             public AssetTypeRequest AssetType { get; set; }
         }
 
-        public class Handler : IRequestHandler<Command, AssetTypeDto>
+        public class Handler : IRequestHandler<Command, Response<AssetTypeDto>>
         {
             private readonly IAssetTypeRepository _assetTypeRepository;
             private readonly IMapper _mapper;
@@ -24,7 +25,7 @@ namespace DA.Application.Commands.AssetType
                 _mapper = mapper;
             }
 
-            public async Task<AssetTypeDto> Handle(Command request, CancellationToken cancellationToken)
+            public async Task<Response<AssetTypeDto>> Handle(Command request, CancellationToken cancellationToken)
             {
                 var assetType = _mapper.Map<Domain.Models.AssetType>(request.AssetType);
 
@@ -32,7 +33,7 @@ namespace DA.Application.Commands.AssetType
 
                 var newAssetType = _mapper.Map<AssetTypeDto>(response);
 
-                return newAssetType;
+                return new Response<AssetTypeDto>(newAssetType);
             }
         }
     }

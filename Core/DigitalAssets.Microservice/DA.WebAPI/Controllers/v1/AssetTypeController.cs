@@ -24,6 +24,12 @@ namespace DA.WebAPI.Controllers.v1
             return Ok(await Mediator.Send(new GetAllAssetTypes.Query()));
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int id)
+        {
+            return Ok(await Mediator.Send(new GetAssetType.Query { AssetTypeId = id }));
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create(AssetTypeRequest assetType)
         {

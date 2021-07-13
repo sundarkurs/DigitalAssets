@@ -55,6 +55,8 @@ namespace DA.WebAPI
 
             app.UseCors("CorsPolicy");
 
+            app.UseErrorHandlingMiddleware();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

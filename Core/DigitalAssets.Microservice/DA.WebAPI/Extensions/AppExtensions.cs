@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using DA.WebAPI.Middlewares;
+using Microsoft.AspNetCore.Builder;
 
 namespace DA.WebAPI.Extensions
 {
@@ -12,5 +13,11 @@ namespace DA.WebAPI.Extensions
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Digital Assets - API");
             });
         }
+
+        public static void UseErrorHandlingMiddleware(this IApplicationBuilder app)
+        {
+            app.UseMiddleware<ErrorHandlerMiddleware>();
+        }
+
     }
 }
