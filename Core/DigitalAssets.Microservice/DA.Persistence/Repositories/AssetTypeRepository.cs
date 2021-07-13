@@ -2,6 +2,7 @@
 using DA.Domain.Models;
 using DA.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace DA.Persistence.Repositories
 {
@@ -12,6 +13,11 @@ namespace DA.Persistence.Repositories
         public AssetTypeRepository(AppDataContext dbContext) : base(dbContext)
         {
             _assetTypes = dbContext.Set<AssetType>();
+        }
+
+        public Task<bool> IsCodeUniqueAsync(string code)
+        {
+            return _assetTypes.AllAsync(p => p.Code != code);
         }
     }
 }
