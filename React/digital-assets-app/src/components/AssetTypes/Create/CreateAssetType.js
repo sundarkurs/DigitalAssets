@@ -46,7 +46,6 @@ const CreateAssetType = (props) => {
     axios
       .post("/AssetType", newAssetType)
       .then((response) => {
-
         enqueueSnackbar(`Asset type "${name}" created successfully.`, {
           variant: "success",
         });
@@ -57,10 +56,14 @@ const CreateAssetType = (props) => {
         setDescription("");
       })
       .catch((error) => {
-        debugger;
-        enqueueSnackbar("Error occurred while creating an asset type.", {
-          variant: "error",
-        });
+        var data = error.response.data;
+        if (!data.Succeeded && data.Errors.length > 0) {
+          data.Errors.forEach((item) => {
+            enqueueSnackbar(item, {
+              variant: "error",
+            });
+          });
+        }
       });
   };
 

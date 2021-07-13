@@ -27,7 +27,7 @@ export const AppContextProvider = (props) => {
       axios
         .get("AssetType")
         .then((response) => {
-          setAssetTypes(response.data);
+          setAssetTypes(response.data.data);
           setAssetTypesLoaded(true);
         })
         .catch((error) => {

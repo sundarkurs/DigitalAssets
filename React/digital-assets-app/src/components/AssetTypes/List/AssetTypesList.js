@@ -16,18 +16,21 @@ const AssetTypesList = (props) => {
     history.push(location.pathname + "/" + assetType.code.toLowerCase());
   };
 
-  const assetTypeCards = appCtx.assetTypes.map((item) => {
-    return (
-      <Grid item xs={12} sm={6} md={4} key={item.id}>
-        <AssetTypeCard
-          assetType={item}
-          onExplore={onExploreHandler}
-          onEdit={() => props.onEdit(item)}
-          onDelete={() => props.onDelete(item)}
-        ></AssetTypeCard>
-      </Grid>
-    );
-  });
+  var assetTypeCards = [];
+  if (appCtx.assetTypes) {
+    assetTypeCards = appCtx.assetTypes.map((item) => {
+      return (
+        <Grid item xs={12} sm={6} md={4} key={item.id}>
+          <AssetTypeCard
+            assetType={item}
+            onExplore={onExploreHandler}
+            onEdit={() => props.onEdit(item)}
+            onDelete={() => props.onDelete(item)}
+          ></AssetTypeCard>
+        </Grid>
+      );
+    });
+  }
 
   return (
     <Fragment>
