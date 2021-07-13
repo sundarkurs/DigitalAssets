@@ -11,6 +11,7 @@ import { red } from "@material-ui/core/colors";
 import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
 import classes from "./AssetTypeCard.module.css";
+import { getAvatarText } from "../../../common/Functions/StringFormats";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,12 +31,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AssetTypeCard(props) {
   const styles = useStyles();
-
-  const getAvatarText = (text) => {
-    var matches = text.match(/\b(\w)/g);
-    var acronym = matches.join("");
-    return acronym;
-  };
 
   return (
     <Card elevation={10}>
