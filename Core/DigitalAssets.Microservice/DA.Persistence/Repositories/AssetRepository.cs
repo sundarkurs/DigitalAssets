@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace DA.Persistence.Repositories
 {
-    public class AssetRepository : BaseRepository<AssetProductImage>, IAssetRepository
+    public class AssetRepository<T> : BaseRepository<T>, IAssetRepository<T> where T : class
     {
-        private readonly DbSet<AssetProductImage> _asset;
+        private readonly DbSet<T> _asset;
 
         public AssetRepository(DigitalAssetsContext dbContext) : base(dbContext)
         {
-            _asset = dbContext.Set<AssetProductImage>();
+            _asset = dbContext.Set<T>();
         }
     }
 }

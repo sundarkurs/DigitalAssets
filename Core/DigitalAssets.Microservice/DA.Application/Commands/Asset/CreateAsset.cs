@@ -19,10 +19,10 @@ namespace DA.Application.Commands.Asset
 
         public class Handler : IRequestHandler<Command, Response<AssetDto>>
         {
-            private readonly IAssetRepository _assetRepository;
+            private readonly IAssetRepository<Domain.Models.AssetProductImage> _assetRepository;
             private readonly IMapper _mapper;
 
-            public Handler(IAssetRepository assetRepository, IMapper mapper)
+            public Handler(IAssetRepository<Domain.Models.AssetProductImage> assetRepository, IMapper mapper)
             {
                 _assetRepository = assetRepository;
                 _mapper = mapper;

@@ -16,10 +16,10 @@ namespace DA.Application.Queries.Asset
 
         public class Handler : IRequestHandler<Query, PagedResponse<IEnumerable<AssetDto>>>
         {
-            private readonly IAssetRepository _assetRepository;
+            private readonly IAssetRepository<Domain.Models.AssetProductImage> _assetRepository;
             private readonly IMapper _mapper;
 
-            public Handler(IAssetRepository assetRepository, IMapper mapper)
+            public Handler(IAssetRepository<Domain.Models.AssetProductImage> assetRepository, IMapper mapper)
             {
                 _assetRepository = assetRepository;
                 _mapper = mapper;
@@ -30,7 +30,6 @@ namespace DA.Application.Queries.Asset
                 var assets = await _assetRepository.GetAllAsync();
                 var assetsResponse = _mapper.Map<IEnumerable<AssetDto>>(assets);
                 return new PagedResponse<IEnumerable<AssetDto>>(assetsResponse, 1, 100);
-
             }
         }
     }
