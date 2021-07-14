@@ -7,15 +7,15 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import axios from "../../../store/DbContext/assets-db-context";
-import { useSnackbar } from "notistack";
 import AppContext from "../../../store/AppContext/app-context";
 import { Typography } from "@material-ui/core";
+import useShowMessage from "../../../hooks/use-show-message";
 
 const DeleteAssetType = (props) => {
   const [open, setOpen] = React.useState(true);
   const [nameMismatch, setNameMismatch] = useState(false);
   const nameRef = useRef(null);
-  const { enqueueSnackbar } = useSnackbar();
+  const { showSuccess, showError, showApiError } = useShowMessage();
   const appCtx = useContext(AppContext);
 
   const onDeleteConfirmHandler = () => {
@@ -23,18 +23,15 @@ const DeleteAssetType = (props) => {
       axios
         .delete(`/AssetType/${props.assetType.id}`)
         .then((response) => {
-          enqueueSnackbar(
-            `Asset type "${props.assetType.name}" deleted successfully.`,
-            {
-              variant: "success",
-            }
+          showSuccess(
+            `Asset type "${props.assetType.name}" deleted successfully.`
           );
           appCtx.resetAssetTypes();
           props.onDeleteEnd();
           setOpen(false);
         })
         .catch((error) => {
-          console.log(error);
+          showApiError(error);
         });
     } else {
       setNameMismatch(true);

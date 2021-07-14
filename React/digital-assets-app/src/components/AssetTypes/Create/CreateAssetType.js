@@ -6,16 +6,16 @@ import Box from "@material-ui/core/Box";
 import CloseIcon from "@material-ui/icons/Close";
 import { Typography } from "@material-ui/core";
 import axios from "../../../store/DbContext/assets-db-context";
-import { useSnackbar } from "notistack";
 import AppContext from "../../../store/AppContext/app-context";
 import useStyles from "../Styles/RightPanelStyles";
+import useShowMessage from "../../../hooks/use-show-message";
 
 let IS_FORM_VALID = true;
 
 const CreateAssetType = (props) => {
   const classes = useStyles();
-  const { enqueueSnackbar } = useSnackbar();
   const appCtx = useContext(AppContext);
+  const { showSuccess, showError, showApiError } = useShowMessage();
 
   const [name, setName] = useState("");
   const [code, setCode] = useState("");
@@ -46,24 +46,14 @@ const CreateAssetType = (props) => {
     axios
       .post("/AssetType", newAssetType)
       .then((response) => {
-        enqueueSnackbar(`Asset type "${name}" created successfully.`, {
-          variant: "success",
-        });
-
+        showSuccess(`Asset type "${name}" created successfully.`);
         appCtx.resetAssetTypes();
         setName("");
         setCode("");
         setDescription("");
       })
       .catch((error) => {
-        var data = error.response.data;
-        if (!data.Succeeded && data.Errors.length > 0) {
-          data.Errors.forEach((item) => {
-            enqueueSnackbar(item, {
-              variant: "error",
-            });
-          });
-        }
+        showApiError(error);
       });
   };
 

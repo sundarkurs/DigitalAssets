@@ -6,15 +6,15 @@ import Box from "@material-ui/core/Box";
 import CloseIcon from "@material-ui/icons/Close";
 import { Typography } from "@material-ui/core";
 import axios from "../../../store/DbContext/assets-db-context";
-import { useSnackbar } from "notistack";
 import AppContext from "../../../store/AppContext/app-context";
 import useStyles from "../Styles/RightPanelStyles";
+import useShowMessage from "../../../hooks/use-show-message";
 
 let IS_FORM_VALID = true;
 
 const EditAssetType = (props) => {
   const classes = useStyles();
-  const { enqueueSnackbar } = useSnackbar();
+  const { showSuccess, showError, showApiError } = useShowMessage();
   const appCtx = useContext(AppContext);
 
   const [description, setDescription] = useState(props.assetType.description);
@@ -46,17 +46,13 @@ const EditAssetType = (props) => {
     axios
       .put(`/AssetType/${props.assetType.id}`, editAssetType)
       .then((response) => {
-        const message = `Asset type "${props.assetType.name}" updated successfully.`;
-        enqueueSnackbar(message, {
-          variant: "success",
-        });
+        showSuccess(
+          `Asset type "${props.assetType.name}" updated successfully.`
+        );
         appCtx.resetAssetTypes();
       })
       .catch((error) => {
-        const message = "Error occurred while updating an asset type.";
-        enqueueSnackbar(message, {
-          variant: "error",
-        });
+        showApiError(error);
       });
   };
 
