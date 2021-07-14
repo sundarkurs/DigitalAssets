@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace DA.Application.DTO.Asset
+namespace DA.Application.DTO.AssetImage
 {
-    public class AssetRequest
+    public class AssetImageDto
     {
+        public Guid Id { get; set; }
         public string Name { get; set; }
-        public string Sku { get; set; }
-        public string Product { get; set; }
+        public string Abstract { get; set; }
         public string CountryCode { get; set; }
         public string LanguageCode { get; set; }
         public DateTime UpdatedOn { get; set; }

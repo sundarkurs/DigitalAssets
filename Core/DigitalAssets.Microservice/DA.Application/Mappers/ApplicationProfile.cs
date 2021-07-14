@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using DA.Application.DTO.Asset;
+using DA.Application.DTO.AssetImage;
+using DA.Application.DTO.AssetProductImage;
 using DA.Application.DTO.AssetType;
 using DA.Domain.Models;
 
@@ -12,8 +13,11 @@ namespace DA.Application.Mappers
             CreateMap<AssetType, AssetTypeDto>().ReverseMap();
             CreateMap<AssetTypeRequest, AssetType>();
 
-            CreateMap<AssetProductImage, AssetDto>().ReverseMap();
-            CreateMap<AssetRequest, AssetProductImage>();
+            CreateMap<AssetProductImage, AssetProductImageDto>().ReverseMap();
+            CreateMap<AssetProductImageRequest, AssetProductImage>();
+
+            CreateMap<AssetImage, AssetImageDto>().ReverseMap();
+            CreateMap<AssetImageRequest, AssetImage>();
         }
     }
 }

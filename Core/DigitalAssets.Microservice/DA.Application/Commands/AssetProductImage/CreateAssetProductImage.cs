@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
-using DA.Application.DTO.Asset;
-using DA.Application.DTO.AssetType;
+using DA.Application.DTO.AssetProductImage;
 using DA.Application.Interfaces.Repositories;
 using DA.Application.Wrappers;
 using FluentValidation;
@@ -8,16 +7,16 @@ using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace DA.Application.Commands.Asset
+namespace DA.Application.Commands.AssetProductImage
 {
-    public class CreateAsset
+    public class CreateAssetProductImage
     {
-        public class Command : IRequest<Response<AssetDto>>
+        public class Command : IRequest<Response<AssetProductImageDto>>
         {
-            public AssetRequest Asset { get; set; }
+            public AssetProductImageRequest Asset { get; set; }
         }
 
-        public class Handler : IRequestHandler<Command, Response<AssetDto>>
+        public class Handler : IRequestHandler<Command, Response<AssetProductImageDto>>
         {
             private readonly IAssetRepository<Domain.Models.AssetProductImage> _assetRepository;
             private readonly IMapper _mapper;
@@ -28,15 +27,15 @@ namespace DA.Application.Commands.Asset
                 _mapper = mapper;
             }
 
-            public async Task<Response<AssetDto>> Handle(Command request, CancellationToken cancellationToken)
+            public async Task<Response<AssetProductImageDto>> Handle(Command request, CancellationToken cancellationToken)
             {
                 var asset = _mapper.Map<Domain.Models.AssetProductImage>(request.Asset);
 
                 var response = await _assetRepository.AddAsync(asset);
 
-                var newAssetType = _mapper.Map<AssetDto>(response);
+                var newAssetType = _mapper.Map<AssetProductImageDto>(response);
 
-                return new Response<AssetDto>(newAssetType);
+                return new Response<AssetProductImageDto>(newAssetType);
             }
         }
     }

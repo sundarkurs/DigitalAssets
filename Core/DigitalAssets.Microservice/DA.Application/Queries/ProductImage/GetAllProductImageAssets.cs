@@ -1,20 +1,19 @@
 ﻿using AutoMapper;
-using DA.Application.DTO.AssetType;
 using DA.Application.Interfaces.Repositories;
 using MediatR;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using DA.Application.Wrappers;
-using DA.Application.DTO.Asset;
+using DA.Application.DTO.AssetProductImage;
 
-namespace DA.Application.Queries.Asset
+namespace DA.Application.Queries.ProductImage
 {
-    public class GetAllAssets
+    public class GetAllProductImageAssets
     {
-        public class Query : IRequest<PagedResponse<IEnumerable<AssetDto>>> { }
+        public class Query : IRequest<PagedResponse<IEnumerable<AssetProductImageDto>>> { }
 
-        public class Handler : IRequestHandler<Query, PagedResponse<IEnumerable<AssetDto>>>
+        public class Handler : IRequestHandler<Query, PagedResponse<IEnumerable<AssetProductImageDto>>>
         {
             private readonly IAssetRepository<Domain.Models.AssetProductImage> _assetRepository;
             private readonly IMapper _mapper;
@@ -25,11 +24,11 @@ namespace DA.Application.Queries.Asset
                 _mapper = mapper;
             }
 
-            public async Task<PagedResponse<IEnumerable<AssetDto>>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<PagedResponse<IEnumerable<AssetProductImageDto>>> Handle(Query request, CancellationToken cancellationToken)
             {
                 var assets = await _assetRepository.GetAllAsync();
-                var assetsResponse = _mapper.Map<IEnumerable<AssetDto>>(assets);
-                return new PagedResponse<IEnumerable<AssetDto>>(assetsResponse, 1, 100);
+                var assetsResponse = _mapper.Map<IEnumerable<AssetProductImageDto>>(assets);
+                return new PagedResponse<IEnumerable<AssetProductImageDto>>(assetsResponse, 1, 100);
             }
         }
     }

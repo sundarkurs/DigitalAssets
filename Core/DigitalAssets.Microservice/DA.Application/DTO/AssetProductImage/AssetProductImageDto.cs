@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace DA.Application.DTO.Asset
+namespace DA.Application.DTO.AssetProductImage
 {
-    public class AssetDto
+    public class AssetProductImageDto
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

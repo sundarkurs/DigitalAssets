@@ -1,6 +1,6 @@
-﻿using DA.Application.Commands.Asset;
-using DA.Application.DTO.Asset;
-using DA.Application.Queries.Asset;
+﻿using DA.Application.Commands.AssetProductImage;
+using DA.Application.DTO.AssetProductImage;
+using DA.Application.Queries.ProductImage;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -21,13 +21,13 @@ namespace DA.WebAPI.Controllers.v1
         [HttpGet]
         public async Task<IActionResult> GetAllAsync()
         {
-            return Ok(await Mediator.Send(new GetAllAssets.Query()));
+            return Ok(await Mediator.Send(new GetAllProductImageAssets.Query()));
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAsync(AssetRequest asset)
+        public async Task<IActionResult> CreateAsync(AssetProductImageRequest asset)
         {
-            var response = await Mediator.Send(new CreateAsset.Command { Asset = asset });
+            var response = await Mediator.Send(new CreateAssetProductImage.Command { Asset = asset });
             return Ok(response);
         }
     }
