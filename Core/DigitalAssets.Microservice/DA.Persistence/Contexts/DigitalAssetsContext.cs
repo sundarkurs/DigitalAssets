@@ -41,7 +41,7 @@ namespace DA.Persistence.Contexts
             {
                 entity.ToTable("AssetImage");
 
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
 
                 entity.Property(e => e.CountryCode)
                     .IsRequired()
@@ -71,26 +71,26 @@ namespace DA.Persistence.Contexts
                     .WithMany(p => p.AssetImages)
                     .HasForeignKey(d => d.CountryCode)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__AssetImag__Count__60FC61CA");
+                    .HasConstraintName("FK__AssetImag__Count__24B26D99");
 
                 entity.HasOne(d => d.Folder)
                     .WithMany(p => p.AssetImages)
                     .HasForeignKey(d => d.FolderId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__AssetImag__Folde__62E4AA3C");
+                    .HasConstraintName("FK__AssetImag__Folde__269AB60B");
 
                 entity.HasOne(d => d.LanguageCodeNavigation)
                     .WithMany(p => p.AssetImages)
                     .HasForeignKey(d => d.LanguageCode)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__AssetImag__Langu__61F08603");
+                    .HasConstraintName("FK__AssetImag__Langu__25A691D2");
             });
 
             modelBuilder.Entity<AssetImageFile>(entity =>
             {
                 entity.ToTable("AssetImageFile");
 
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
@@ -113,7 +113,7 @@ namespace DA.Persistence.Contexts
                     .WithMany(p => p.AssetImageFiles)
                     .HasForeignKey(d => d.AssetId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__AssetImag__Asset__65C116E7");
+                    .HasConstraintName("FK__AssetImag__Asset__2A6B46EF");
             });
 
             modelBuilder.Entity<AssetMaster>(entity =>
@@ -154,26 +154,26 @@ namespace DA.Persistence.Contexts
                     .WithMany(p => p.AssetMasters)
                     .HasForeignKey(d => d.AssetTypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__AssetMast__Asset__689D8392");
+                    .HasConstraintName("FK__AssetMast__Asset__2D47B39A");
 
                 entity.HasOne(d => d.CountryCodeNavigation)
                     .WithMany(p => p.AssetMasters)
                     .HasForeignKey(d => d.CountryCode)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__AssetMast__Count__6991A7CB");
+                    .HasConstraintName("FK__AssetMast__Count__2E3BD7D3");
 
                 entity.HasOne(d => d.LanguageCodeNavigation)
                     .WithMany(p => p.AssetMasters)
                     .HasForeignKey(d => d.LanguageCode)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__AssetMast__Langu__6A85CC04");
+                    .HasConstraintName("FK__AssetMast__Langu__2F2FFC0C");
             });
 
             modelBuilder.Entity<AssetProductImage>(entity =>
             {
                 entity.ToTable("AssetProductImage");
 
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
 
                 entity.Property(e => e.CountryCode)
                     .IsRequired()
@@ -215,26 +215,26 @@ namespace DA.Persistence.Contexts
                     .WithMany(p => p.AssetProductImages)
                     .HasForeignKey(d => d.CountryCode)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__AssetProd__Count__595B4002");
+                    .HasConstraintName("FK__AssetProd__Count__1B29035F");
 
                 entity.HasOne(d => d.Folder)
                     .WithMany(p => p.AssetProductImages)
                     .HasForeignKey(d => d.FolderId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__AssetProd__Folde__5B438874");
+                    .HasConstraintName("FK__AssetProd__Folde__1D114BD1");
 
                 entity.HasOne(d => d.LanguageCodeNavigation)
                     .WithMany(p => p.AssetProductImages)
                     .HasForeignKey(d => d.LanguageCode)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__AssetProd__Langu__5A4F643B");
+                    .HasConstraintName("FK__AssetProd__Langu__1C1D2798");
             });
 
             modelBuilder.Entity<AssetProductImageFile>(entity =>
             {
                 entity.ToTable("AssetProductImageFile");
 
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
@@ -257,14 +257,14 @@ namespace DA.Persistence.Contexts
                     .WithMany(p => p.AssetProductImageFiles)
                     .HasForeignKey(d => d.AssetId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__AssetProd__Asset__5E1FF51F");
+                    .HasConstraintName("FK__AssetProd__Asset__20E1DCB5");
             });
 
             modelBuilder.Entity<AssetType>(entity =>
             {
                 entity.ToTable("AssetType");
 
-                entity.HasIndex(e => e.Code, "UQ__AssetTyp__A25C5AA7E7792A65")
+                entity.HasIndex(e => e.Code, "UQ__AssetTyp__A25C5AA710F7EC45")
                     .IsUnique();
 
                 entity.Property(e => e.Code)
@@ -289,7 +289,7 @@ namespace DA.Persistence.Contexts
             modelBuilder.Entity<Country>(entity =>
             {
                 entity.HasKey(e => e.Iso)
-                    .HasName("PK__Country__C4926E1A2D5886F3");
+                    .HasName("PK__Country__C4926E1A90CEC61B");
 
                 entity.ToTable("Country");
 
@@ -331,18 +331,18 @@ namespace DA.Persistence.Contexts
                     .WithMany(p => p.Folders)
                     .HasForeignKey(d => d.AssetType)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Folder__AssetTyp__567ED357");
+                    .HasConstraintName("FK__Folder__AssetTyp__1758727B");
 
                 entity.HasOne(d => d.Parent)
                     .WithMany(p => p.InverseParent)
                     .HasForeignKey(d => d.ParentId)
-                    .HasConstraintName("FK__Folder__ParentId__558AAF1E");
+                    .HasConstraintName("FK__Folder__ParentId__16644E42");
             });
 
             modelBuilder.Entity<Language>(entity =>
             {
                 entity.HasKey(e => e.Iso)
-                    .HasName("PK__Language__C4926E1A9764C4AB");
+                    .HasName("PK__Language__C4926E1A860634AF");
 
                 entity.ToTable("Language");
 
