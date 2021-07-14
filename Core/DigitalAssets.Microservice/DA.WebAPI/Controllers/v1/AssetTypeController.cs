@@ -19,26 +19,26 @@ namespace DA.WebAPI.Controllers.v1
         }
 
         [HttpGet]
-        public async Task<IActionResult> List()
+        public async Task<IActionResult> GetAllAsync()
         {
             return Ok(await Mediator.Send(new GetAllAssetTypes.Query()));
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
+        public async Task<IActionResult> GetAsync(int id)
         {
             return Ok(await Mediator.Send(new GetAssetType.Query { AssetTypeId = id }));
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(AssetTypeRequest assetType)
+        public async Task<IActionResult> CreateAsync(AssetTypeRequest assetType)
         {
             var response = await Mediator.Send(new CreateAssetType.Command { AssetType = assetType });
             return Ok(response);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Edit(int id, AssetTypeDto assetType)
+        public async Task<IActionResult> EditAsync(int id, AssetTypeDto assetType)
         {
             assetType.Id = id;
             var response = await Mediator.Send(new EditAssetType.Command { AssetType = assetType });
@@ -46,7 +46,7 @@ namespace DA.WebAPI.Controllers.v1
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> DeleteAsync(int id)
         {
             var response = await Mediator.Send(new DeleteAssetType.Command { Id = id });
             return Ok(response);

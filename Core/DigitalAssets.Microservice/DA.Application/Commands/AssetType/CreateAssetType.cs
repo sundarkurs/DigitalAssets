@@ -20,6 +20,7 @@ namespace DA.Application.Commands.AssetType
         {
             private readonly IAssetTypeRepository _assetTypeRepository;
             private readonly IMapper _mapper;
+
             public Handler(IAssetTypeRepository assetTypeRepository, IMapper mapper)
             {
                 _assetTypeRepository = assetTypeRepository;

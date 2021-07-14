@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DA.Application.DTO.AssetType;
+using DA.Application.Exceptions;
 using DA.Application.Interfaces.Repositories;
 using DA.Application.Wrappers;
 using MediatR;
@@ -29,6 +30,12 @@ namespace DA.Application.Queries.AssetType
             public async Task<Response<AssetTypeDto>> Handle(Query request, CancellationToken cancellationToken)
             {
                 var assetType = await _assetTypeRepository.GetByIdAsync(request.AssetTypeId);
+
+                if (assetType == null)
+                {
+                    throw new ApiException($"Asset type not found.");
+                }
+
                 var assetTypesResponse = _mapper.Map<AssetTypeDto>(assetType);
                 return new Response<AssetTypeDto>(assetTypesResponse);
             }

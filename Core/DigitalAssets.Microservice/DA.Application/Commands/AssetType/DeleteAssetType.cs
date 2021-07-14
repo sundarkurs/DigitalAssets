@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DA.Application.DTO.AssetType;
+using DA.Application.Exceptions;
 using DA.Application.Interfaces.Repositories;
 using DA.Application.Wrappers;
 using MediatR;
@@ -28,9 +29,14 @@ namespace DA.Application.Commands.AssetType
 
             public async Task<Response<bool>> Handle(Command request, CancellationToken cancellationToken)
             {
-                var entity = await _assetTypeRepository.GetByIdAsync(request.Id);
+                var assetType = await _assetTypeRepository.GetByIdAsync(request.Id);
 
-                await _assetTypeRepository.DeleteAsync(entity);
+                if (assetType == null)
+                {
+                    throw new ApiException($"Asset type not found.");
+                }
+
+                await _assetTypeRepository.DeleteAsync(assetType);
 
                 return new Response<bool>(true);
             }
