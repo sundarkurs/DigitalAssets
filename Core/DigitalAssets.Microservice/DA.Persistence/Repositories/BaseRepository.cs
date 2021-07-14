@@ -11,9 +11,9 @@ namespace DA.Persistence.Repositories
 {
     public class BaseRepository<T> : IBaseRepository<T> where T : class
     {
-        private readonly AppDataContext _dbContext;
+        private readonly DigitalAssetsContext _dbContext;
 
-        public BaseRepository(AppDataContext dbContext)
+        public BaseRepository(DigitalAssetsContext dbContext)
         {
             _dbContext = dbContext;
         }

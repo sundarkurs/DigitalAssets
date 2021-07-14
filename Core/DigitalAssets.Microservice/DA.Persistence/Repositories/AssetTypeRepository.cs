@@ -10,7 +10,7 @@ namespace DA.Persistence.Repositories
     {
         private readonly DbSet<AssetType> _assetTypes;
 
-        public AssetTypeRepository(AppDataContext dbContext) : base(dbContext)
+        public AssetTypeRepository(DigitalAssetsContext dbContext) : base(dbContext)
         {
             _assetTypes = dbContext.Set<AssetType>();
         }

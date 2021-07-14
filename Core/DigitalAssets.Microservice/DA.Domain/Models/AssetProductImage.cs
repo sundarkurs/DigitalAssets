@@ -20,8 +20,10 @@ namespace DA.Domain.Models
         public string LanguageCode { get; set; }
         public DateTime UpdatedOn { get; set; }
         public string UpdatedBy { get; set; }
+        public Guid FolderId { get; set; }
 
         public virtual Country CountryCodeNavigation { get; set; }
+        public virtual Folder Folder { get; set; }
         public virtual Language LanguageCodeNavigation { get; set; }
         public virtual ICollection<AssetProductImageFile> AssetProductImageFiles { get; set; }
     }
