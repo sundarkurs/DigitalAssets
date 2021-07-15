@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 using DA.Application.Wrappers;
 using DA.Application.DTO.AssetImage;
 
-namespace DA.Application.Queries.Image
+namespace DA.Application.Queries.AssetImage
 {
-    public class GetAllImageAssets
+    public class GetAllAssetImage
     {
         public class Query : IRequest<PagedResponse<IEnumerable<AssetImageDto>>> { }
 
