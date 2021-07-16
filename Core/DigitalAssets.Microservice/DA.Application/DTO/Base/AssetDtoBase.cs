@@ -1,10 +1,11 @@
 ﻿using System;
 
-namespace DA.Application.DTO.Asset
+namespace DA.Application.DTO.Base
 {
     public class AssetDtoBase
     {
         public Guid Id { get; set; }
+        public string Name { get; set; }
         public string CountryCode { get; set; }
         public string LanguageCode { get; set; }
         public DateTime UpdatedOn { get; set; }

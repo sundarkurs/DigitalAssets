@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace DA.Application.DTO.Asset
+namespace DA.Application.DTO.Base
 {
     public class AssetRequestBase
     {
+        public string Name { get; set; }
         public string CountryCode { get; set; }
         public string LanguageCode { get; set; }
         public Guid FolderId { get; set; }
