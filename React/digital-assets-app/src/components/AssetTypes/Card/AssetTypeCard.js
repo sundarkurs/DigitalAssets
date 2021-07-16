@@ -66,6 +66,9 @@ export default function AssetTypeCard(props) {
         <Button size="small" color="secondary" onClick={props.onDelete}>
           Delete
         </Button>
+        <Button size="small" color="primary" onClick={props.onDisable}>
+          Disable
+        </Button>
         <Button size="small" color="default" onClick={props.onEdit}>
           Edit
         </Button>

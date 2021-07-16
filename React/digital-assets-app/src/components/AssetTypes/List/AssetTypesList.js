@@ -26,6 +26,7 @@ const AssetTypesList = (props) => {
             onExplore={onExploreHandler}
             onEdit={() => props.onEdit(item)}
             onDelete={() => props.onDelete(item)}
+            onDisable={() => props.onDisable(item)}
           ></AssetTypeCard>
         </Grid>
       );

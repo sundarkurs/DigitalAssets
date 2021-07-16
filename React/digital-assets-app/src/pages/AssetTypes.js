@@ -5,6 +5,7 @@ import AssetTypesList from "../components/AssetTypes/List/AssetTypesList";
 import CreateAssetType from "../components/AssetTypes/Create/CreateAssetType";
 import EditAssetType from "../components/AssetTypes/Edit/EditAssetType";
 import DeleteAssetType from "../components/AssetTypes/Delete/DeleteAssetType";
+import DisableAssetType from "../components/AssetTypes/Disable/DisableAssetType";
 import AssetTypeActions from "../components/AssetTypes/Actions/AssetTypeActions";
 import Box from "@material-ui/core/Box";
 import Divider from "@material-ui/core/Divider";
@@ -41,12 +42,23 @@ const AssetTypes = (props) => {
     setMode("delete");
   };
 
+  const onDisableHandler = (assetType) => {
+    setAssetType(assetType);
+    setPanelOpen(false);
+    setMode("disable");
+  };
+
   const closeDetailsPanelHandler = () => {
     setMode("");
     setPanelOpen(false);
   };
 
   const onDeleteEndHandler = () => {
+    setMode("");
+    setPanelOpen(false);
+  };
+
+  const onDisableEndHandler = () => {
     setMode("");
     setPanelOpen(false);
   };
@@ -58,7 +70,11 @@ const AssetTypes = (props) => {
           <AppSection>
             <AssetTypeActions onAdd={onAddHandler} />
             <Divider className={styles.divider} />
-            <AssetTypesList onEdit={onEditHandler} onDelete={onDeleteHandler} />
+            <AssetTypesList
+              onEdit={onEditHandler}
+              onDelete={onDeleteHandler}
+              onDisable={onDisableHandler}
+            />
           </AppSection>
         </Box>
 
@@ -84,6 +100,12 @@ const AssetTypes = (props) => {
         <DeleteAssetType
           assetType={assetType}
           onDeleteEnd={onDeleteEndHandler}
+        />
+      )}
+      {mode === "disable" && (
+        <DisableAssetType
+          assetType={assetType}
+          onDisableEnd={onDisableEndHandler}
         />
       )}
     </PageSettings>
