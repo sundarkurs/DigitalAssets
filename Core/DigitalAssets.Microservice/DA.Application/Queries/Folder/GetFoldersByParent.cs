@@ -34,7 +34,7 @@ namespace DA.Application.Queries.Folder
 
             public async Task<Response<IEnumerable<FolderDto>>> Handle(Query request, CancellationToken cancellationToken)
             {
-                Expression<Func<Domain.Models.Folder, bool>> expression = x => x.Code == request.Code;
+                Expression<Func<Domain.Models.Folder, bool>> expression = x => x.Name == request.Code;
 
                 var folders = _folderRepository.GetObjectsQueryable(expression).ToList();
 
