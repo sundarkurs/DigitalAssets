@@ -1,4 +1,6 @@
-﻿using DA.Application.Queries.Folder;
+﻿using DA.Application.Commands.Folder;
+using DA.Application.DTO.Folder;
+using DA.Application.Queries.Folder;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -26,5 +28,11 @@ namespace DA.WebAPI.Controllers.v1
             return Ok(response);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> CreateAsync(FolderRequest folder)
+        {
+            var response = await Mediator.Send(new CreateFolder.Command { Folder = folder });
+            return Ok(response);
+        }
     }
 }

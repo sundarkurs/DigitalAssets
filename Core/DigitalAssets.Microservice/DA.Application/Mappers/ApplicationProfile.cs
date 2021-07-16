@@ -21,6 +21,7 @@ namespace DA.Application.Mappers
             CreateMap<AssetImageRequest, AssetImage>();
 
             CreateMap<Folder, FolderDto>().ReverseMap();
+            CreateMap<FolderRequest, Folder>();
         }
     }
 }
