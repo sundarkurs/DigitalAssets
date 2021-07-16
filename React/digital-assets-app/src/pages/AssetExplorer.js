@@ -13,6 +13,7 @@ import styles from "./AssetExplorer.module.css";
 const AssetExplorer = (props) => {
   const appCtx = useContext(AppContext);
   const params = useParams();
+  const [parentFolderId, setParentFolderId] = useState(null);
 
   const [breadcrumbItems, setBreadcrumbItems] = useState(appCtx.folders);
 
@@ -23,6 +24,10 @@ const AssetExplorer = (props) => {
       (item) => item.id < 2
     );
     setBreadcrumbItems(updatedBreadcrumbItems);
+  };
+
+  const getFolders = () => {
+
   };
 
   return (

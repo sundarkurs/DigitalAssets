@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,5 +20,7 @@ namespace DA.Application.Interfaces.Repositories
         Task UpdateAsync(T entity);
 
         Task DeleteAsync(T entity);
+
+        IQueryable<T> GetObjectsQueryable(Expression<Func<T, bool>> predicate, string includeTable = "");
     }
 }

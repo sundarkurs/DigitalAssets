@@ -2,6 +2,7 @@
 using DA.Application.DTO.AssetImage;
 using DA.Application.DTO.AssetProductImage;
 using DA.Application.DTO.AssetType;
+using DA.Application.DTO.Folder;
 using DA.Domain.Models;
 
 namespace DA.Application.Mappers
@@ -18,6 +19,8 @@ namespace DA.Application.Mappers
 
             CreateMap<AssetImage, AssetImageDto>().ReverseMap();
             CreateMap<AssetImageRequest, AssetImage>();
+
+            CreateMap<Folder, FolderDto>().ReverseMap();
         }
     }
 }

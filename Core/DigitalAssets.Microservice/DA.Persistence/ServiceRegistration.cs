@@ -20,6 +20,7 @@ namespace DA.Persistence
             // Repositories
             services.AddTransient(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             services.AddTransient<IAssetTypeRepository, AssetTypeRepository>();
+            services.AddTransient<IFolderRepository, FolderRepository>();
             services.AddTransient<IAssetRepository<Domain.Models.AssetProductImage>, AssetRepository<Domain.Models.AssetProductImage>>();
             services.AddTransient<IAssetRepository<Domain.Models.AssetImage>, AssetRepository<Domain.Models.AssetImage>>();
         }
