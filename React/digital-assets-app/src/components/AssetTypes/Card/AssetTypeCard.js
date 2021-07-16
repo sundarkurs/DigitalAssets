@@ -63,10 +63,7 @@ export default function AssetTypeCard(props) {
         </CardContent>
       </CardActionArea>
       <CardActions disableSpacing className={classes.actions}>
-        <Button size="small" color="secondary" onClick={props.onDelete}>
-          Delete
-        </Button>
-        <Button size="small" color="primary" onClick={props.onDisable}>
+        <Button size="small" color="secondary" onClick={props.onDisable}>
           Disable
         </Button>
         <Button size="small" color="default" onClick={props.onEdit}>

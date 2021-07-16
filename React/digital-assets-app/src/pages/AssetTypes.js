@@ -4,7 +4,6 @@ import AppSection from "../components/UI/AppSection";
 import AssetTypesList from "../components/AssetTypes/List/AssetTypesList";
 import CreateAssetType from "../components/AssetTypes/Create/CreateAssetType";
 import EditAssetType from "../components/AssetTypes/Edit/EditAssetType";
-import DeleteAssetType from "../components/AssetTypes/Delete/DeleteAssetType";
 import DisableAssetType from "../components/AssetTypes/Disable/DisableAssetType";
 import AssetTypeActions from "../components/AssetTypes/Actions/AssetTypeActions";
 import Box from "@material-ui/core/Box";
@@ -36,12 +35,6 @@ const AssetTypes = (props) => {
     setMode("edit");
   };
 
-  const onDeleteHandler = (assetType) => {
-    setAssetType(assetType);
-    setPanelOpen(false);
-    setMode("delete");
-  };
-
   const onDisableHandler = (assetType) => {
     setAssetType(assetType);
     setPanelOpen(false);
@@ -49,11 +42,6 @@ const AssetTypes = (props) => {
   };
 
   const closeDetailsPanelHandler = () => {
-    setMode("");
-    setPanelOpen(false);
-  };
-
-  const onDeleteEndHandler = () => {
     setMode("");
     setPanelOpen(false);
   };
@@ -72,7 +60,6 @@ const AssetTypes = (props) => {
             <Divider className={styles.divider} />
             <AssetTypesList
               onEdit={onEditHandler}
-              onDelete={onDeleteHandler}
               onDisable={onDisableHandler}
             />
           </AppSection>
@@ -96,12 +83,6 @@ const AssetTypes = (props) => {
           </Box>
         )}
       </Box>
-      {mode === "delete" && (
-        <DeleteAssetType
-          assetType={assetType}
-          onDeleteEnd={onDeleteEndHandler}
-        />
-      )}
       {mode === "disable" && (
         <DisableAssetType
           assetType={assetType}
