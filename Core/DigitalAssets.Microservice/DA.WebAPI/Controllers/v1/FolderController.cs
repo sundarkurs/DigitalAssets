@@ -20,11 +20,10 @@ namespace DA.WebAPI.Controllers.v1
             _logger = logger;
         }
 
-        [HttpGet("{code}/parent")]
-        [HttpGet("{code}/parent/{parentId:Guid?}")]
-        public async Task<IActionResult> GetFoldersByParent(string code, Guid? parentId = null)
+        [HttpGet("{root}")]
+        public async Task<IActionResult> GetFoldersByParent(Guid root)
         {
-            var response = await Mediator.Send(new GetFoldersByParent.Query { Code = code, ParentId = parentId });
+            var response = await Mediator.Send(new GetFoldersByParent.Query { Root = root });
             return Ok(response);
         }
 

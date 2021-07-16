@@ -7,5 +7,6 @@ namespace DA.Application.Interfaces.Repositories
 {
     public interface IFolderRepository : IBaseRepository<Folder>
     {
+        Task<List<Folder>> GetChildrensAsync(Guid root);
     }
 }
