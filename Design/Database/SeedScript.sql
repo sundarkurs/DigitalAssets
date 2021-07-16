@@ -11,11 +11,11 @@ INSERT INTO Language(Iso, Name) VALUES('EN', 'English')
 GO
 SET IDENTITY_INSERT AssetType ON
 
-INSERT INTO AssetType(Id, Code, Name, Description, ImageUrl) 
-	VALUES(1, 'PRODUCTIMAGE', 'Product Image', 'Product Image Description', '/images/asset-type-images/product-image.png')
+INSERT INTO AssetType(Id, Code, Name, Description, ImageUrl, Disabled) 
+	VALUES(1, 'PRODUCTIMAGE', 'Product Image', 'Product Image Description', '/images/asset-type-images/product-image.png', 0)
 
-INSERT INTO AssetType(Id, Code, Name, Description, ImageUrl) 
-	VALUES(2, 'IMAGE', 'Image', 'Image Description', '/images/asset-type-images/image-type.jpeg')
+INSERT INTO AssetType(Id, Code, Name, Description, ImageUrl, Disabled) 
+	VALUES(2, 'IMAGE', 'Image', 'Image Description', '/images/asset-type-images/image-type.jpeg', 0)
 
 SET IDENTITY_INSERT AssetType OFF
 

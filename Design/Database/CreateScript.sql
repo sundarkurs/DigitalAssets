@@ -46,7 +46,8 @@ CREATE TABLE AssetType
     Code			NameType UNIQUE NOT NULL,
     Name			NameType NOT NULL,
     Description		DescriptionType,
-	ImageUrl		VARCHAR(500)
+	ImageUrl		VARCHAR(500),
+	Disabled		BIT NOT NULL DEFAULT 0
 )
 
 GO
