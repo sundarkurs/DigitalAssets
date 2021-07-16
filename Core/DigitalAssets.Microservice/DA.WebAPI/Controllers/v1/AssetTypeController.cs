@@ -27,7 +27,7 @@ namespace DA.WebAPI.Controllers.v1
         [HttpGet("{id}")]
         public async Task<IActionResult> GetAsync(int id)
         {
-            return Ok(await Mediator.Send(new GetAssetType.Query { AssetTypeId = id }));
+            return Ok(await Mediator.Send(new GetAssetType.Query { Id = id }));
         }
 
         [HttpPost]
@@ -42,6 +42,13 @@ namespace DA.WebAPI.Controllers.v1
         {
             assetType.Id = id;
             var response = await Mediator.Send(new EditAssetType.Command { AssetType = assetType });
+            return Ok(response);
+        }
+
+        [HttpPut("{id}/disable")]
+        public async Task<IActionResult> DisableAsync(int id)
+        {
+            var response = await Mediator.Send(new DisableAssetType.Command { Id = id });
             return Ok(response);
         }
 

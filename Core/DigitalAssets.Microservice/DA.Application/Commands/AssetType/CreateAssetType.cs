@@ -31,6 +31,7 @@ namespace DA.Application.Commands.AssetType
             {
                 var assetType = _mapper.Map<Domain.Models.AssetType>(request.AssetType);
 
+                assetType.Disabled = false;
                 var response = await _assetTypeRepository.AddAsync(assetType);
 
                 var newAssetType = _mapper.Map<AssetTypeDto>(response);

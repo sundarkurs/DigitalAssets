@@ -10,7 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 
-namespace DA.Application.Commands.AssetImage
+namespace DA.Application.Commands.AssetType
 {
     public class DisableAssetType
     {
@@ -39,6 +39,7 @@ namespace DA.Application.Commands.AssetImage
                     throw new ApiException($"Asset type not found.");
                 }
 
+                assetType.Disabled = true;
                 await _assetTypeRepository.UpdateAsync(assetType);
 
                 return new Response<bool>(true);

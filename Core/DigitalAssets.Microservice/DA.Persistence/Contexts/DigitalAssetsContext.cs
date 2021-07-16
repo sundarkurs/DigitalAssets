@@ -71,19 +71,19 @@ namespace DA.Persistence.Contexts
                     .WithMany(p => p.AssetImages)
                     .HasForeignKey(d => d.CountryCode)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__AssetImag__Count__24B26D99");
+                    .HasConstraintName("FK__AssetImag__Count__4F9CCB9E");
 
                 entity.HasOne(d => d.Folder)
                     .WithMany(p => p.AssetImages)
                     .HasForeignKey(d => d.FolderId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__AssetImag__Folde__269AB60B");
+                    .HasConstraintName("FK__AssetImag__Folde__51851410");
 
                 entity.HasOne(d => d.LanguageCodeNavigation)
                     .WithMany(p => p.AssetImages)
                     .HasForeignKey(d => d.LanguageCode)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__AssetImag__Langu__25A691D2");
+                    .HasConstraintName("FK__AssetImag__Langu__5090EFD7");
             });
 
             modelBuilder.Entity<AssetImageFile>(entity =>
@@ -113,7 +113,7 @@ namespace DA.Persistence.Contexts
                     .WithMany(p => p.AssetImageFiles)
                     .HasForeignKey(d => d.AssetId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__AssetImag__Asset__2A6B46EF");
+                    .HasConstraintName("FK__AssetImag__Asset__5555A4F4");
             });
 
             modelBuilder.Entity<AssetMaster>(entity =>
@@ -154,19 +154,19 @@ namespace DA.Persistence.Contexts
                     .WithMany(p => p.AssetMasters)
                     .HasForeignKey(d => d.AssetTypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__AssetMast__Asset__2D47B39A");
+                    .HasConstraintName("FK__AssetMast__Asset__5832119F");
 
                 entity.HasOne(d => d.CountryCodeNavigation)
                     .WithMany(p => p.AssetMasters)
                     .HasForeignKey(d => d.CountryCode)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__AssetMast__Count__2E3BD7D3");
+                    .HasConstraintName("FK__AssetMast__Count__592635D8");
 
                 entity.HasOne(d => d.LanguageCodeNavigation)
                     .WithMany(p => p.AssetMasters)
                     .HasForeignKey(d => d.LanguageCode)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__AssetMast__Langu__2F2FFC0C");
+                    .HasConstraintName("FK__AssetMast__Langu__5A1A5A11");
             });
 
             modelBuilder.Entity<AssetProductImage>(entity =>
@@ -215,19 +215,19 @@ namespace DA.Persistence.Contexts
                     .WithMany(p => p.AssetProductImages)
                     .HasForeignKey(d => d.CountryCode)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__AssetProd__Count__1B29035F");
+                    .HasConstraintName("FK__AssetProd__Count__46136164");
 
                 entity.HasOne(d => d.Folder)
                     .WithMany(p => p.AssetProductImages)
                     .HasForeignKey(d => d.FolderId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__AssetProd__Folde__1D114BD1");
+                    .HasConstraintName("FK__AssetProd__Folde__47FBA9D6");
 
                 entity.HasOne(d => d.LanguageCodeNavigation)
                     .WithMany(p => p.AssetProductImages)
                     .HasForeignKey(d => d.LanguageCode)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__AssetProd__Langu__1C1D2798");
+                    .HasConstraintName("FK__AssetProd__Langu__4707859D");
             });
 
             modelBuilder.Entity<AssetProductImageFile>(entity =>
@@ -257,14 +257,14 @@ namespace DA.Persistence.Contexts
                     .WithMany(p => p.AssetProductImageFiles)
                     .HasForeignKey(d => d.AssetId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__AssetProd__Asset__20E1DCB5");
+                    .HasConstraintName("FK__AssetProd__Asset__4BCC3ABA");
             });
 
             modelBuilder.Entity<AssetType>(entity =>
             {
                 entity.ToTable("AssetType");
 
-                entity.HasIndex(e => e.Code, "UQ__AssetTyp__A25C5AA710F7EC45")
+                entity.HasIndex(e => e.Code, "UQ__AssetTyp__A25C5AA72BCF3794")
                     .IsUnique();
 
                 entity.Property(e => e.Code)
@@ -289,7 +289,7 @@ namespace DA.Persistence.Contexts
             modelBuilder.Entity<Country>(entity =>
             {
                 entity.HasKey(e => e.Iso)
-                    .HasName("PK__Country__C4926E1A90CEC61B");
+                    .HasName("PK__Country__C4926E1A5AEB959B");
 
                 entity.ToTable("Country");
 
@@ -331,18 +331,18 @@ namespace DA.Persistence.Contexts
                     .WithMany(p => p.Folders)
                     .HasForeignKey(d => d.AssetType)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Folder__AssetTyp__1758727B");
+                    .HasConstraintName("FK__Folder__AssetTyp__4242D080");
 
                 entity.HasOne(d => d.Parent)
                     .WithMany(p => p.InverseParent)
                     .HasForeignKey(d => d.ParentId)
-                    .HasConstraintName("FK__Folder__ParentId__16644E42");
+                    .HasConstraintName("FK__Folder__ParentId__414EAC47");
             });
 
             modelBuilder.Entity<Language>(entity =>
             {
                 entity.HasKey(e => e.Iso)
-                    .HasName("PK__Language__C4926E1A860634AF");
+                    .HasName("PK__Language__C4926E1AD8D4EFFD");
 
                 entity.ToTable("Language");
 

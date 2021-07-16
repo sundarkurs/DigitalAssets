@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DA.Application.DTO.AssetType;
+using DA.Application.Exceptions;
 using DA.Application.Interfaces.Repositories;
 using DA.Application.Wrappers;
 using MediatR;
@@ -27,11 +28,22 @@ namespace DA.Application.Commands.AssetType
 
             public async Task<Response<AssetTypeDto>> Handle(Command request, CancellationToken cancellationToken)
             {
-                var assetType = _mapper.Map<Domain.Models.AssetType>(request.AssetType);
+                var assetType = await _assetTypeRepository.GetByIdAsync(request.AssetType.Id);
+
+                if (assetType == null)
+                {
+                    throw new ApiException($"Asset type not found.");
+                }
+
+                assetType.Name = request.AssetType.Name;
+                assetType.Description = request.AssetType.Description;
+                assetType.ImageUrl = request.AssetType.ImageUrl;
 
                 await _assetTypeRepository.UpdateAsync(assetType);
 
-                return new Response<AssetTypeDto>(request.AssetType);
+                var assetTypeDto = _mapper.Map<AssetTypeDto>(assetType);
+
+                return new Response<AssetTypeDto>(assetTypeDto);
             }
         }
     }

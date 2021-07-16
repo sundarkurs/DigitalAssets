@@ -13,7 +13,7 @@ namespace DA.Application.Queries.AssetType
     {
         public class Query : IRequest<Response<AssetTypeDto>>
         {
-            public int AssetTypeId { get; set; }
+            public int Id { get; set; }
         }
 
         public class Handler : IRequestHandler<Query, Response<AssetTypeDto>>
@@ -29,7 +29,7 @@ namespace DA.Application.Queries.AssetType
 
             public async Task<Response<AssetTypeDto>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var assetType = await _assetTypeRepository.GetByIdAsync(request.AssetTypeId);
+                var assetType = await _assetTypeRepository.GetByIdAsync(request.Id);
 
                 if (assetType == null)
                 {
