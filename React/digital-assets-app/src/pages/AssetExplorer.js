@@ -1,15 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import BreadcrumbMenu from "../components/Explorer/BreadcrumbMenu";
 import PageSettings from "./Settings/PageSettings";
 import AppSection from "../components/UI/AppSection";
 import Divider from "@material-ui/core/Divider";
 import { useParams } from "react-router";
-import AppContext from "../store/AppContext/app-context";
 import AssetsList from "../components/Explorer/Assets/AssetsList";
 import FoldersList from "../components/Explorer/Folders/FoldersList";
 import styles from "./AssetExplorer.module.css";
 import axios from "../store/DbContext/assets-db-context";
-import { Typography } from "@material-ui/core";
 
 const rootFolder = {
   id: "11DDA5FB-5B63-44FC-8165-2969882DC7E7",
@@ -21,7 +19,6 @@ const rootFolder = {
 };
 
 const AssetExplorer = (props) => {
-  const appCtx = useContext(AppContext);
   const params = useParams();
 
   const [currentFolder, setCurrentFolder] = useState(rootFolder);
@@ -29,11 +26,22 @@ const AssetExplorer = (props) => {
   const [parent, setParent] = useState(null);
   const [childrens, setChildrens] = useState([]);
 
-  const [breadcrumbItems, setBreadcrumbItems] = useState(appCtx.folders);
+  const [breadcrumbItems, setBreadcrumbItems] = useState([]);
 
   useEffect(() => {
     getParent(currentFolder.id);
     getChildrens(currentFolder.id);
+
+    var bread = [];
+    if (parent) {
+      bread.push(parent);
+    }
+    if (currentFolder) {
+      bread.push(currentFolder);
+    }
+
+    setBreadcrumbItems(bread);
+    console.log(bread);
   }, [currentFolder]);
 
   const getParent = (id) => {
@@ -59,7 +67,6 @@ const AssetExplorer = (props) => {
   };
 
   const onFolderOpenHandler = (folder) => {
-    console.log(`current folder ${currentFolder.name}`);
     setCurrentFolder(folder);
   };
 

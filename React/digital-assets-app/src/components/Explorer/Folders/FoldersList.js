@@ -31,8 +31,7 @@ const FoldersList = (props) => {
       </Grid>
     );
   }
-  console.log(`folders list ${listItems}`);
-
+  
   return (
     <Fragment>
       <Grid container spacing={2}>

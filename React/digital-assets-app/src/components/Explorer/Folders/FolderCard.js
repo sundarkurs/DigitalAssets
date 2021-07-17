@@ -35,13 +35,6 @@ const FolderCard = (props) => {
 
   const { folder } = props;
 
-  const getAvatarText = (name) => {
-    var matches = name.match(/\b(\w)/g);
-    var acronym = matches.join("");
-    return acronym;
-  };
-
-  console.log(`Folder card ${folder.name}`);
   return (
     <Card onClick={props.onFolderOpen} elevation={10}>
       <CardActionArea>
