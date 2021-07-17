@@ -1,4 +1,6 @@
-﻿namespace DA.Application.DTO.AssetType
+﻿using System;
+
+namespace DA.Application.DTO.AssetType
 {
     public class AssetTypeDto
     {
@@ -7,5 +9,6 @@
         public string Name { get; set; }
         public string Description { get; set; }
         public string ImageUrl { get; set; }
+        public Guid RootFolderId { get; set; }
     }
 }

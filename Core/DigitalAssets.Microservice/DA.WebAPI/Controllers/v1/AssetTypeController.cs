@@ -24,10 +24,16 @@ namespace DA.WebAPI.Controllers.v1
             return Ok(await Mediator.Send(new GetAllAssetTypes.Query()));
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<IActionResult> GetAsync(int id)
         {
             return Ok(await Mediator.Send(new GetAssetType.Query { Id = id }));
+        }
+
+        [HttpGet("{code}/code")]
+        public async Task<IActionResult> GetByCodeAsync(string code)
+        {
+            return Ok(await Mediator.Send(new GetAssetType.Query { Code = code }));
         }
 
         [HttpPost]

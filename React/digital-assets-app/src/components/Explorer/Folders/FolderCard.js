@@ -8,6 +8,7 @@ import Avatar from "@material-ui/core/Avatar";
 import CardHeader from "@material-ui/core/CardHeader";
 import { red } from "@material-ui/core/colors";
 import FolderIcon from "@material-ui/icons/Folder";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import FolderImage from "../../../media/folder-image.png";
 
 const useStyles = makeStyles((theme) => ({
@@ -40,13 +41,15 @@ const FolderCard = (props) => {
     return acronym;
   };
 
+  console.log(`Folder card ${folder.name}`);
   return (
-    <Card onClick={() => props.onFolderClick(folder)} elevation={10}>
+    <Card onClick={props.onFolderOpen} elevation={10}>
       <CardActionArea>
         <CardHeader
           avatar={
             <Avatar aria-label="recipe" className={classes.avatar}>
-              <FolderIcon></FolderIcon>
+              {!props.back && <FolderIcon></FolderIcon>}
+              {props.back && <ArrowBackIcon></ArrowBackIcon>}
             </Avatar>
           }
           title={
@@ -54,12 +57,12 @@ const FolderCard = (props) => {
               {folder.name}
             </Typography>
           }
-          subheader={folder.updatedOn.toLocaleDateString()}
+          subheader={folder.updatedOn}
         />
         <CardContent className={classes.center}>
           <img
             src={FolderImage}
-            alt="Burger Builder"
+            alt="Asset folder"
             className={classes.folderImg}
           ></img>
         </CardContent>

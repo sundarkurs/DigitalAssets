@@ -13,14 +13,14 @@ using System.Threading.Tasks;
 
 namespace DA.Application.Queries.Folder
 {
-    public class GetFoldersByParent
+    public class GetParent
     {
-        public class Query : IRequest<Response<IEnumerable<FolderDto>>>
+        public class Query : IRequest<Response<FolderDto>>
         {
-            public Guid ParentId { get; set; }
+            public Guid Id { get; set; }
         }
 
-        public class Handler : IRequestHandler<Query, Response<IEnumerable<FolderDto>>>
+        public class Handler : IRequestHandler<Query, Response<FolderDto>>
         {
             private readonly IFolderRepository _folderRepository;
             private readonly IMapper _mapper;
@@ -31,13 +31,18 @@ namespace DA.Application.Queries.Folder
                 _mapper = mapper;
             }
 
-            public async Task<Response<IEnumerable<FolderDto>>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<Response<FolderDto>> Handle(Query request, CancellationToken cancellationToken)
             {
-                Expression<Func<Domain.Models.Folder, bool>> expression = x => x.ParentId == request.ParentId;
-                var folders = _folderRepository.GetObjectsQueryable(expression).ToList();
+                var folder = await _folderRepository.GetByIdAsync(request.Id);
 
-                var assetTypesResponse = _mapper.Map<IEnumerable<FolderDto>>(folders);
-                return new Response<IEnumerable<FolderDto>>(assetTypesResponse);
+                if (folder.ParentId != null)
+                {
+                    var parent = await _folderRepository.GetByIdAsync((Guid)folder.ParentId);
+                    var parentResponse = _mapper.Map<FolderDto>(parent);
+                    return new Response<FolderDto>(parentResponse);
+                }
+
+                return new Response<FolderDto>(null);
             }
         }
     }
