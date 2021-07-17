@@ -20,10 +20,10 @@ namespace DA.WebAPI.Controllers.v1
             _logger = logger;
         }
 
-        [HttpGet("{root}")]
-        public async Task<IActionResult> GetFoldersByParent(Guid root)
+        [HttpGet("{parentId}")]
+        public async Task<IActionResult> GetFoldersByParent(Guid parentId)
         {
-            var response = await Mediator.Send(new GetFoldersByParent.Query { Root = root });
+            var response = await Mediator.Send(new GetFoldersByParent.Query { ParentId = parentId });
             return Ok(response);
         }
 
@@ -31,6 +31,14 @@ namespace DA.WebAPI.Controllers.v1
         public async Task<IActionResult> CreateAsync(FolderRequest folder)
         {
             var response = await Mediator.Send(new CreateFolder.Command { Folder = folder });
+            return Ok(response);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> EditAsync(Guid id, FolderDto folder)
+        {
+            folder.Id = id;
+            var response = await Mediator.Send(new EditFolder.Command { Folder = folder });
             return Ok(response);
         }
     }

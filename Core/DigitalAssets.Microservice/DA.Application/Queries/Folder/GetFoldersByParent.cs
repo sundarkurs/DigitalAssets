@@ -17,7 +17,7 @@ namespace DA.Application.Queries.Folder
     {
         public class Query : IRequest<Response<IEnumerable<FolderDto>>>
         {
-            public Guid Root { get; set; }
+            public Guid ParentId { get; set; }
         }
 
         public class Handler : IRequestHandler<Query, Response<IEnumerable<FolderDto>>>
@@ -33,10 +33,8 @@ namespace DA.Application.Queries.Folder
 
             public async Task<Response<IEnumerable<FolderDto>>> Handle(Query request, CancellationToken cancellationToken)
             {
-                //Expression<Func<Domain.Models.Folder, bool>> expression = x => x.Id == request.Root;
-                //var folders = _folderRepository.GetObjectsQueryable(expression).ToList();
-
-                var folders = await _folderRepository.GetChildrensAsync(request.Root);
+                Expression<Func<Domain.Models.Folder, bool>> expression = x => x.ParentId == request.ParentId;
+                var folders = _folderRepository.GetObjectsQueryable(expression).ToList();
 
                 var assetTypesResponse = _mapper.Map<IEnumerable<FolderDto>>(folders);
                 return new Response<IEnumerable<FolderDto>>(assetTypesResponse);

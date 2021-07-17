@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace DA.Application.Interfaces.Repositories
@@ -10,6 +9,8 @@ namespace DA.Application.Interfaces.Repositories
     public interface IBaseRepository<T> where T : class
     {
         Task<T> GetByIdAsync(int id);
+
+        Task<T> GetByIdAsync(Guid id);
 
         Task<IReadOnlyList<T>> GetAllAsync();
 

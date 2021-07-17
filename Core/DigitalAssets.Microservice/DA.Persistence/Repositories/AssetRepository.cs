@@ -15,10 +15,5 @@ namespace DA.Persistence.Repositories
         {
             _assets = dbContext.Set<T>();
         }
-
-        public virtual async Task<T> GetByIdAsync(Guid id)
-        {
-            return await _assets.FindAsync(id);
-        }
     }
 }
