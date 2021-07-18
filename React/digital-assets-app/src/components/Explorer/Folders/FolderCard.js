@@ -11,6 +11,7 @@ import FolderIcon from "@material-ui/icons/Folder";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import FolderImage from "../../../media/folder-image.png";
 import CreateNewFolderIcon from "@material-ui/icons/CreateNewFolder";
+import moment from "moment";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,7 +39,7 @@ const FolderCard = (props) => {
 
   const subHeader = () => {
     if (actual) {
-      return folder.updatedOn;
+      return moment(folder.updatedOn).format('MMMM DD, YYYY - HH:MM');
     } else if (props.new) {
       return "Add new folder";
     } else if (back) {
