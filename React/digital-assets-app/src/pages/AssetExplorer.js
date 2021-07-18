@@ -6,24 +6,26 @@ import Divider from "@material-ui/core/Divider";
 import { useParams } from "react-router";
 import AssetsList from "../components/Explorer/Assets/AssetsList";
 import FoldersList from "../components/Explorer/Folders/FoldersList";
-import styles from "./AssetExplorer.module.css";
+import classes from "./AssetExplorer.module.css";
 import axios from "../store/DbContext/assets-db-context";
 import { useHistory, useLocation } from "react-router-dom";
+import Box from "@material-ui/core/Box";
+import CreateFolder from "../components/Explorer/Folders/Create/CreateFolder";
 
 const AssetExplorer = (props) => {
   const history = useHistory();
   const params = useParams();
-  const [currentFolder, setCurrentFolder] = useState(params.folderId);
 
+  const [panelOpen, setPanelOpen] = useState(false);
+  const [mode, setMode] = useState("");
+
+  const [currentFolder, setCurrentFolder] = useState(params.folderId);
   const [folderInfo, setFoderInfo] = useState({
     folder: null,
     parent: null,
     childrens: [],
   });
   const [assets, setAssets] = useState([]);
-
-  console.log(params);
-  console.log(currentFolder);
 
   useEffect(() => {
     getFolderDetails(currentFolder);
@@ -56,20 +58,43 @@ const AssetExplorer = (props) => {
     if (folder.id) {
       setCurrentFolder(folder.id);
       history.push(`/asset-types/${params.assetTypeCode}/${folder.id}`);
+    } else if (folder.name == "New folder") {
+      setPanelOpen(true);
+      setMode("add");
     }
+  };
+
+  const closeDetailsPanelHandler = () => {
+    setMode("");
+    setPanelOpen(false);
   };
 
   return (
     <PageSettings title="Asset Explorer">
-      <AppSection>
-        <FoldersList
-          parent={folderInfo.parent}
-          childrens={folderInfo.childrens}
-          onFolderOpen={onFolderOpenHandler}
-        ></FoldersList>
-        <div style={{ paddingTop: 50 }}></div>
-        <AssetsList assets={assets}></AssetsList>
-      </AppSection>
+      <Box display="flex">
+        <Box className={panelOpen ? classes.lessWidth : classes.fullWidth}>
+          <AppSection>
+            <FoldersList
+              parent={folderInfo.parent}
+              childrens={folderInfo.childrens}
+              onFolderOpen={onFolderOpenHandler}
+            ></FoldersList>
+            <div style={{ paddingTop: 50 }}></div>
+            <AssetsList assets={assets}></AssetsList>
+          </AppSection>
+        </Box>
+        {panelOpen && (
+          <Box className={classes.addOnPanel}>
+            <AppSection>
+              <CreateFolder
+                parentId={folderInfo.folder.id}
+                assetType={folderInfo.folder.assetType}
+                closeDetailsPanel={closeDetailsPanelHandler}
+              ></CreateFolder>
+            </AppSection>
+          </Box>
+        )}
+      </Box>
     </PageSettings>
   );
 };

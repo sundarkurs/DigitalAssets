@@ -147,7 +147,6 @@ const CreateAssetType = (props) => {
           variant="contained"
           color="primary"
           className={classes.button}
-          onClick={props.openDetailsPanel}
         >
           Save
         </Button>
