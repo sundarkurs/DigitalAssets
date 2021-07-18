@@ -2,6 +2,7 @@
 using DA.Application.DTO.Folder;
 using DA.Application.Exceptions;
 using DA.Application.Interfaces.Repositories;
+using DA.Application.ViewModel;
 using DA.Application.Wrappers;
 using MediatR;
 using System;
@@ -15,12 +16,12 @@ namespace DA.Application.Queries.Folder
 {
     public class GetFolder
     {
-        public class Query : IRequest<Response<FolderDto>>
+        public class Query : IRequest<Response<FolderViewModel>>
         {
             public Guid Id { get; set; }
         }
 
-        public class Handler : IRequestHandler<Query, Response<FolderDto>>
+        public class Handler : IRequestHandler<Query, Response<FolderViewModel>>
         {
             private readonly IFolderRepository _folderRepository;
             private readonly IMapper _mapper;
@@ -31,21 +32,35 @@ namespace DA.Application.Queries.Folder
                 _mapper = mapper;
             }
 
-            public async Task<Response<FolderDto>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<Response<FolderViewModel>> Handle(Query request, CancellationToken cancellationToken)
             {
-                //Expression<Func<Domain.Models.Folder, bool>> expression = x => x.ParentId == request.ParentId;
-                //var folders = _folderRepository.GetObjectsQueryable(expression).ToList();
+                var folderEntity = await _folderRepository.GetByIdAsync(request.Id);
 
-                var folder = await _folderRepository.GetByIdAsync(request.Id);
-
-                if (folder == null)
+                if (folderEntity == null)
                 {
                     throw new ApiException($"Folder not found.");
                 }
+                
+                var folder = _mapper.Map<FolderDto>(folderEntity);
 
-                var folderResponse = _mapper.Map<FolderDto>(folder);
+                var response = new FolderViewModel();
+                response.Folder = folder;
 
-                return new Response<FolderDto>(folderResponse);
+                if (folder.ParentId != null)
+                {
+                    var parentEntity = await _folderRepository.GetByIdAsync((Guid)folder.ParentId);
+                    var parent = _mapper.Map<FolderDto>(parentEntity);
+                    response.Parent = parent;
+                    
+                }
+
+                Expression<Func<Domain.Models.Folder, bool>> expression = x => x.ParentId == folder.Id;
+                var childrenEntities = _folderRepository.GetObjectsQueryable(expression).ToList();
+                var childrens = _mapper.Map<IEnumerable<FolderDto>>(childrenEntities);
+
+                response.Childrens = childrens;
+
+                return new Response<FolderViewModel>(response);
             }
         }
     }
