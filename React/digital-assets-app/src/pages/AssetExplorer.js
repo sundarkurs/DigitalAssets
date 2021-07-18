@@ -60,7 +60,7 @@ const AssetExplorer = (props) => {
       history.push(`/asset-types/${params.assetTypeCode}/${folder.id}`);
     } else if (folder.name == "New folder") {
       setPanelOpen(true);
-      setMode("add");
+      setMode("add-folder");
     }
   };
 
@@ -86,11 +86,13 @@ const AssetExplorer = (props) => {
         {panelOpen && (
           <Box className={classes.addOnPanel}>
             <AppSection>
-              <CreateFolder
-                parentId={folderInfo.folder.id}
-                assetType={folderInfo.folder.assetType}
-                closeDetailsPanel={closeDetailsPanelHandler}
-              ></CreateFolder>
+              {mode === "add-folder" && (
+                <CreateFolder
+                  parentId={folderInfo.folder.id}
+                  assetType={folderInfo.folder.assetType}
+                  closeDetailsPanel={closeDetailsPanelHandler}
+                ></CreateFolder>
+              )}
             </AppSection>
           </Box>
         )}
