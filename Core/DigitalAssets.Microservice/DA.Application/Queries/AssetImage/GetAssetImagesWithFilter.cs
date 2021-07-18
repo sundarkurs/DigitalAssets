@@ -6,12 +6,18 @@ using System.Threading;
 using System.Threading.Tasks;
 using DA.Application.Wrappers;
 using DA.Application.DTO.AssetImage;
+using System;
+using System.Linq.Expressions;
+using System.Linq;
 
 namespace DA.Application.Queries.AssetImage
 {
-    public class GetAllAssetImage
+    public class GetAssetImagesWithFilter
     {
-        public class Query : IRequest<PagedResponse<IEnumerable<AssetImageDto>>> { }
+        public class Query : IRequest<PagedResponse<IEnumerable<AssetImageDto>>>
+        {
+            public Guid FolderId { get; set; }
+        }
 
         public class Handler : IRequestHandler<Query, PagedResponse<IEnumerable<AssetImageDto>>>
         {
@@ -26,9 +32,13 @@ namespace DA.Application.Queries.AssetImage
 
             public async Task<PagedResponse<IEnumerable<AssetImageDto>>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var assets = await _assetRepository.GetAllAsync();
-                var assetsResponse = _mapper.Map<IEnumerable<AssetImageDto>>(assets);
-                return new PagedResponse<IEnumerable<AssetImageDto>>(assetsResponse, 1, 100);
+                Expression<Func<Domain.Models.AssetImage, bool>> expression = x => x.FolderId == request.FolderId;
+
+                var assetEntities = _assetRepository.GetObjectsQueryable(expression).ToList();
+
+                var assets = _mapper.Map<IEnumerable<AssetImageDto>>(assetEntities);
+
+                return new PagedResponse<IEnumerable<AssetImageDto>>(assets, 1, 100);
             }
         }
     }

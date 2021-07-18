@@ -24,13 +24,19 @@ namespace DA.WebAPI.Controllers.v1
         [HttpGet]
         public async Task<IActionResult> GetAllAsync()
         {
-            return Ok(await Mediator.Send(new GetAllAssetImage.Query()));
+            return Ok(await Mediator.Send(new GetAllAssetImages.Query()));
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetAsync(Guid id)
         {
             return Ok(await Mediator.Send(new GetAssetImage.Query { Id = id }));
+        }
+
+        [HttpGet("folder/{folderId}")]
+        public async Task<IActionResult> GetFolderAssetsAsync(Guid folderId)
+        {
+            return Ok(await Mediator.Send(new GetAssetImagesWithFilter.Query { FolderId = folderId }));
         }
 
         [HttpPost]
