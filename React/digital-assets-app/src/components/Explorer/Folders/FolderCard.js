@@ -34,7 +34,17 @@ const useStyles = makeStyles((theme) => ({
 const FolderCard = (props) => {
   const classes = useStyles();
 
-  const { folder } = props;
+  const { folder, actual, back } = props;
+
+  const subHeader = () => {
+    if (actual) {
+      return folder.updatedOn;
+    } else if (props.new) {
+      return "Add new folder";
+    } else if (back) {
+      return `Go to folder ${folder.name}`;
+    }
+  };
 
   return (
     <Card onClick={props.onFolderOpen} elevation={10}>
@@ -42,8 +52,8 @@ const FolderCard = (props) => {
         <CardHeader
           avatar={
             <Avatar aria-label="recipe" className={classes.avatar}>
-              {props.actual && <FolderIcon></FolderIcon>}
-              {props.back && <ArrowBackIcon></ArrowBackIcon>}
+              {actual && <FolderIcon></FolderIcon>}
+              {back && <ArrowBackIcon></ArrowBackIcon>}
               {props.new && <CreateNewFolderIcon></CreateNewFolderIcon>}
             </Avatar>
           }
@@ -52,7 +62,7 @@ const FolderCard = (props) => {
               {folder.name}
             </Typography>
           }
-          subheader={folder.updatedOn}
+          subheader={subHeader()}
         />
         <CardContent className={classes.center}>
           <img

@@ -20,24 +20,9 @@ const AssetExplorer = (props) => {
 
   const [assets, setAssets] = useState([]);
 
-  const [breadcrumbItems, setBreadcrumbItems] = useState([]);
-
   useEffect(() => {
     getFolderDetails(currentFolder);
     getAssets(currentFolder);
-
-    var bread = [];
-    if (folderParent) {
-      bread.push(folderParent);
-    }
-    if (folder) {
-      bread.push(folder);
-    }
-    if (folderChildrens) {
-      bread.push(folderChildrens);
-    }
-
-    setBreadcrumbItems(bread);
   }, [currentFolder]);
 
   const getAssets = (id) => {
@@ -68,22 +53,9 @@ const AssetExplorer = (props) => {
     setCurrentFolder(folder.id);
   };
 
-  // TODO
-  const onMenuClickHandler = () => {
-    const updatedBreadcrumbItems = breadcrumbItems.filter(
-      (item) => item.id < 2
-    );
-    setBreadcrumbItems(updatedBreadcrumbItems);
-  };
-
   return (
     <PageSettings title="Asset Explorer">
       <AppSection>
-        <BreadcrumbMenu
-          menuItems={breadcrumbItems}
-          onMenuClick={onMenuClickHandler}
-        />
-        <Divider className={styles.divider}></Divider>
         <FoldersList
           parent={folderParent}
           childrens={folderChildrens}
