@@ -10,7 +10,7 @@ const AssetsList = (props) => {
   const appCtx = useContext(AppContext);
 
   const onAssetClickHandler = (asset) => {
-    history.push(location.pathname + "/" + asset.id.toLowerCase());
+    
   };
 
   const listItems = props.assets.map((item) => {

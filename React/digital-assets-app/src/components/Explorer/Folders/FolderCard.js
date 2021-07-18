@@ -10,6 +10,7 @@ import { red } from "@material-ui/core/colors";
 import FolderIcon from "@material-ui/icons/Folder";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import FolderImage from "../../../media/folder-image.png";
+import CreateNewFolderIcon from "@material-ui/icons/CreateNewFolder";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,8 +42,9 @@ const FolderCard = (props) => {
         <CardHeader
           avatar={
             <Avatar aria-label="recipe" className={classes.avatar}>
-              {!props.back && <FolderIcon></FolderIcon>}
+              {props.actual && <FolderIcon></FolderIcon>}
               {props.back && <ArrowBackIcon></ArrowBackIcon>}
+              {props.new && <CreateNewFolderIcon></CreateNewFolderIcon>}
             </Avatar>
           }
           title={

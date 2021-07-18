@@ -11,7 +11,7 @@ const FoldersList = (props) => {
       return (
         <Grid item xs={12} sm={6} md={4} lg={3} key={folder.id}>
           <FolderCard
-            back={false}
+            actual={true}
             folder={folder}
             onFolderOpen={() => props.onFolderOpen(folder)}
           ></FolderCard>
@@ -31,7 +31,21 @@ const FoldersList = (props) => {
       </Grid>
     );
   }
-  
+
+  var newFolder = { id: null, name: "Add new folder", updatedOn: Date.now() };
+
+  if (newFolder) {
+    listItems.push(
+      <Grid item xs={12} sm={6} md={4} lg={3} key={newFolder.id}>
+        <FolderCard
+          new={true}
+          folder={newFolder}
+          onFolderOpen={() => props.onFolderOpen(newFolder)}
+        ></FolderCard>
+      </Grid>
+    );
+  }
+
   return (
     <Fragment>
       <Grid container spacing={2}>
