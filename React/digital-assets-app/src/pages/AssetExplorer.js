@@ -11,16 +11,20 @@ import axios from "../store/DbContext/assets-db-context";
 
 const AssetExplorer = (props) => {
   const params = useParams();
+  const [assetTypeCode, setAssetTypeCode] = useState(params.assetTypeCode);
   const [currentFolder, setCurrentFolder] = useState(params.folderId);
 
   const [folder, setFolder] = useState(null);
   const [folderParent, setFolderParent] = useState(null);
   const [folderChildrens, setFolderChildrens] = useState([]);
 
+  const [assets, setAssets] = useState([]);
+
   const [breadcrumbItems, setBreadcrumbItems] = useState([]);
 
   useEffect(() => {
     getFolderDetails(currentFolder);
+    getAssets(currentFolder);
 
     var bread = [];
     if (folderParent) {
@@ -36,9 +40,20 @@ const AssetExplorer = (props) => {
     setBreadcrumbItems(bread);
   }, [currentFolder]);
 
+  const getAssets = (id) => {
+    axios
+      .get(`${assetTypeCode}/folder/${id}`)
+      .then((response) => {
+        setAssets(response.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   const getFolderDetails = (id) => {
     axios
-      .get(`Folder/${currentFolder}`)
+      .get(`Folder/${id}`)
       .then((response) => {
         setFolder(response.data.data.folder);
         setFolderParent(response.data.data.parent);
@@ -75,7 +90,7 @@ const AssetExplorer = (props) => {
           onFolderOpen={onFolderOpenHandler}
         ></FoldersList>
         <div style={{ paddingTop: 50 }}></div>
-        {/* <AssetsList assets={productImageAssets}></AssetsList> */}
+        <AssetsList assets={assets}></AssetsList>
       </AppSection>
     </PageSettings>
   );
