@@ -21,45 +21,39 @@ const rootFolder = {
 const AssetExplorer = (props) => {
   const params = useParams();
 
-  const [currentFolder, setCurrentFolder] = useState(rootFolder);
+  const [currentFolder, setCurrentFolder] = useState(rootFolder.id);
 
-  const [parent, setParent] = useState(null);
-  const [childrens, setChildrens] = useState([]);
+  const [folder, setFolder] = useState(null);
+  const [folderParent, setFolderParent] = useState(null);
+  const [folderChildrens, setFolderChildrens] = useState([]);
 
   const [breadcrumbItems, setBreadcrumbItems] = useState([]);
 
   useEffect(() => {
-    getParent(currentFolder.id);
-    getChildrens(currentFolder.id);
+    getFolderDetails(currentFolder);
 
     var bread = [];
-    if (parent) {
-      bread.push(parent);
+    if (folderParent) {
+      bread.push(folderParent);
     }
-    if (currentFolder) {
-      bread.push(currentFolder);
+    if (folder) {
+      bread.push(folder);
+    }
+    if (folderChildrens) {
+      bread.push(folderChildrens);
     }
 
     setBreadcrumbItems(bread);
     console.log(bread);
   }, [currentFolder]);
 
-  const getParent = (id) => {
+  const getFolderDetails = (id) => {
     axios
-      .get(`Folder/${currentFolder.id}/parent`)
+      .get(`Folder/${currentFolder}`)
       .then((response) => {
-        setParent(response.data.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  const getChildrens = (id) => {
-    axios
-      .get(`Folder/${currentFolder.id}/childrens`)
-      .then((response) => {
-        setChildrens(response.data.data);
+        setFolder(response.data.data.folder);
+        setFolderParent(response.data.data.parent);
+        setFolderChildrens(response.data.data.childrens);
       })
       .catch((error) => {
         console.log(error);
@@ -67,7 +61,7 @@ const AssetExplorer = (props) => {
   };
 
   const onFolderOpenHandler = (folder) => {
-    setCurrentFolder(folder);
+    setCurrentFolder(folder.id);
   };
 
   // TODO
@@ -87,8 +81,8 @@ const AssetExplorer = (props) => {
         />
         <Divider className={styles.divider}></Divider>
         <FoldersList
-          parent={parent}
-          childrens={childrens}
+          parent={folderParent}
+          childrens={folderChildrens}
           onFolderOpen={onFolderOpenHandler}
         ></FoldersList>
         <div style={{ paddingTop: 50 }}></div>
