@@ -8,17 +8,22 @@ import AssetsList from "../components/Explorer/Assets/AssetsList";
 import FoldersList from "../components/Explorer/Folders/FoldersList";
 import styles from "./AssetExplorer.module.css";
 import axios from "../store/DbContext/assets-db-context";
+import { useHistory, useLocation } from "react-router-dom";
 
 const AssetExplorer = (props) => {
+  const history = useHistory();
   const params = useParams();
-  const [assetTypeCode, setAssetTypeCode] = useState(params.assetTypeCode);
   const [currentFolder, setCurrentFolder] = useState(params.folderId);
 
-  const [folder, setFolder] = useState(null);
-  const [folderParent, setFolderParent] = useState(null);
-  const [folderChildrens, setFolderChildrens] = useState([]);
-
+  const [folderInfo, setFoderInfo] = useState({
+    folder: null,
+    parent: null,
+    childrens: [],
+  });
   const [assets, setAssets] = useState([]);
+
+  console.log(params);
+  console.log(currentFolder);
 
   useEffect(() => {
     getFolderDetails(currentFolder);
@@ -27,7 +32,7 @@ const AssetExplorer = (props) => {
 
   const getAssets = (id) => {
     axios
-      .get(`${assetTypeCode}/folder/${id}`)
+      .get(`${params.assetTypeCode}/folder/${id}`)
       .then((response) => {
         setAssets(response.data.data);
       })
@@ -40,9 +45,7 @@ const AssetExplorer = (props) => {
     axios
       .get(`Folder/${id}`)
       .then((response) => {
-        setFolder(response.data.data.folder);
-        setFolderParent(response.data.data.parent);
-        setFolderChildrens(response.data.data.childrens);
+        setFoderInfo(response.data.data);
       })
       .catch((error) => {
         console.log(error);
@@ -50,15 +53,18 @@ const AssetExplorer = (props) => {
   };
 
   const onFolderOpenHandler = (folder) => {
-    setCurrentFolder(folder.id);
+    if (folder.id) {
+      setCurrentFolder(folder.id);
+      history.push(`/asset-types/${params.assetTypeCode}/${folder.id}`);
+    }
   };
 
   return (
     <PageSettings title="Asset Explorer">
       <AppSection>
         <FoldersList
-          parent={folderParent}
-          childrens={folderChildrens}
+          parent={folderInfo.parent}
+          childrens={folderInfo.childrens}
           onFolderOpen={onFolderOpenHandler}
         ></FoldersList>
         <div style={{ paddingTop: 50 }}></div>
