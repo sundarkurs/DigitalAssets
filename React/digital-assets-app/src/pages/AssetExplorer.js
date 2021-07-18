@@ -9,19 +9,9 @@ import FoldersList from "../components/Explorer/Folders/FoldersList";
 import styles from "./AssetExplorer.module.css";
 import axios from "../store/DbContext/assets-db-context";
 
-const rootFolder = {
-  id: "11DDA5FB-5B63-44FC-8165-2969882DC7E7",
-  name: "IMAGE",
-  parentId: null,
-  assetType: 1,
-  updatedOn: "2021-07-16T11:15:37.12",
-  updatedBy: "Sundar Urs",
-};
-
 const AssetExplorer = (props) => {
   const params = useParams();
-
-  const [currentFolder, setCurrentFolder] = useState(rootFolder.id);
+  const [currentFolder, setCurrentFolder] = useState(params.folderId);
 
   const [folder, setFolder] = useState(null);
   const [folderParent, setFolderParent] = useState(null);
@@ -44,7 +34,6 @@ const AssetExplorer = (props) => {
     }
 
     setBreadcrumbItems(bread);
-    console.log(bread);
   }, [currentFolder]);
 
   const getFolderDetails = (id) => {
