@@ -35,6 +35,7 @@ const CreateFolder = (props) => {
       .then((response) => {
         showSuccess(`Folder "${name}" created successfully.`);
         setName("");
+        props.refreshFolders();
       })
       .catch((error) => {
         showApiError(error);

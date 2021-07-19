@@ -30,6 +30,7 @@ const RenameFolder = (props) => {
       .put(`/Folder/${props.folder.id}`, updateFolder)
       .then((response) => {
         showSuccess(`Folder "${name}" renamed successfully.`);
+        props.refreshFolders();
       })
       .catch((error) => {
         showApiError(error);

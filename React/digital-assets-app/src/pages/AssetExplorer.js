@@ -89,6 +89,15 @@ const AssetExplorer = (props) => {
   const onDeleteEndHandler = () => {
     setMode("");
     setPanelOpen(false);
+    refreshFoldersHandler();
+  };
+
+  const refreshFoldersHandler = () => {
+    getFolderDetails(currentFolderId);
+  };
+
+  const refreshAssetsHandler = () => {
+    getAssets(currentFolderId);
   };
 
   return (
@@ -116,6 +125,7 @@ const AssetExplorer = (props) => {
                   parentId={folderInfo.folder.id}
                   assetType={folderInfo.folder.assetType}
                   closeDetailsPanel={closeDetailsPanelHandler}
+                  refreshFolders={refreshFoldersHandler}
                 ></CreateFolder>
               )}
               {mode === "rename-folder" && (
@@ -124,6 +134,7 @@ const AssetExplorer = (props) => {
                   parentId={folderInfo.folder.id}
                   assetType={folderInfo.folder.assetType}
                   closeDetailsPanel={closeDetailsPanelHandler}
+                  refreshFolders={refreshFoldersHandler}
                 ></RenameFolder>
               )}
             </AppSection>
