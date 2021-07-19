@@ -7,13 +7,13 @@ import CloseIcon from "@material-ui/icons/Close";
 import { Typography } from "@material-ui/core";
 import axios from "../../../store/DbContext/assets-db-context";
 import AppContext from "../../../store/AppContext/app-context";
-import useStyles from "../Styles/RightPanelStyles";
+import useRightPanelStyles from "../../Styles/right-panel-styles";
 import useShowMessage from "../../../hooks/use-show-message";
 
 let IS_FORM_VALID = true;
 
 const EditAssetType = (props) => {
-  const classes = useStyles();
+  const rpStyles = useRightPanelStyles();
   const { showSuccess, showError, showApiError } = useShowMessage();
   const appCtx = useContext(AppContext);
 
@@ -81,17 +81,17 @@ const EditAssetType = (props) => {
 
   return (
     <form onSubmit={submitHandler}>
-      <Box display="flex" className={classes.toolbar}>
+      <Box display="flex" className={rpStyles.toolbar}>
         <Typography variant="h6">Edit asset type</Typography>
         <CloseIcon
-          className={classes.closeIcon}
+          className={rpStyles.closeIcon}
           onClick={props.closeDetailsPanel}
         />
       </Box>
-      <Divider className={classes.divider}></Divider>
-      <Box mt={2} display="flex" className={classes.content}>
+      <Divider className={rpStyles.divider}></Divider>
+      <Box mt={2} display="flex" className={rpStyles.content}>
         <TextField
-          className={classes.inputs}
+          className={rpStyles.inputs}
           id="name"
           variant="outlined"
           label="Name"
@@ -99,7 +99,7 @@ const EditAssetType = (props) => {
           value={props.assetType.name}
         />
         <TextField
-          className={classes.inputs}
+          className={rpStyles.inputs}
           id="code"
           variant="outlined"
           label="Code"
@@ -107,7 +107,7 @@ const EditAssetType = (props) => {
           value={props.assetType.code}
         />
         <TextField
-          className={classes.inputs}
+          className={rpStyles.inputs}
           id="description"
           variant="outlined"
           label="Description"
@@ -116,7 +116,7 @@ const EditAssetType = (props) => {
           error={!descriptionValid}
         />
         <TextField
-          className={classes.inputs}
+          className={rpStyles.inputs}
           id="imageUrl"
           variant="outlined"
           label="Image Url"
@@ -128,7 +128,7 @@ const EditAssetType = (props) => {
           type="submit"
           variant="contained"
           color="primary"
-          className={classes.button}
+          className={rpStyles.button}
         >
           Update
         </Button>
