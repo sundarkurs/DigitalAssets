@@ -11,6 +11,8 @@ import axios from "../store/DbContext/assets-db-context";
 import { useHistory, useLocation } from "react-router-dom";
 import Box from "@material-ui/core/Box";
 import CreateFolder from "../components/Explorer/Folders/Create/CreateFolder";
+import RenameFolder from "../components/Explorer/Folders/Rename/RenameFolder";
+import DeleteFolder from "../components/Explorer/Folders/Delete/DeleteFolder";
 
 const AssetExplorer = (props) => {
   const history = useHistory();
@@ -19,7 +21,7 @@ const AssetExplorer = (props) => {
   const [panelOpen, setPanelOpen] = useState(false);
   const [mode, setMode] = useState("");
 
-  const [currentFolder, setCurrentFolder] = useState(params.folderId);
+  const [currentFolderId, setCurrentFolderId] = useState(params.folderId);
   const [folderInfo, setFoderInfo] = useState({
     folder: null,
     parent: null,
@@ -27,10 +29,12 @@ const AssetExplorer = (props) => {
   });
   const [assets, setAssets] = useState([]);
 
+  const [actionFolder, setActionFolder] = useState(null);
+
   useEffect(() => {
-    getFolderDetails(currentFolder);
-    getAssets(currentFolder);
-  }, [currentFolder]);
+    getFolderDetails(currentFolderId);
+    getAssets(currentFolderId);
+  }, [currentFolderId]);
 
   const getAssets = (id) => {
     axios
@@ -61,21 +65,31 @@ const AssetExplorer = (props) => {
 
   const onOpenFolderHandler = (folder) => {
     if (folder.id) {
-      setCurrentFolder(folder.id);
+      setCurrentFolderId(folder.id);
       history.push(`/asset-types/${params.assetTypeCode}/${folder.id}`);
     }
   };
 
   const onAddFolderHandler = (folder) => {
     setPanelOpen(true);
-    setMode("edit-folder");
+    setMode("add-folder");
   };
 
-  const onEditFolderHandler = (folder) => {
+  const onRenameFolderHandler = (folder) => {
     setPanelOpen(true);
-    setMode("edit-folder");
+    setActionFolder(folder);
+    setMode("rename-folder");
   };
-  const onDeleteFolderHandler = (folder) => {};
+  const onDeleteFolderHandler = (folder) => {
+    setPanelOpen(false);
+    setActionFolder(folder);
+    setMode("delete-folder");
+  };
+
+  const onDeleteEndHandler = () => {
+    setMode("");
+    setPanelOpen(false);
+  };
 
   return (
     <PageSettings title={`Folder Explorer`}>
@@ -87,7 +101,7 @@ const AssetExplorer = (props) => {
               childrens={folderInfo.childrens}
               onOpenFolder={onOpenFolderHandler}
               onAddFolder={onAddFolderHandler}
-              onEditFolder={onEditFolderHandler}
+              onRenameFolder={onRenameFolderHandler}
               onDeleteFolder={onDeleteFolderHandler}
             ></FoldersList>
             <div style={{ paddingTop: 50 }}></div>
@@ -104,17 +118,21 @@ const AssetExplorer = (props) => {
                   closeDetailsPanel={closeDetailsPanelHandler}
                 ></CreateFolder>
               )}
-              {mode === "edit-folder" && (
-                <CreateFolder
+              {mode === "rename-folder" && (
+                <RenameFolder
+                  folder={actionFolder}
                   parentId={folderInfo.folder.id}
                   assetType={folderInfo.folder.assetType}
                   closeDetailsPanel={closeDetailsPanelHandler}
-                ></CreateFolder>
+                ></RenameFolder>
               )}
             </AppSection>
           </Box>
         )}
       </Box>
+      {mode === "delete-folder" && (
+        <DeleteFolder folder={actionFolder} onDeleteEnd={onDeleteEndHandler} />
+      )}
     </PageSettings>
   );
 };

@@ -49,10 +49,17 @@ namespace DA.WebAPI.Controllers.v1
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> EditAsync(Guid id, FolderDto folder)
+        public async Task<IActionResult> EditAsync(Guid id, FolderUpdateRequest folder)
         {
             folder.Id = id;
             var response = await Mediator.Send(new EditFolder.Command { Folder = folder });
+            return Ok(response);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAsync(Guid id)
+        {
+            var response = await Mediator.Send(new DeleteFolder.Command { Id = id });
             return Ok(response);
         }
     }

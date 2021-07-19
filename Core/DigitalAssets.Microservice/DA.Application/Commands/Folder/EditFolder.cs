@@ -16,7 +16,7 @@ namespace DA.Application.Commands.Folder
     {
         public class Command : IRequest<Response<FolderDto>>
         {
-            public FolderDto Folder { get; set; }
+            public FolderUpdateRequest Folder { get; set; }
         }
 
         public class Handler : IRequestHandler<Command, Response<FolderDto>>

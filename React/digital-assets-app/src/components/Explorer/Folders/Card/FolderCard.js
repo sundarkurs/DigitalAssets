@@ -24,7 +24,7 @@ const FolderCard = (props) => {
     isNew,
     folder,
     onFolderClick,
-    onEditFolder,
+    onRenameFolder,
     onDeleteFolder,
   } = props;
 
@@ -48,13 +48,23 @@ const FolderCard = (props) => {
     setMoreOptionsEl(null);
   };
 
+  const onRenameFolderHandler = () => {
+    setMoreOptionsEl(null);
+    onRenameFolder();
+  };
+
+  const onDeleteFolderHandler = () => {
+    setMoreOptionsEl(null);
+    onDeleteFolder();
+  };
+
   return (
     <>
       <Card elevation={10}>
         <CardActionArea>
           <CardHeader
             avatar={
-              <Avatar aria-label="recipe" className={classes.avatar}>
+              <Avatar aria-label="folder" className={classes.avatar}>
                 {isFolder && <FolderIcon></FolderIcon>}
                 {isBack && <ArrowBackIcon></ArrowBackIcon>}
                 {isNew && <CreateNewFolderIcon></CreateNewFolderIcon>}
@@ -63,7 +73,7 @@ const FolderCard = (props) => {
             action={
               isFolder && (
                 <IconButton
-                  aria-label="settings"
+                  aria-label="options"
                   onClick={onMoreOptionsClickHandler}
                 >
                   <MoreVertIcon />
@@ -80,7 +90,7 @@ const FolderCard = (props) => {
           <CardContent onClick={onFolderClick} className={classes.center}>
             <img
               src={FolderImage}
-              alt="Asset folder"
+              alt="folder"
               className={classes.folderImg}
             ></img>
           </CardContent>
@@ -90,8 +100,8 @@ const FolderCard = (props) => {
       <FolderOptionsMenu
         element={moreOptionsEl}
         onClose={onMoreOptionsCloseHandler}
-        onEdit={onEditFolder}
-        onDelete={onDeleteFolder}
+        onRename={onRenameFolderHandler}
+        onDelete={onDeleteFolderHandler}
       ></FolderOptionsMenu>
     </>
   );

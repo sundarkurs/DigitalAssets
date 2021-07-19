@@ -2,7 +2,7 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 
 const FolderOptionsMenu = (props) => {
-  const { element, onClose, onEdit, onDelete } = props;
+  const { element, onClose, onRename, onDelete } = props;
 
   return (
     <Menu
@@ -12,7 +12,7 @@ const FolderOptionsMenu = (props) => {
       open={Boolean(element)}
       onClose={onClose}
     >
-      <MenuItem onClick={onEdit}>Edit</MenuItem>
+      <MenuItem onClick={onRename}>Rename</MenuItem>
       <MenuItem onClick={onDelete}>Delete</MenuItem>
     </Menu>
   );

@@ -1,13 +1,14 @@
 import { Fragment } from "react";
 import FolderCard from "../Card/FolderCard";
 import Grid from "@material-ui/core/Grid";
+import uuid from "react-uuid";
 
 const FoldersList = (props) => {
   const { childrens, parent } = props;
 
   var listItems = [];
 
-  var newFolder = { id: null, name: "New folder", updatedOn: Date.now() };
+  var newFolder = { id: uuid(), name: "New folder", updatedOn: Date.now() };
   if (newFolder) {
     listItems.push(
       <Grid item xs={12} sm={6} md={4} lg={3} key={newFolder.id}>
@@ -41,7 +42,7 @@ const FoldersList = (props) => {
               isFolder={true}
               folder={folder}
               onFolderClick={() => props.onOpenFolder(folder)}
-              onEditFolder={() => props.onEditFolder(folder)}
+              onRenameFolder={() => props.onRenameFolder(folder)}
               onDeleteFolder={() => props.onDeleteFolder(folder)}
             ></FolderCard>
           </Grid>
