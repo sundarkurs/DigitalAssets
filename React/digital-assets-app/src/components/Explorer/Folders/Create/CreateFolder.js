@@ -61,7 +61,7 @@ const CreateFolder = (props) => {
   return (
     <form onSubmit={submitHandler}>
       <Box display="flex" className={rpStyles.toolbar}>
-        <Typography variant="h6">Create asset type</Typography>
+        <Typography variant="h6">Create new folder</Typography>
         <CloseIcon
           className={rpStyles.closeIcon}
           onClick={props.closeDetailsPanel}

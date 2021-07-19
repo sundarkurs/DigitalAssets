@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import PageSettings from "./Settings/PageSettings";
 import AppSection from "../components/UI/AppSection";
 import AssetTypesList from "../components/AssetTypes/List/AssetTypesList";
-import CreateAssetType from "../components/AssetTypes/Create/CreateAssetType";
 import EditAssetType from "../components/AssetTypes/Edit/EditAssetType";
 import DisableAssetType from "../components/AssetTypes/Disable/DisableAssetType";
 import AssetTypeActions from "../components/AssetTypes/Actions/AssetTypeActions";
@@ -23,11 +22,6 @@ const AssetTypes = (props) => {
   const [panelOpen, setPanelOpen] = useState(false);
   const [mode, setMode] = useState("");
   const [assetType, setAssetType] = useState({});
-
-  const onAddHandler = () => {
-    setPanelOpen(true);
-    setMode("add");
-  };
 
   const onEditHandler = (assetType) => {
     setAssetType(assetType);
@@ -56,7 +50,7 @@ const AssetTypes = (props) => {
       <Box display="flex">
         <Box className={panelOpen ? classes.lessWidth : classes.fullWidth}>
           <AppSection>
-            <AssetTypeActions onAdd={onAddHandler} />
+            <AssetTypeActions />
             <Divider className={styles.divider} />
             <AssetTypesList
               onEdit={onEditHandler}
@@ -68,11 +62,6 @@ const AssetTypes = (props) => {
         {panelOpen && (
           <Box className={classes.addOnPanel}>
             <AppSection>
-              {mode === "add" && (
-                <CreateAssetType
-                  closeDetailsPanel={closeDetailsPanelHandler}
-                ></CreateAssetType>
-              )}
               {mode === "edit" && (
                 <EditAssetType
                   assetType={assetType}
