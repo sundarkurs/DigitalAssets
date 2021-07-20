@@ -176,7 +176,7 @@ const Explorer = (props) => {
   }
 
   return (
-    <PageSettings title={`Folder Explorer`}>
+    <PageSettings title={`${params.assetTypeCode} Explorer`}>
       <AppSection>
         <ExplorerActions onAddAsset={onAddAssetHandler}></ExplorerActions>
         <Divider className={styles.divider} />
