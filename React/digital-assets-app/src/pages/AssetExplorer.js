@@ -13,6 +13,8 @@ import BreadcrumbMenu from "../components/Explorer/BreadcrumbMenu";
 import axios from "../store/DbContext/assets-db-context";
 import AppDetailDrawer from "../components/UI/AppDetailDrawer";
 import { makeStyles } from "@material-ui/core/styles";
+import ExplorerActions from "../components/Explorer/ExplorerActions";
+import CreateAsset from "../components/Assets/Create/CreateAsset";
 
 const useStyles = makeStyles((theme) => ({
   divider: {
@@ -91,6 +93,7 @@ const AssetExplorer = (props) => {
     setActionFolder(folder);
     setMode("rename-folder");
   };
+
   const onDeleteFolderHandler = (folder) => {
     setShowDrawer(false);
     setActionFolder(folder);
@@ -115,6 +118,11 @@ const AssetExplorer = (props) => {
     setShowDrawer(open);
   };
 
+  const onAddAssetHandler = (folder) => {
+    setShowDrawer(true);
+    setMode("add-asset");
+  };
+
   var drawerContent = "";
   if (showDrawer) {
     if (mode === "add-folder") {
@@ -136,12 +144,23 @@ const AssetExplorer = (props) => {
           refreshFolders={refreshFoldersHandler}
         ></RenameFolder>
       );
+    } else if (mode === "add-asset") {
+      drawerContent = (
+        <CreateAsset
+          parentId={folderInfo.folder.id}
+          assetType={folderInfo.folder.assetType}
+          closeDetailsPanel={closeDetailsPanelHandler}
+          refreshFolders={refreshFoldersHandler}
+        ></CreateAsset>
+      );
     }
   }
 
   return (
     <PageSettings title={`Folder Explorer`}>
       <AppSection>
+        <ExplorerActions onAddAsset={onAddAssetHandler}></ExplorerActions>
+        <Divider className={styles.divider} />
         <FoldersList
           parent={folderInfo.parent}
           childrens={folderInfo.childrens}
