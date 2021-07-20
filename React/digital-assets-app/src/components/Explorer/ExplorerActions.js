@@ -1,8 +1,7 @@
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
-import ImportExportIcon from "@material-ui/icons/ImportExport";
-
+import AddBoxIcon from "@material-ui/icons/AddBox";
 const useStyles = makeStyles((theme) => ({
   button: {
     marginRight: theme.spacing(1),
@@ -18,7 +17,7 @@ const ExplorerActions = (props) => {
         color="primary"
         className={styles.button}
         onClick={props.onAddAsset}
-        startIcon={<ImportExportIcon />}
+        startIcon={<AddBoxIcon />}
       >
         Add asset
       </Button>
