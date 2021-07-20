@@ -30,6 +30,7 @@ const AssetExplorer = (props) => {
   const history = useHistory();
   const params = useParams();
 
+  console.log(props.createAsset);
   const [showDrawer, setShowDrawer] = useState(false);
   const [mode, setMode] = useState("");
 
@@ -107,7 +108,7 @@ const AssetExplorer = (props) => {
       <AssetsList assets={assets}></AssetsList>
       <AppDetailDrawer
         drawerClass={styles.drawer}
-        show={showDrawer}
+        show={props.createAsset}
         onClose={() => toggleDrawer(false)}
       >
         {drawerContent}

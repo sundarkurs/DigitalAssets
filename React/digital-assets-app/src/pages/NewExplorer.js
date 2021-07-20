@@ -40,7 +40,11 @@ const NewExplorer = (props) => {
   const params = useParams();
 
   const [currentFolderId, setCurrentFolderId] = useState(params.folderId);
-  
+  const [createAsset, setCreateAsset] = useState(false);
+
+  const onAddAssetHandler = (folder) => {
+    setCreateAsset(true);
+  };
 
   return (
     <PageSettings title={`${params.assetTypeCode} Explorer`}>
@@ -49,7 +53,7 @@ const NewExplorer = (props) => {
         <Divider className={styles.divider} />
         <FolderExplorer></FolderExplorer>
         <div style={{ paddingTop: 50 }}></div>
-        <AssetExplorer></AssetExplorer>
+        <AssetExplorer createAsset={createAsset}></AssetExplorer>
       </AppSection>
     </PageSettings>
   );
