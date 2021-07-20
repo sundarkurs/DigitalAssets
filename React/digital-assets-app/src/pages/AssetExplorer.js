@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { useHistory, useLocation } from "react-router-dom";
-
 import Divider from "@material-ui/core/Divider";
-import Box from "@material-ui/core/Box";
-
 import PageSettings from "./Settings/PageSettings";
 import AppSection from "../components/UI/AppSection";
 import AssetsList from "../components/Assets/AssetsList";
@@ -13,14 +10,26 @@ import CreateFolder from "../components/Folders/Create/CreateFolder";
 import RenameFolder from "../components/Folders/Rename/RenameFolder";
 import DeleteFolder from "../components/Folders/Delete/DeleteFolder";
 import BreadcrumbMenu from "../components/Explorer/BreadcrumbMenu";
-import classes from "./AssetExplorer.module.css";
 import axios from "../store/DbContext/assets-db-context";
+import AppDetailDrawer from "../components/UI/AppDetailDrawer";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  divider: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+  },
+  drawer: {
+    width: "400px",
+  },
+}));
 
 const AssetExplorer = (props) => {
+  const styles = useStyles();
   const history = useHistory();
   const params = useParams();
 
-  const [panelOpen, setPanelOpen] = useState(false);
+  const [showDrawer, setShowDrawer] = useState(false);
   const [mode, setMode] = useState("");
 
   const [currentFolderId, setCurrentFolderId] = useState(params.folderId);
@@ -62,7 +71,7 @@ const AssetExplorer = (props) => {
 
   const closeDetailsPanelHandler = () => {
     setMode("");
-    setPanelOpen(false);
+    setShowDrawer(false);
   };
 
   const onOpenFolderHandler = (folder) => {
@@ -73,24 +82,24 @@ const AssetExplorer = (props) => {
   };
 
   const onAddFolderHandler = (folder) => {
-    setPanelOpen(true);
+    setShowDrawer(true);
     setMode("add-folder");
   };
 
   const onRenameFolderHandler = (folder) => {
-    setPanelOpen(true);
+    setShowDrawer(true);
     setActionFolder(folder);
     setMode("rename-folder");
   };
   const onDeleteFolderHandler = (folder) => {
-    setPanelOpen(false);
+    setShowDrawer(false);
     setActionFolder(folder);
     setMode("delete-folder");
   };
 
   const onDeleteEndHandler = () => {
     setMode("");
-    setPanelOpen(false);
+    setShowDrawer(false);
     refreshFoldersHandler();
   };
 
@@ -102,47 +111,57 @@ const AssetExplorer = (props) => {
     getAssets(currentFolderId);
   };
 
+  const toggleDrawer = (open) => {
+    setShowDrawer(open);
+  };
+
+  var drawerContent = "";
+  if (showDrawer) {
+    if (mode === "add-folder") {
+      drawerContent = (
+        <CreateFolder
+          parentId={folderInfo.folder.id}
+          assetType={folderInfo.folder.assetType}
+          closeDetailsPanel={closeDetailsPanelHandler}
+          refreshFolders={refreshFoldersHandler}
+        ></CreateFolder>
+      );
+    } else if (mode === "rename-folder") {
+      drawerContent = (
+        <RenameFolder
+          folder={actionFolder}
+          parentId={folderInfo.folder.id}
+          assetType={folderInfo.folder.assetType}
+          closeDetailsPanel={closeDetailsPanelHandler}
+          refreshFolders={refreshFoldersHandler}
+        ></RenameFolder>
+      );
+    }
+  }
+
   return (
     <PageSettings title={`Folder Explorer`}>
-      <Box display="flex">
-        <Box className={panelOpen ? classes.lessWidth : classes.fullWidth}>
-          <AppSection>
-            <FoldersList
-              parent={folderInfo.parent}
-              childrens={folderInfo.childrens}
-              onOpenFolder={onOpenFolderHandler}
-              onAddFolder={onAddFolderHandler}
-              onRenameFolder={onRenameFolderHandler}
-              onDeleteFolder={onDeleteFolderHandler}
-            ></FoldersList>
-            <div style={{ paddingTop: 50 }}></div>
-            <AssetsList assets={assets}></AssetsList>
-          </AppSection>
-        </Box>
-        {panelOpen && (
-          <Box className={classes.addOnPanel}>
-            <AppSection>
-              {mode === "add-folder" && (
-                <CreateFolder
-                  parentId={folderInfo.folder.id}
-                  assetType={folderInfo.folder.assetType}
-                  closeDetailsPanel={closeDetailsPanelHandler}
-                  refreshFolders={refreshFoldersHandler}
-                ></CreateFolder>
-              )}
-              {mode === "rename-folder" && (
-                <RenameFolder
-                  folder={actionFolder}
-                  parentId={folderInfo.folder.id}
-                  assetType={folderInfo.folder.assetType}
-                  closeDetailsPanel={closeDetailsPanelHandler}
-                  refreshFolders={refreshFoldersHandler}
-                ></RenameFolder>
-              )}
-            </AppSection>
-          </Box>
-        )}
-      </Box>
+      <AppSection>
+        <FoldersList
+          parent={folderInfo.parent}
+          childrens={folderInfo.childrens}
+          onOpenFolder={onOpenFolderHandler}
+          onAddFolder={onAddFolderHandler}
+          onRenameFolder={onRenameFolderHandler}
+          onDeleteFolder={onDeleteFolderHandler}
+        ></FoldersList>
+        <div style={{ paddingTop: 50 }}></div>
+        <AssetsList assets={assets}></AssetsList>
+      </AppSection>
+
+      <AppDetailDrawer
+        drawerClass={styles.drawer}
+        show={showDrawer}
+        onClose={() => toggleDrawer(false)}
+      >
+        {drawerContent}
+      </AppDetailDrawer>
+
       {mode === "delete-folder" && (
         <DeleteFolder folder={actionFolder} onDeleteEnd={onDeleteEndHandler} />
       )}

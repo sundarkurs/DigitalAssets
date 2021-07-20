@@ -47,20 +47,25 @@ const AssetTypes = (props) => {
     setShowDrawer(false);
   };
 
-  const toggleDrawer = (open) => (event) => {
-    if (
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
-      return;
-    }
-
+  const toggleDrawer = (open) => {
     setShowDrawer(open);
   };
 
   const onExportHandler = () => {
     setShowDrawer(true);
   };
+
+  var drawerContent = "";
+  if (showDrawer) {
+    if (mode === "edit") {
+      drawerContent = (
+        <EditAssetType
+          assetType={assetType}
+          closeDetailsPanel={closeDetailsPanelHandler}
+        ></EditAssetType>
+      );
+    }
+  }
 
   return (
     <PageSettings title="Asset Types">
@@ -81,12 +86,7 @@ const AssetTypes = (props) => {
         show={showDrawer}
         onClose={() => toggleDrawer(false)}
       >
-        {mode === "edit" && (
-          <EditAssetType
-            assetType={assetType}
-            closeDetailsPanel={closeDetailsPanelHandler}
-          ></EditAssetType>
-        )}
+        {drawerContent}
       </AppDetailDrawer>
     </PageSettings>
   );
