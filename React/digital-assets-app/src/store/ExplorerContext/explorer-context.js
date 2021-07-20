@@ -2,11 +2,13 @@ import React from "react";
 
 const ExplorerContext = React.createContext({
   openDrawer: false,
-  setDrawer: (open) => {},
   actionType: "",
-  setActionType: (action) => {},
   selectedFolder: {},
-  setSelectedFolder: (folder) => {},
+  closeDrawer: () => {},
+  addFolder: () => {},
+  renameFolder: (folder) => {},
+  deleteFolder: (folder) => {},
+  addAsset: () => {},
 });
 
 export default ExplorerContext;

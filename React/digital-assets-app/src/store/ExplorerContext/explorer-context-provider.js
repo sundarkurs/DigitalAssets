@@ -6,27 +6,44 @@ export const ExplorerContextProvider = (props) => {
   const [actionType, setActionType] = useState("");
   const [selectedFolder, setSelectedFolder] = useState({});
 
-  const setDrawerHandler = (open) => {
-    setOpenDrawer(open);
+  const closeDrawerHandler = () => {
+    setActionType("");
+    setOpenDrawer(false);
   };
 
-  const setActionTypeHandler = (action) => {
-    setActionType(action);
+  const addFolderHandler = () => {
+    setActionType("add-folder");
+    setOpenDrawer(true);
   };
 
-  const setSelectedFolderHandler = (folder) => {
+  const renameFolderHandler = (folder) => {
+    setActionType("rename-folder");
     setSelectedFolder(folder);
+    setOpenDrawer(true);
+  };
+
+  const deleteFolderHandler = (folder) => {
+    setActionType("delete-folder");
+    setSelectedFolder(folder);
+    setOpenDrawer(false);
+  };
+
+  const addAssetHandler = () => {
+    setActionType("add-asset");
+    setOpenDrawer(true);
   };
 
   return (
     <ExplorerContext.Provider
       value={{
         openDrawer: openDrawer,
-        setDrawer: setDrawerHandler,
         actionType: actionType,
-        setActionType: setActionTypeHandler,
         selectedFolder: selectedFolder,
-        setSelectedFolder: setSelectedFolderHandler,
+        closeDrawer: closeDrawerHandler,
+        addFolder: addFolderHandler,
+        renameFolder: renameFolderHandler,
+        deleteFolder: deleteFolderHandler,
+        addAsset: addAssetHandler,
       }}
     >
       {props.children}

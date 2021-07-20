@@ -8,10 +8,12 @@ import CloseIcon from "@material-ui/icons/Close";
 import { Typography } from "@material-ui/core";
 import axios from "../../../store/DbContext/assets-db-context";
 import useShowMessage from "../../../hooks/use-show-message";
+import ExplorerContext from "../../../store/ExplorerContext/explorer-context";
 
 let IS_FORM_VALID = true;
 
 const RenameFolder = (props) => {
+  const explorerCtx = useContext(ExplorerContext);
   const rpStyles = useRightPanelStyles();
   const { showSuccess, showError, showApiError } = useShowMessage();
   const [name, setName] = useState(props.folder?.name);
@@ -58,10 +60,7 @@ const RenameFolder = (props) => {
     <form onSubmit={submitHandler}>
       <Box display="flex" className={rpStyles.toolbar}>
         <Typography variant="h6">Rename folder</Typography>
-        <CloseIcon
-          className={rpStyles.closeIcon}
-          onClick={props.closeDetailsPanel}
-        />
+        <CloseIcon className={rpStyles.closeIcon} onClick={explorerCtx.closeDrawer} />
       </Box>
       <Divider className={rpStyles.divider}></Divider>
       <Box mt={2} display="flex" className={rpStyles.content}>

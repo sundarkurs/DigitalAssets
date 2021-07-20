@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
@@ -14,19 +14,14 @@ import IconButton from "@material-ui/core/IconButton";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import FolderOptionsMenu from "../FolderOptionsMenu";
 import useFolderCardStyles from "./folder-card-styles";
+import ExplorerContext from "../../../store/ExplorerContext/explorer-context";
+import Folder from "@material-ui/icons/Folder";
 
 const FolderCard = (props) => {
+  const explorerCtx = useContext(ExplorerContext);
   const classes = useFolderCardStyles();
 
-  const {
-    isBack,
-    isFolder,
-    isNew,
-    folder,
-    onFolderClick,
-    onRenameFolder,
-    onDeleteFolder,
-  } = props;
+  const { isBack, isFolder, isNew, folder, onFolderClick } = props;
 
   const subHeader = () => {
     if (isFolder) {
@@ -50,12 +45,12 @@ const FolderCard = (props) => {
 
   const onRenameFolderHandler = () => {
     setMoreOptionsEl(null);
-    onRenameFolder();
+    explorerCtx.renameFolder(folder);
   };
 
   const onDeleteFolderHandler = () => {
     setMoreOptionsEl(null);
-    onDeleteFolder();
+    explorerCtx.deleteFolder(folder);
   };
 
   return (

@@ -14,10 +14,12 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import { makeStyles } from "@material-ui/core/styles";
+import ExplorerContext from "../../../store/ExplorerContext/explorer-context";
 
 let IS_FORM_VALID = true;
 
 const CreateAssetProductImage = (props) => {
+  const explorerCtx = useContext(ExplorerContext);
   const rpStyles = useRightPanelStyles();
   const { showSuccess, showError, showApiError } = useShowMessage();
   const [name, setName] = useState("");
@@ -111,7 +113,7 @@ const CreateAssetProductImage = (props) => {
         <Typography variant="h6">Create product image</Typography>
         <CloseIcon
           className={rpStyles.closeIcon}
-          onClick={props.closeDetailsPanel}
+          onClick={explorerCtx.closeDrawer}
         />
       </Box>
       <Divider className={rpStyles.divider}></Divider>

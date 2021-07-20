@@ -1,9 +1,11 @@
-import { Fragment } from "react";
+import { Fragment, useContext } from "react";
 import FolderCard from "../Card/FolderCard";
 import Grid from "@material-ui/core/Grid";
 import uuid from "react-uuid";
+import ExplorerContext from "../../../store/ExplorerContext/explorer-context";
 
 const FoldersList = (props) => {
+  const explorerCtx = useContext(ExplorerContext);
   const { childrens, parent } = props;
 
   var listItems = [];
@@ -15,7 +17,7 @@ const FoldersList = (props) => {
         <FolderCard
           isNew={true}
           folder={newFolder}
-          onFolderClick={props.onAddFolder}
+          onFolderClick={explorerCtx.addFolder}
         ></FolderCard>
       </Grid>
     );
@@ -42,8 +44,6 @@ const FoldersList = (props) => {
               isFolder={true}
               folder={folder}
               onFolderClick={() => props.onOpenFolder(folder)}
-              onRenameFolder={() => props.onRenameFolder(folder)}
-              onDeleteFolder={() => props.onDeleteFolder(folder)}
             ></FolderCard>
           </Grid>
         );

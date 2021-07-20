@@ -8,10 +8,12 @@ import CloseIcon from "@material-ui/icons/Close";
 import { Typography } from "@material-ui/core";
 import axios from "../../../store/DbContext/assets-db-context";
 import useShowMessage from "../../../hooks/use-show-message";
+import ExplorerContext from "../../../store/ExplorerContext/explorer-context";
 
 let IS_FORM_VALID = true;
 
 const CreateFolder = (props) => {
+  const explorerCtx = useContext(ExplorerContext);
   const rpStyles = useRightPanelStyles();
   const { showSuccess, showError, showApiError } = useShowMessage();
   const [name, setName] = useState("");
@@ -65,7 +67,7 @@ const CreateFolder = (props) => {
         <Typography variant="h6">Create new folder</Typography>
         <CloseIcon
           className={rpStyles.closeIcon}
-          onClick={props.closeDetailsPanel}
+          onClick={explorerCtx.closeDrawer}
         />
       </Box>
       <Divider className={rpStyles.divider}></Divider>
