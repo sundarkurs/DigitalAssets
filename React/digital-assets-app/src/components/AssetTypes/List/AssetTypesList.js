@@ -13,8 +13,12 @@ const AssetTypesList = (props) => {
   const appCtx = useContext(AppContext);
 
   const onExploreHandler = (assetType) => {
-    var path = `${location.pathname}/${assetType.code.toLowerCase()}/${assetType.rootFolderId}`;
-    history.push(path);
+    if (!assetType.disabled) {
+      var path = `${location.pathname}/${assetType.code.toLowerCase()}/${
+        assetType.rootFolderId
+      }`;
+      history.push(path);
+    }
   };
 
   var assetTypeCards = [];

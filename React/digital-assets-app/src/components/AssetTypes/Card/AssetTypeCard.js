@@ -31,44 +31,46 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AssetTypeCard(props) {
   const styles = useStyles();
-
+  const { assetType } = props;
   return (
     <Card elevation={10}>
-      <CardActionArea onClick={() => props.onExplore(props.assetType)}>
+      <CardActionArea onClick={() => props.onExplore(assetType)}>
         <CardHeader
           avatar={
             <Avatar aria-label="recipe" className={styles.avatar}>
-              {getAvatarText(props.assetType.name)}
+              {getAvatarText(assetType.name)}
             </Avatar>
           }
           title={
             <Typography variant="h5" color="textSecondary" component="h2">
-              {props.assetType.name}
+              {assetType.name}
             </Typography>
           }
-          subheader={props.assetType.code}
+          subheader={assetType.code}
         />
 
         <CardMedia
           component="img"
-          alt={props.assetType.name}
+          alt={assetType.name}
           height="140"
-          image={`${window.location.origin}${props.assetType.imageUrl}`}
-          title={props.assetType.name}
+          image={`${window.location.origin}${assetType.imageUrl}`}
+          title={assetType.name}
         />
         <CardContent>
           <Typography variant="body2" color="textSecondary" component="p">
-            {props.assetType.description}
+            {assetType.description}
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions disableSpacing className={classes.actions}>
         <Button size="small" color="secondary" onClick={props.onDisable}>
-          Disable
+          {assetType.disabled ? "Enable" : "Disable"}
         </Button>
-        <Button size="small" color="default" onClick={props.onEdit}>
-          Edit
-        </Button>
+        {!assetType.disabled && (
+          <Button size="small" color="default" onClick={props.onEdit}>
+            Edit
+          </Button>
+        )}
       </CardActions>
     </Card>
   );

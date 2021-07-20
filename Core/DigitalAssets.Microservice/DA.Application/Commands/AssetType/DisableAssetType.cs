@@ -17,6 +17,7 @@ namespace DA.Application.Commands.AssetType
         public class Command : IRequest<Response<bool>>
         {
             public int Id { get; set; }
+            public bool Disable { get; set; }
         }
 
         public class Handler : IRequestHandler<Command, Response<bool>>
@@ -39,7 +40,7 @@ namespace DA.Application.Commands.AssetType
                     throw new ApiException($"Asset type not found.");
                 }
 
-                assetType.Disabled = true;
+                assetType.Disabled = request.Disable;
                 await _assetTypeRepository.UpdateAsync(assetType);
 
                 return new Response<bool>(true);

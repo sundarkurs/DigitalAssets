@@ -7,8 +7,6 @@ import DisableAssetType from "../components/AssetTypes/Disable/DisableAssetType"
 import AssetTypeActions from "../components/AssetTypes/Actions/AssetTypeActions";
 import Divider from "@material-ui/core/Divider";
 import { makeStyles } from "@material-ui/core/styles";
-import { Typography } from "@material-ui/core";
-import Drawer from "@material-ui/core/Drawer";
 import AppDetailDrawer from "../components/UI/AppDetailDrawer";
 
 const useStyles = makeStyles((theme) => ({
@@ -25,7 +23,7 @@ const AssetTypes = (props) => {
   const styles = useStyles();
   const [mode, setMode] = useState("");
   const [assetType, setAssetType] = useState({});
-  const [showDrawer, setShowDrawer] = React.useState(false);
+  const [showDrawer, setShowDrawer] = useState(false);
 
   const onEditHandler = (assetType) => {
     setAssetType(assetType);

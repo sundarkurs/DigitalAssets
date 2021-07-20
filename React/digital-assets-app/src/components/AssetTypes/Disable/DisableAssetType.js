@@ -17,14 +17,22 @@ const DisableAssetType = (props) => {
   const nameRef = useRef(null);
   const { showSuccess, showError, showApiError } = useShowMessage();
   const appCtx = useContext(AppContext);
+  const { assetType } = props;
+
+  const actionText = assetType.disabled ? "Enable" : "Disable";
 
   const onDisableConfirmHandler = () => {
-    if (props.assetType.name === nameRef.current.value) {
+    if (assetType.name === nameRef.current.value) {
+      var apiPath = `/AssetType/${assetType.id}/disable`;
+      if (assetType.disabled) {
+        apiPath = `/AssetType/${assetType.id}/enable`;
+      }
+
       axios
-        .put(`/AssetType/${props.assetType.id}/disable`)
+        .put(apiPath)
         .then((response) => {
           showSuccess(
-            `Asset type "${props.assetType.name}" disabled successfully.`
+            `Asset type "${assetType.name}" ${actionText}d successfully.`
           );
           appCtx.resetAssetTypes();
           props.onDisableEnd();
@@ -49,13 +57,12 @@ const DisableAssetType = (props) => {
       onClose={onCloseHandler}
       aria-labelledby="form-dialog-title"
     >
-      <DialogTitle id="form-dialog-title">Disable asset type</DialogTitle>
+      <DialogTitle id="form-dialog-title">{actionText} asset type</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          This will disable the{" "}
-          <b>{props.assetType.name}</b> asset type.
+          This will {actionText} the <b>{assetType.name}</b> asset type.
           <p>
-            Please type <b>{props.assetType.name}</b> to confirm.
+            Please type <b>{assetType.name}</b> to confirm.
           </p>
         </DialogContentText>
         <TextField
@@ -78,7 +85,7 @@ const DisableAssetType = (props) => {
           Cancel
         </Button>
         <Button onClick={onDisableConfirmHandler} color="secondary">
-          Disable
+          {actionText}
         </Button>
       </DialogActions>
     </Dialog>

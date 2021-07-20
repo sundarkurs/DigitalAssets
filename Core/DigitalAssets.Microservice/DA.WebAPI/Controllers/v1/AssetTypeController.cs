@@ -54,7 +54,14 @@ namespace DA.WebAPI.Controllers.v1
         [HttpPut("{id}/disable")]
         public async Task<IActionResult> DisableAsync(int id)
         {
-            var response = await Mediator.Send(new DisableAssetType.Command { Id = id });
+            var response = await Mediator.Send(new DisableAssetType.Command { Id = id, Disable = true });
+            return Ok(response);
+        }
+
+        [HttpPut("{id}/enable")]
+        public async Task<IActionResult> EnableAsync(int id)
+        {
+            var response = await Mediator.Send(new DisableAssetType.Command { Id = id, Disable = false });
             return Ok(response);
         }
     }
