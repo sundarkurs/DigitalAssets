@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AssetExplorer = (props) => {
+const Explorer = (props) => {
   const styles = useStyles();
   const history = useHistory();
   const params = useParams();
@@ -205,4 +205,4 @@ const AssetExplorer = (props) => {
   );
 };
 
-export default AssetExplorer;
+export default Explorer;

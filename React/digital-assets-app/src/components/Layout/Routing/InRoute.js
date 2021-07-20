@@ -5,7 +5,7 @@ import Profile from "../../../pages/Profile";
 import MySettings from "../../../pages/MySettings";
 import NotFound from "../../../pages/NotFound";
 import AssetTypes from "../../../pages/AssetTypes";
-import AssetExplorer from "../../../pages/AssetExplorer";
+import Explorer from "../../../pages/Explorer";
 
 const InRoute = () => {
   return (
@@ -20,7 +20,7 @@ const InRoute = () => {
         <AssetTypes />
       </Route>
       <Route path="/asset-types/:assetTypeCode/:folderId">
-        <AssetExplorer />
+        <Explorer />
       </Route>
       <Route path="/profile" exact>
         <Profile />
