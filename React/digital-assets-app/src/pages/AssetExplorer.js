@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from "react";
-import BreadcrumbMenu from "../components/Explorer/BreadcrumbMenu";
+import { useParams } from "react-router";
+import { useHistory, useLocation } from "react-router-dom";
+
+import Divider from "@material-ui/core/Divider";
+import Box from "@material-ui/core/Box";
+
 import PageSettings from "./Settings/PageSettings";
 import AppSection from "../components/UI/AppSection";
-import Divider from "@material-ui/core/Divider";
-import { useParams } from "react-router";
-import AssetsList from "../components/Explorer/Assets/AssetsList";
-import FoldersList from "../components/Explorer/Folders/List/FoldersList";
+import AssetsList from "../components/Assets/AssetsList";
+import FoldersList from "../components/Folders/List/FoldersList";
+import CreateFolder from "../components/Folders/Create/CreateFolder";
+import RenameFolder from "../components/Folders/Rename/RenameFolder";
+import DeleteFolder from "../components/Folders/Delete/DeleteFolder";
+import BreadcrumbMenu from "../components/Explorer/BreadcrumbMenu";
 import classes from "./AssetExplorer.module.css";
 import axios from "../store/DbContext/assets-db-context";
-import { useHistory, useLocation } from "react-router-dom";
-import Box from "@material-ui/core/Box";
-import CreateFolder from "../components/Explorer/Folders/Create/CreateFolder";
-import RenameFolder from "../components/Explorer/Folders/Rename/RenameFolder";
-import DeleteFolder from "../components/Explorer/Folders/Delete/DeleteFolder";
 
 const AssetExplorer = (props) => {
   const history = useHistory();

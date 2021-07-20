@@ -7,7 +7,7 @@ import Avatar from "@material-ui/core/Avatar";
 import CardHeader from "@material-ui/core/CardHeader";
 import FolderIcon from "@material-ui/icons/Folder";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import FolderImage from "../../../../media/folder-image.png";
+import FolderImage from "../../../media/folder-image.png";
 import CreateNewFolderIcon from "@material-ui/icons/CreateNewFolder";
 import moment from "moment";
 import IconButton from "@material-ui/core/IconButton";

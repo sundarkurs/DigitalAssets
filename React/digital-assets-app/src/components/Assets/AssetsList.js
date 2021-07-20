@@ -2,7 +2,7 @@ import { Fragment, useContext } from "react";
 import AssetCard from "./AssetCard";
 import Grid from "@material-ui/core/Grid";
 import { useHistory, useLocation } from "react-router";
-import AppContext from "../../../store/AppContext/app-context";
+import AppContext from "../../store/AppContext/app-context";
 
 const AssetsList = (props) => {
   const history = useHistory();
