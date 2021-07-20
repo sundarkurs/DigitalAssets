@@ -17,6 +17,7 @@ const AssetTypeActions = (props) => {
         variant="contained"
         color="default"
         className={styles.button}
+        onClick={props.onExport}
         startIcon={<ImportExportIcon />}
       >
         Export

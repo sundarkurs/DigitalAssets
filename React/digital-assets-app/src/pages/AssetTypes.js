@@ -9,11 +9,19 @@ import Box from "@material-ui/core/Box";
 import Divider from "@material-ui/core/Divider";
 import classes from "./AssetTypes.module.css";
 import { makeStyles } from "@material-ui/core/styles";
+import { Typography } from "@material-ui/core";
+import Drawer from "@material-ui/core/Drawer";
 
 const useStyles = makeStyles((theme) => ({
   divider: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
+  },
+  list: {
+    width: 250,
+  },
+  fullList: {
+    width: "auto",
   },
 }));
 
@@ -45,12 +53,29 @@ const AssetTypes = (props) => {
     setPanelOpen(false);
   };
 
+  ///////////////
+  const [showDrawer, setShowDrawer] = React.useState(false);
+  const toggleDrawer = (open) => (event) => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+
+    setShowDrawer(open);
+  };
+
+  const onExportHandler = () => {
+    setShowDrawer(true);
+  };
+
   return (
     <PageSettings title="Asset Types">
       <Box display="flex">
         <Box className={panelOpen ? classes.lessWidth : classes.fullWidth}>
           <AppSection>
-            <AssetTypeActions />
+            <AssetTypeActions onExport={onExportHandler} />
             <Divider className={styles.divider} />
             <AssetTypesList
               onEdit={onEditHandler}
@@ -78,6 +103,13 @@ const AssetTypes = (props) => {
           onDisableEnd={onDisableEndHandler}
         />
       )}
+      <Drawer anchor={"right"} open={showDrawer} onClose={toggleDrawer(false)}>
+        <div role="presentation">
+          <Typography>
+            Content goes here sdf.. Content goes here sdf..
+          </Typography>
+        </div>
+      </Drawer>
     </PageSettings>
   );
 };
