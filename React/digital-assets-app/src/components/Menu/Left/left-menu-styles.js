@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const drawerWidth = 240;
 
-const useStyles = makeStyles((theme) => ({
+const useLeftMenuStyles = makeStyles((theme) => ({
   toolbarIcon: {
     display: "flex",
     alignItems: "center",
@@ -32,7 +32,8 @@ const useStyles = makeStyles((theme) => ({
   },
   logoText: {
     color: "#61dafb;",
+    paddingLeft: 10
   },
 }));
 
-export default useStyles;
+export default useLeftMenuStyles;

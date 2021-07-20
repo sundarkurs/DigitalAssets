@@ -5,13 +5,13 @@ import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import { primaryMenuItems } from "../Items/PrimaryMenuItems"
+import { primaryMenuItems } from "../Items/PrimaryMenuItems";
 import { secondaryMenuItems } from "../Items/SecondaryMenuItems";
 import { Typography } from "@material-ui/core";
-import useStyles from "./LeftMenuStyles";
+import useLeftMenuStyles from "./left-menu-styles";
 
 const LeftMenu = (props) => {
-  const classes = useStyles();
+  const classes = useLeftMenuStyles();
 
   return (
     <Drawer
@@ -25,7 +25,11 @@ const LeftMenu = (props) => {
       open={props.menuDrawerOpen}
     >
       <div className={classes.toolbarIcon}>
-        <Typography className={classes.logoText} variant="h4" color="textSecondary">
+        <Typography
+          className={classes.logoText}
+          variant="h4"
+          color="textSecondary"
+        >
           assets
         </Typography>
         <IconButton onClick={props.onDrawerClose}>
