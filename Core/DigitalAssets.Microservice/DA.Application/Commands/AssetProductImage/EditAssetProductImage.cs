@@ -6,6 +6,7 @@ using DA.Application.Interfaces.Repositories;
 using DA.Application.Wrappers;
 using FluentValidation;
 using MediatR;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -38,6 +39,9 @@ namespace DA.Application.Commands.AssetProductImage
                 {
                     throw new ApiException($"Asset not found.");
                 }
+
+                asset.UpdatedBy = "Sundar Urs";
+                asset.UpdatedOn = DateTime.UtcNow;
 
                 await _assetRepository.UpdateAsync(asset);
 

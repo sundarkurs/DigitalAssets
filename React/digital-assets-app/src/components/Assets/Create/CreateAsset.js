@@ -23,10 +23,12 @@ const CreateAsset = (props) => {
   const [name, setName] = useState("");
   const [country, setCountry] = useState("");
   const [language, setLanguage] = useState("");
+  const [abstract, setAbstract] = useState("");
 
   const [nameValid, setNameValid] = useState(true);
   const [countryValid, setCountryValid] = useState(true);
   const [languageValid, setLanguageValid] = useState(true);
+  const [abstractValid, setAbstractValid] = useState(true);
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -35,11 +37,24 @@ const CreateAsset = (props) => {
       return;
     }
 
-    const newFolder = {
+    const newAsset = {
       name: name,
-      parentId: props.parentId,
-      assetType: props.assetType,
+      countryCode: country,
+      languageCode: language,
+      folderId: props.folderId,
+      abstract: abstract,
     };
+
+    axios
+      .post("/Image", newAsset)
+      .then((response) => {
+        showSuccess(`Asset "${name}" created successfully.`);
+        setName("");
+        props.refreshAssets();
+      })
+      .catch((error) => {
+        showApiError(error);
+      });
   };
 
   const vlaidateForm = () => {
@@ -50,6 +65,27 @@ const CreateAsset = (props) => {
       setNameValid(false);
     } else {
       setNameValid(true);
+    }
+
+    if (country.trim().length === 0) {
+      IS_FORM_VALID = false;
+      setCountryValid(false);
+    } else {
+      setCountryValid(true);
+    }
+
+    if (language.trim().length === 0) {
+      IS_FORM_VALID = false;
+      setLanguageValid(false);
+    } else {
+      setLanguageValid(true);
+    }
+
+    if (abstract.trim().length === 0) {
+      IS_FORM_VALID = false;
+      setAbstractValid(false);
+    } else {
+      setAbstractValid(true);
     }
   };
 
@@ -72,7 +108,7 @@ const CreateAsset = (props) => {
       <Box mt={2} display="flex" className={rpStyles.content}>
         <TextField
           className={rpStyles.inputs}
-          id="name"
+          id="txtName"
           variant="outlined"
           label="Name"
           value={name}
@@ -80,15 +116,14 @@ const CreateAsset = (props) => {
           error={!nameValid}
         />
         <FormControl variant="outlined" className={rpStyles.inputs}>
-          <InputLabel id="demo-simple-select-outlined-label">
-            Country
-          </InputLabel>
+          <InputLabel id="lblCountry">Country</InputLabel>
           <Select
-            labelId="demo-simple-select-outlined-label"
-            id="demo-simple-select-outlined"
+            labelId="lblCountry"
+            id="ddlCountry"
             value={country}
             onChange={(e) => setCountry(e.target.value)}
             label="Country"
+            error={!countryValid}
           >
             <MenuItem value="">
               <em>Select</em>
@@ -98,23 +133,30 @@ const CreateAsset = (props) => {
           </Select>
         </FormControl>
         <FormControl variant="outlined" className={rpStyles.inputs}>
-          <InputLabel id="demo-simple-select-outlined-label">
-            Language
-          </InputLabel>
+          <InputLabel id="lblLanguage">Language</InputLabel>
           <Select
-            labelId="demo-simple-select-outlined-label"
-            id="demo-simple-select-outlined"
+            labelId="lblLanguage"
+            id="ddlLanguage"
             value={language}
             onChange={(e) => setLanguage(e.target.value)}
             label="Language"
+            error={!languageValid}
           >
             <MenuItem value="">
               <em>Select</em>
             </MenuItem>
             <MenuItem value="EN">English</MenuItem>
-            <MenuItem value="UE">US English</MenuItem>
           </Select>
         </FormControl>
+        <TextField
+          className={rpStyles.inputs}
+          id="txtAbstract"
+          variant="outlined"
+          label="Abstract"
+          value={abstract}
+          onChange={(e) => setAbstract(e.target.value)}
+          error={!abstractValid}
+        />
         <Button
           type="submit"
           variant="contained"

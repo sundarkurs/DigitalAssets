@@ -4,6 +4,7 @@ using DA.Application.Interfaces.Repositories;
 using DA.Application.Wrappers;
 using FluentValidation;
 using MediatR;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -30,6 +31,9 @@ namespace DA.Application.Commands.AssetImage
             public async Task<Response<AssetImageDto>> Handle(Command request, CancellationToken cancellationToken)
             {
                 var asset = _mapper.Map<Domain.Models.AssetImage>(request.Asset);
+
+                asset.UpdatedBy = "Sundar Urs";
+                asset.UpdatedOn = DateTime.UtcNow;
 
                 var response = await _assetRepository.AddAsync(asset);
 

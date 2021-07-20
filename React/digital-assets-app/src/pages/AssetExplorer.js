@@ -138,7 +138,6 @@ const AssetExplorer = (props) => {
       drawerContent = (
         <RenameFolder
           folder={actionFolder}
-          parentId={folderInfo.folder.id}
           assetType={folderInfo.folder.assetType}
           closeDetailsPanel={closeDetailsPanelHandler}
           refreshFolders={refreshFoldersHandler}
@@ -147,10 +146,10 @@ const AssetExplorer = (props) => {
     } else if (mode === "add-asset") {
       drawerContent = (
         <CreateAsset
-          parentId={folderInfo.folder.id}
+          folderId={folderInfo.folder.id}
           assetType={folderInfo.folder.assetType}
           closeDetailsPanel={closeDetailsPanelHandler}
-          refreshFolders={refreshFoldersHandler}
+          refreshAssets={refreshAssetsHandler}
         ></CreateAsset>
       );
     }
