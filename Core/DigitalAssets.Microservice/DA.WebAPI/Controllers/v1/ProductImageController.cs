@@ -31,6 +31,12 @@ namespace DA.WebAPI.Controllers.v1
             return Ok(await Mediator.Send(new GetAssetProductImage.Query { Id = id }));
         }
 
+        [HttpGet("folder/{folderId}")]
+        public async Task<IActionResult> GetFolderAssetsAsync(Guid folderId)
+        {
+            return Ok(await Mediator.Send(new GetAssetProductImageWithFilter.Query { FolderId = folderId }));
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateAsync(AssetProductImageRequest asset)
         {

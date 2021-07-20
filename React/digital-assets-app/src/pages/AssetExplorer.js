@@ -14,7 +14,13 @@ import axios from "../store/DbContext/assets-db-context";
 import AppDetailDrawer from "../components/UI/AppDetailDrawer";
 import { makeStyles } from "@material-ui/core/styles";
 import ExplorerActions from "../components/Explorer/ExplorerActions";
-import CreateAsset from "../components/Assets/Create/CreateAsset";
+import CreateAssetImage from "../components/Assets/Create/CreateAssetImage";
+import CreateAssetProductImage from "../components/Assets/Create/CreateAssetProductImage";
+
+const AssetType = {
+  ProductImage: 1,
+  Image: 2,
+};
 
 const useStyles = makeStyles((theme) => ({
   divider: {
@@ -144,14 +150,26 @@ const AssetExplorer = (props) => {
         ></RenameFolder>
       );
     } else if (mode === "add-asset") {
-      drawerContent = (
-        <CreateAsset
-          folderId={folderInfo.folder.id}
-          assetType={folderInfo.folder.assetType}
-          closeDetailsPanel={closeDetailsPanelHandler}
-          refreshAssets={refreshAssetsHandler}
-        ></CreateAsset>
-      );
+      debugger;
+      if (folderInfo.folder.assetType === AssetType.ProductImage) {
+        drawerContent = (
+          <CreateAssetProductImage
+            folderId={folderInfo.folder.id}
+            assetType={folderInfo.folder.assetType}
+            closeDetailsPanel={closeDetailsPanelHandler}
+            refreshAssets={refreshAssetsHandler}
+          ></CreateAssetProductImage>
+        );
+      } else if (folderInfo.folder.assetType === AssetType.Image) {
+        drawerContent = (
+          <CreateAssetImage
+            folderId={folderInfo.folder.id}
+            assetType={folderInfo.folder.assetType}
+            closeDetailsPanel={closeDetailsPanelHandler}
+            refreshAssets={refreshAssetsHandler}
+          ></CreateAssetImage>
+        );
+      }
     }
   }
 

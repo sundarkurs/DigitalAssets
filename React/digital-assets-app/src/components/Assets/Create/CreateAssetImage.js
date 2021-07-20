@@ -17,7 +17,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 let IS_FORM_VALID = true;
 
-const CreateAsset = (props) => {
+const CreateAssetImage = (props) => {
   const rpStyles = useRightPanelStyles();
   const { showSuccess, showError, showApiError } = useShowMessage();
   const [name, setName] = useState("");
@@ -98,7 +98,7 @@ const CreateAsset = (props) => {
   return (
     <form onSubmit={submitHandler}>
       <Box display="flex" className={rpStyles.toolbar}>
-        <Typography variant="h6">Create new asset</Typography>
+        <Typography variant="h6">Create new Image asset</Typography>
         <CloseIcon
           className={rpStyles.closeIcon}
           onClick={props.closeDetailsPanel}
@@ -171,4 +171,4 @@ const CreateAsset = (props) => {
   );
 };
 
-export default CreateAsset;
+export default CreateAssetImage;

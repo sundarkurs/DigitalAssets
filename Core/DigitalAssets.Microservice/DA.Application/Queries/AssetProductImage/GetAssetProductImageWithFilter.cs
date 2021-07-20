@@ -13,7 +13,7 @@ using DA.Application.DTO.AssetProductImage;
 
 namespace DA.Application.Queries.AssetProductImage
 {
-    class GetAssetProductImageWithFilter
+    public class GetAssetProductImageWithFilter
     {
         public class Query : IRequest<PagedResponse<IEnumerable<AssetProductImageDto>>>
         {
@@ -22,10 +22,10 @@ namespace DA.Application.Queries.AssetProductImage
 
         public class Handler : IRequestHandler<Query, PagedResponse<IEnumerable<AssetProductImageDto>>>
         {
-            private readonly IAssetRepository<Domain.Models.AssetImage> _assetRepository;
+            private readonly IAssetRepository<Domain.Models.AssetProductImage> _assetRepository;
             private readonly IMapper _mapper;
 
-            public Handler(IAssetRepository<Domain.Models.AssetImage> assetRepository, IMapper mapper)
+            public Handler(IAssetRepository<Domain.Models.AssetProductImage> assetRepository, IMapper mapper)
             {
                 _assetRepository = assetRepository;
                 _mapper = mapper;
@@ -33,7 +33,7 @@ namespace DA.Application.Queries.AssetProductImage
 
             public async Task<PagedResponse<IEnumerable<AssetProductImageDto>>> Handle(Query request, CancellationToken cancellationToken)
             {
-                Expression<Func<Domain.Models.AssetImage, bool>> expression = x => x.FolderId == request.FolderId;
+                Expression<Func<Domain.Models.AssetProductImage, bool>> expression = x => x.FolderId == request.FolderId;
 
                 var assetEntities = _assetRepository.GetObjectsQueryable(expression).ToList();
 
