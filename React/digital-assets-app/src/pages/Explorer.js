@@ -16,6 +16,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import ExplorerActions from "../components/Explorer/ExplorerActions";
 import CreateAssetImage from "../components/Assets/Create/CreateAssetImage";
 import CreateAssetProductImage from "../components/Assets/Create/CreateAssetProductImage";
+import FolderExplorer from "../components/Explorer/Folder/FolderExplorer";
+import AssetExplorer from "../components/Explorer/Asset/AssetExplorer";
 
 const AssetType = {
   ProductImage: 1,
