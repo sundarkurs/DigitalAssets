@@ -6,6 +6,7 @@ import MySettings from "../../../pages/MySettings";
 import NotFound from "../../../pages/NotFound";
 import AssetTypes from "../../../pages/AssetTypes";
 import Explorer from "../../../pages/Explorer";
+import { ExplorerContextProvider } from "../../../store/ExplorerContext/explorer-context-provider";
 
 const InRoute = () => {
   return (
@@ -20,7 +21,9 @@ const InRoute = () => {
         <AssetTypes />
       </Route>
       <Route path="/asset-types/:assetTypeCode/:folderId">
-        <Explorer />
+        <ExplorerContextProvider>
+          <Explorer />
+        </ExplorerContextProvider>
       </Route>
       <Route path="/profile" exact>
         <Profile />
