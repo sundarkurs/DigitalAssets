@@ -4,7 +4,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import Divider from "@material-ui/core/Divider";
 import PageSettings from "./Settings/PageSettings";
 import AppSection from "../components/UI/AppSection";
-import AssetsList from "../components/Assets/AssetsList";
+import AssetsList from "../components/Assets/List/AssetsList";
 import FoldersList from "../components/Folders/List/FoldersList";
 import CreateFolder from "../components/Folders/Create/CreateFolder";
 import RenameFolder from "../components/Folders/Rename/RenameFolder";
@@ -17,11 +17,8 @@ import ExplorerActions from "../components/Explorer/ExplorerActions";
 import CreateAssetImage from "../components/Assets/Create/CreateAssetImage";
 import CreateAssetProductImage from "../components/Assets/Create/CreateAssetProductImage";
 import ExplorerContext from "../store/ExplorerContext/explorer-context";
-
-const AssetType = {
-  ProductImage: 1,
-  Image: 2,
-};
+import FileExplorer from "../components/Explorer/FileExplorer";
+import AssetExplorer from "../components/Explorer/AssetExplorer";
 
 const useStyles = makeStyles((theme) => ({
   divider: {
@@ -74,98 +71,41 @@ const Explorer = (props) => {
       });
   };
 
-  const onOpenFolderHandler = (folder) => {
-    if (folder.id) {
-      setCurrentFolderId(folder.id);
-      history.push(`/asset-types/${params.assetTypeCode}/${folder.id}`);
-    }
-  };
-
-  const onDeleteEndHandler = () => {
-    explorerCtx.setActionType("");
-    explorerCtx.setDrawer(false);
-    refreshFoldersHandler();
+  const refreshAssetsHandler = () => {
+    getAssets(currentFolderId);
   };
 
   const refreshFoldersHandler = () => {
     getFolderDetails(currentFolderId);
   };
 
-  const refreshAssetsHandler = () => {
-    getAssets(currentFolderId);
+  const setCurrentFolderIdHandler = (folderId) => {
+    setCurrentFolderId(folderId);
   };
-
-  const toggleDrawer = (open) => {
-    explorerCtx.setDrawer(open);
-  };
-
-  var drawerContent = "";
-  if (explorerCtx.openDrawer) {
-    if (explorerCtx.actionType === "add-folder") {
-      drawerContent = (
-        <CreateFolder
-          parentId={folderInfo.folder.id}
-          assetType={folderInfo.folder.assetType}
-          refreshFolders={refreshFoldersHandler}
-        ></CreateFolder>
-      );
-    } else if (explorerCtx.actionType === "rename-folder") {
-      drawerContent = (
-        <RenameFolder
-          folder={explorerCtx.selectedFolder}
-          assetType={folderInfo.folder.assetType}
-          refreshFolders={refreshFoldersHandler}
-        ></RenameFolder>
-      );
-    } else if (explorerCtx.actionType === "add-asset") {
-      if (folderInfo.folder.assetType === AssetType.ProductImage) {
-        drawerContent = (
-          <CreateAssetProductImage
-            folderId={folderInfo.folder.id}
-            assetType={folderInfo.folder.assetType}
-            refreshAssets={refreshAssetsHandler}
-          ></CreateAssetProductImage>
-        );
-      } else if (folderInfo.folder.assetType === AssetType.Image) {
-        drawerContent = (
-          <CreateAssetImage
-            folderId={folderInfo.folder.id}
-            assetType={folderInfo.folder.assetType}
-            refreshAssets={refreshAssetsHandler}
-          ></CreateAssetImage>
-        );
-      }
-    }
-  }
 
   return (
     <PageSettings title={`${params.assetTypeCode} Explorer`}>
       <AppSection>
         <ExplorerActions></ExplorerActions>
+
         <Divider className={styles.divider} />
-        <FoldersList
-          parent={folderInfo.parent}
-          childrens={folderInfo.childrens}
-          onOpenFolder={onOpenFolderHandler}
-        ></FoldersList>
+
+        <FileExplorer
+          folderInfo={folderInfo}
+          currentFolderId={currentFolderId}
+          setCurrentFolderId={setCurrentFolderIdHandler}
+          refreshFolders={refreshFoldersHandler}
+        ></FileExplorer>
+
         <div style={{ paddingTop: 50 }}></div>
-        <AssetsList assets={assets}></AssetsList>
+        <AssetExplorer
+          folderInfo={folderInfo}
+          currentFolderId={currentFolderId}
+          assets={assets}
+          refreshAssets={refreshAssetsHandler}
+        ></AssetExplorer>
+        
       </AppSection>
-
-      <AppDetailDrawer
-        drawerClass={styles.drawer}
-        show={explorerCtx.openDrawer}
-        onClose={() => toggleDrawer(false)}
-      >
-        {drawerContent}
-      </AppDetailDrawer>
-
-      {explorerCtx.actionType === "delete-folder" && (
-        <DeleteFolder
-          folder={explorerCtx.selectedFolder}
-          onDeleteEnd={onDeleteEndHandler}
-        />
-      )}
     </PageSettings>
   );
 };

@@ -1,17 +1,9 @@
-import { Fragment, useContext } from "react";
-import AssetCard from "./AssetCard";
+import { Fragment } from "react";
+import AssetCard from "../Card/AssetCard";
 import Grid from "@material-ui/core/Grid";
-import { useHistory, useLocation } from "react-router";
-import AppContext from "../../store/AppContext/app-context";
 
 const AssetsList = (props) => {
-  const history = useHistory();
-  const location = useLocation();
-  const appCtx = useContext(AppContext);
-
-  const onAssetClickHandler = (asset) => {
-    
-  };
+  const onAssetClickHandler = (asset) => {};
 
   const listItems = props.assets.map((item) => {
     return (

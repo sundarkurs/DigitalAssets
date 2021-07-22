@@ -15,6 +15,7 @@ const AppDetailDrawer = (props) => {
 
     onClose();
   };
+  console.log(show);
 
   return (
     <Drawer anchor={"right"} open={show} onClose={onCloseHandler}>

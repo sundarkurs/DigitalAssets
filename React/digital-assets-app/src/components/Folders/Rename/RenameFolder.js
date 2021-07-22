@@ -60,7 +60,10 @@ const RenameFolder = (props) => {
     <form onSubmit={submitHandler}>
       <Box display="flex" className={rpStyles.toolbar}>
         <Typography variant="h6">Rename folder</Typography>
-        <CloseIcon className={rpStyles.closeIcon} onClick={explorerCtx.closeDrawer} />
+        <CloseIcon
+          className={rpStyles.closeIcon}
+          onClick={explorerCtx.closeDrawer}
+        />
       </Box>
       <Divider className={rpStyles.divider}></Divider>
       <Box mt={2} display="flex" className={rpStyles.content}>
