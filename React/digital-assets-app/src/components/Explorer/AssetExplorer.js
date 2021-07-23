@@ -13,7 +13,7 @@ const AssetExplorer = (props) => {
 
   var drawerContent = "";
   if (explorerCtx.openDrawer) {
-    if (explorerCtx.actionType === "add-asset") {
+    if (explorerCtx.actionType === explorerCtx.assetAction.Create) {
       if (folderInfo.folder.assetType === explorerCtx.assetType.ProductImage) {
         drawerContent = (
           <CreateAssetProductImage

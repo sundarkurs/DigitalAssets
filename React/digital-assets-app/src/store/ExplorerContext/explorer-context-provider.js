@@ -6,6 +6,19 @@ const AssetType = {
   Image: 2,
 };
 
+const FolderAction = {
+  Add: "add-folder",
+  Rename: "rename-folder",
+  Delete: "delete-folder",
+};
+
+const AssetAction = {
+  Create: "add-asset",
+  Delete: "delete-asset",
+  Edit: "edit-asset",
+  Files: "view-files",
+};
+
 export const ExplorerContextProvider = (props) => {
   const [openDrawer, setOpenDrawer] = useState(false);
   const [actionType, setActionType] = useState(null);
@@ -17,25 +30,25 @@ export const ExplorerContextProvider = (props) => {
   };
 
   const addFolderHandler = () => {
-    setActionType("add-folder");
+    setActionType(FolderAction.Add);
     setOpenDrawer(true);
   };
 
   const renameFolderHandler = (folder) => {
-    setActionType("rename-folder");
+    setActionType(FolderAction.Rename);
     setSelectedFolder(folder);
     setOpenDrawer(true);
   };
 
   const deleteFolderHandler = (folder) => {
-    setActionType("delete-folder");
+    setActionType(FolderAction.Delete);
     setSelectedFolder(folder);
     setOpenDrawer(false);
   };
 
   const addAssetHandler = () => {
-    console.log(1)
-    setActionType("add-asset");
+    console.log(1);
+    setActionType(AssetAction.Create);
     setOpenDrawer(true);
   };
 
@@ -50,6 +63,8 @@ export const ExplorerContextProvider = (props) => {
         actionType: actionType,
         selectedFolder: selectedFolder,
         assetType: AssetType,
+        folderAction: FolderAction,
+        assetAction: AssetAction,
         closeDrawer: closeDrawerHandler,
         addFolder: addFolderHandler,
         renameFolder: renameFolderHandler,

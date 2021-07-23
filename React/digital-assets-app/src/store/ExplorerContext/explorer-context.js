@@ -5,6 +5,8 @@ const ExplorerContext = React.createContext({
   actionType: "",
   selectedFolder: {},
   assetType: {},
+  folderAction: {},
+  assetAction: {},
   closeDrawer: () => {},
   addFolder: () => {},
   renameFolder: (folder) => {},
