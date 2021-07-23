@@ -1,9 +1,14 @@
-import { Fragment } from "react";
+import { Fragment, useContext } from "react";
 import AssetCard from "../Card/AssetCard";
 import Grid from "@material-ui/core/Grid";
+import ExplorerContext from "../../../store/ExplorerContext/explorer-context";
 
 const AssetsList = (props) => {
-  const onAssetClickHandler = (asset) => {};
+  const explorerCtx = useContext(ExplorerContext);
+
+  const onAssetClickHandler = (asset) => {
+    explorerCtx.assetDetails(asset);
+  };
 
   const listItems = props.assets.map((item) => {
     return (

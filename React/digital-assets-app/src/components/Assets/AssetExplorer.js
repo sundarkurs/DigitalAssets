@@ -3,14 +3,27 @@ import AssetsList from "../Assets/List/AssetsList";
 import AppDetailDrawer from "../UI/AppDetailDrawer";
 import CreateAssetImage from "../Assets/Create/CreateAssetImage";
 import CreateAssetProductImage from "../Assets/Create/CreateAssetProductImage";
+import AssetDetails from "../Assets/Details/AssetDetails";
 import ExplorerContext from "../../store/ExplorerContext/explorer-context";
+import { Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  drawerDefault: {
+    width: "400px",
+  },
+  drawerExtended: {
+    width: "800px",
+  },
+}));
 
 const AssetExplorer = (props) => {
+  const styles = useStyles();
   const explorerCtx = useContext(ExplorerContext);
 
-  const { drawerClass, folderInfo, assets, currentFolderId, refreshAssets } =
-    props;
+  const { folderInfo, assets, currentFolderId, refreshAssets } = props;
 
+  var drawerClass = props.drawerClass;
   var drawerContent = "";
   if (explorerCtx.openDrawer) {
     if (explorerCtx.actionType === explorerCtx.assetAction.Create) {
@@ -31,6 +44,9 @@ const AssetExplorer = (props) => {
           ></CreateAssetImage>
         );
       }
+    } else if (explorerCtx.actionType === explorerCtx.assetAction.Details) {
+      drawerClass = styles.drawerExtended;
+      drawerContent = <AssetDetails asset={explorerCtx.selectedAsset} />;
     }
   }
 

@@ -6,8 +6,8 @@ import AppSection from "../components/UI/AppSection";
 import axios from "../store/DbContext/assets-db-context";
 import { makeStyles } from "@material-ui/core/styles";
 import ExplorerActions from "../components/Explorer/ExplorerActions";
-import FolderExplorer from "../components/Explorer/FolderExplorer";
-import AssetExplorer from "../components/Explorer/AssetExplorer";
+import FolderExplorer from "../components/Folders/FolderExplorer";
+import AssetExplorer from "../components/Assets/AssetExplorer";
 
 const useStyles = makeStyles((theme) => ({
   divider: {

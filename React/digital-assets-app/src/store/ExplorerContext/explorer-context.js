@@ -4,6 +4,7 @@ const ExplorerContext = React.createContext({
   openDrawer: false,
   actionType: "",
   selectedFolder: {},
+  selectedAsset: {},
   assetType: {},
   folderAction: {},
   assetAction: {},
@@ -12,6 +13,7 @@ const ExplorerContext = React.createContext({
   renameFolder: (folder) => {},
   deleteFolder: (folder) => {},
   addAsset: () => {},
+  assetDetails: (asset) => {},
   setDrawer: (open) => {},
 });
 

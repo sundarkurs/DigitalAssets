@@ -16,13 +16,14 @@ const AssetAction = {
   Create: "add-asset",
   Delete: "delete-asset",
   Edit: "edit-asset",
-  Files: "view-files",
+  Details: "asset-details",
 };
 
 export const ExplorerContextProvider = (props) => {
   const [openDrawer, setOpenDrawer] = useState(false);
   const [actionType, setActionType] = useState(null);
   const [selectedFolder, setSelectedFolder] = useState({});
+  const [selectedAsset, setSelectedAsset] = useState({});
 
   const closeDrawerHandler = () => {
     setActionType(null);
@@ -47,9 +48,14 @@ export const ExplorerContextProvider = (props) => {
   };
 
   const addAssetHandler = () => {
-    console.log(1);
     setActionType(AssetAction.Create);
     setOpenDrawer(true);
+  };
+
+  const assetDetailsHandler = (asset) => {
+    setActionType(AssetAction.Details);
+    setOpenDrawer(true);
+    setSelectedAsset(asset);
   };
 
   const setDrawerHandler = (open) => {
@@ -62,6 +68,7 @@ export const ExplorerContextProvider = (props) => {
         openDrawer: openDrawer,
         actionType: actionType,
         selectedFolder: selectedFolder,
+        selectedAsset: selectedAsset,
         assetType: AssetType,
         folderAction: FolderAction,
         assetAction: AssetAction,
@@ -70,6 +77,7 @@ export const ExplorerContextProvider = (props) => {
         renameFolder: renameFolderHandler,
         deleteFolder: deleteFolderHandler,
         addAsset: addAssetHandler,
+        assetDetails: assetDetailsHandler,
         setDrawer: setDrawerHandler,
       }}
     >
