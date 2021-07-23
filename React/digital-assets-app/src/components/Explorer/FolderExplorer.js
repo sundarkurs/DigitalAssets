@@ -6,28 +6,20 @@ import CreateFolder from "../Folders/Create/CreateFolder";
 import RenameFolder from "../Folders/Rename/RenameFolder";
 import DeleteFolder from "../Folders/Delete/DeleteFolder";
 import AppDetailDrawer from "../UI/AppDetailDrawer";
-import { makeStyles } from "@material-ui/core/styles";
 import ExplorerContext from "../../store/ExplorerContext/explorer-context";
 
-const useStyles = makeStyles((theme) => ({
-  divider: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-  },
-  drawer: {
-    width: "400px",
-  },
-}));
-
-const FileExplorer = (props) => {
+const FolderExplorer = (props) => {
   const explorerCtx = useContext(ExplorerContext);
-  const styles = useStyles();
   const history = useHistory();
   const params = useParams();
 
-  var isOpenDrawer = false;
-  const { folderInfo, currentFolderId, setCurrentFolderId, refreshFolders } =
-    props;
+  const {
+    drawerClass,
+    folderInfo,
+    currentFolderId,
+    setCurrentFolderId,
+    refreshFolders,
+  } = props;
 
   const onOpenFolderHandler = (folder) => {
     if (folder.id) {
@@ -41,17 +33,8 @@ const FileExplorer = (props) => {
     refreshFolders();
   };
 
-  if (explorerCtx.openDrawer) {
-    if (
-      explorerCtx.actionType === "add-folder" ||
-      explorerCtx.actionType === "rename-folder"
-    ) {
-      isOpenDrawer = true;
-    }
-  }
-
   var drawerContent = "";
-  if (isOpenDrawer) {
+  if (explorerCtx.openDrawer) {
     if (explorerCtx.actionType === "add-folder") {
       drawerContent = (
         <CreateFolder
@@ -81,8 +64,8 @@ const FileExplorer = (props) => {
 
       <AppDetailDrawer
         id="file"
-        drawerClass={styles.drawer}
-        show={isOpenDrawer}
+        drawerClass={drawerClass}
+        show={explorerCtx.openDrawer && drawerContent !== ""}
         onClose={() => explorerCtx.setDrawer(false)}
       >
         {drawerContent}
@@ -98,4 +81,4 @@ const FileExplorer = (props) => {
   );
 };
 
-export default FileExplorer;
+export default FolderExplorer;

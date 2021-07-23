@@ -1,38 +1,18 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router";
-import { useHistory, useLocation } from "react-router-dom";
+import React, { useContext } from "react";
 import AssetsList from "../Assets/List/AssetsList";
 import AppDetailDrawer from "../UI/AppDetailDrawer";
-import { makeStyles } from "@material-ui/core/styles";
 import CreateAssetImage from "../Assets/Create/CreateAssetImage";
 import CreateAssetProductImage from "../Assets/Create/CreateAssetProductImage";
 import ExplorerContext from "../../store/ExplorerContext/explorer-context";
 
-const useStyles = makeStyles((theme) => ({
-  divider: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-  },
-  drawer: {
-    width: "400px",
-  },
-}));
-
 const AssetExplorer = (props) => {
   const explorerCtx = useContext(ExplorerContext);
-  const styles = useStyles();
 
-  var isOpenDrawer = false;
-  const { folderInfo, assets, currentFolderId, refreshAssets } = props;
-
-  if (explorerCtx.openDrawer) {
-    if (explorerCtx.actionType === "add-asset") {
-      isOpenDrawer = true;
-    }
-  }
+  const { drawerClass, folderInfo, assets, currentFolderId, refreshAssets } =
+    props;
 
   var drawerContent = "";
-  if (isOpenDrawer) {
+  if (explorerCtx.openDrawer) {
     if (explorerCtx.actionType === "add-asset") {
       if (folderInfo.folder.assetType === explorerCtx.assetType.ProductImage) {
         drawerContent = (
@@ -60,8 +40,8 @@ const AssetExplorer = (props) => {
 
       <AppDetailDrawer
         id="assets"
-        drawerClass={styles.drawer}
-        show={isOpenDrawer}
+        drawerClass={drawerClass}
+        show={explorerCtx.openDrawer && drawerContent !== ""}
         onClose={() => explorerCtx.setDrawer(false)}
       >
         {drawerContent}
