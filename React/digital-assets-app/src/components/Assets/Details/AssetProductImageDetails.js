@@ -15,7 +15,6 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import { makeStyles } from "@material-ui/core/styles";
 import ExplorerContext from "../../../store/ExplorerContext/explorer-context";
-import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles((theme) => ({
@@ -29,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AssetDetails = (props) => {
+const AssetProductImageDetails = (props) => {
   const classes = useStyles();
   const explorerCtx = useContext(ExplorerContext);
   const rpStyles = useRightPanelStyles();
@@ -38,14 +37,16 @@ const AssetDetails = (props) => {
   const { asset } = props;
 
   const [name, setName] = useState(asset.name);
-  const [country, setCountry] = useState(asset.country);
-  const [language, setLanguage] = useState(asset.language);
-  const [abstract, setAbstract] = useState(asset.abstract);
+  const [country, setCountry] = useState(asset.countryCode);
+  const [language, setLanguage] = useState(asset.languageCode);
+  const [sku, setSku] = useState(asset.sku);
+  const [product, setProduct] = useState(asset.product);
 
   const [nameValid, setNameValid] = useState(true);
   const [countryValid, setCountryValid] = useState(true);
   const [languageValid, setLanguageValid] = useState(true);
-  const [abstractValid, setAbstractValid] = useState(true);
+  const [skuValid, setSkuValid] = useState(true);
+  const [productValid, setProductValid] = useState(true);
 
   return (
     <>
@@ -71,15 +72,23 @@ const AssetDetails = (props) => {
                 onChange={(e) => setName(e.target.value)}
                 error={!nameValid}
               />
-
               <TextField
                 className={rpStyles.inputs}
-                id="txtAbstract"
+                id="txtSku"
                 variant="outlined"
-                label="Abstract"
-                value={abstract}
-                onChange={(e) => setAbstract(e.target.value)}
-                error={!abstractValid}
+                label="SKU"
+                value={sku}
+                onChange={(e) => setSku(e.target.value)}
+                error={!skuValid}
+              />
+              <TextField
+                className={rpStyles.inputs}
+                id="txtProduct"
+                variant="outlined"
+                label="Product"
+                value={product}
+                onChange={(e) => setProduct(e.target.value)}
+                error={!productValid}
               />
             </Box>
           </Grid>
@@ -123,6 +132,7 @@ const AssetDetails = (props) => {
                 variant="contained"
                 color="primary"
                 className={rpStyles.button}
+                onClick={props.openDetailsPanel}
               >
                 Save
               </Button>
@@ -134,4 +144,4 @@ const AssetDetails = (props) => {
   );
 };
 
-export default AssetDetails;
+export default AssetProductImageDetails;

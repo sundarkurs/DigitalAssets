@@ -3,7 +3,8 @@ import AssetsList from "../Assets/List/AssetsList";
 import AppDetailDrawer from "../UI/AppDetailDrawer";
 import CreateAssetImage from "../Assets/Create/CreateAssetImage";
 import CreateAssetProductImage from "../Assets/Create/CreateAssetProductImage";
-import AssetDetails from "../Assets/Details/AssetDetails";
+import AssetImageDetails from "./Details/AssetImageDetails";
+import AssetProductImageDetails from "./Details/AssetProductImageDetails";
 import ExplorerContext from "../../store/ExplorerContext/explorer-context";
 import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -46,7 +47,14 @@ const AssetExplorer = (props) => {
       }
     } else if (explorerCtx.actionType === explorerCtx.assetAction.Details) {
       drawerClass = styles.drawerExtended;
-      drawerContent = <AssetDetails asset={explorerCtx.selectedAsset} />;
+      if (folderInfo.folder.assetType === explorerCtx.assetType.Image) {
+        drawerContent = <AssetImageDetails asset={explorerCtx.selectedAsset} />;
+      }
+      if (folderInfo.folder.assetType === explorerCtx.assetType.ProductImage) {
+        drawerContent = (
+          <AssetProductImageDetails asset={explorerCtx.selectedAsset} />
+        );
+      }
     }
   }
 
