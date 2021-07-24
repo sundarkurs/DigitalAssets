@@ -4,13 +4,15 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
+import AppSpeedMenu from "../../UI/AppSpeedMenu";
 
 const AssetCard = (props) => {
-  const { asset } = props;
+  const { asset, actions } = props;
 
   return (
-    <Card onClick={() => props.onAssetClick(asset)} elevation={10}>
+    <Card elevation={10}>
       <CardActionArea>
+        {actions && <AppSpeedMenu actions={actions}></AppSpeedMenu>}
         <CardMedia
           component="img"
           alt={asset.name}

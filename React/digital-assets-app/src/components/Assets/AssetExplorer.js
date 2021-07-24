@@ -8,6 +8,7 @@ import EditAssetProductImage from "./Edit/EditAssetProductImage";
 import ExplorerContext from "../../store/ExplorerContext/explorer-context";
 import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import AssetFiles from "./File/AssetFiles";
 
 const useStyles = makeStyles((theme) => ({
   drawerDefault: {
@@ -46,7 +47,6 @@ const AssetExplorer = (props) => {
         );
       }
     } else if (explorerCtx.actionType === explorerCtx.assetAction.Edit) {
-      // drawerClass = styles.drawerExtended;
       if (folderInfo.folder.assetType === explorerCtx.assetType.Image) {
         drawerContent = (
           <EditAssetImage
@@ -63,6 +63,9 @@ const AssetExplorer = (props) => {
           />
         );
       }
+    } else if (explorerCtx.actionType === explorerCtx.assetAction.Files) {
+      drawerClass = styles.drawerExtended;
+      drawerContent = <AssetFiles></AssetFiles>;
     }
   }
 
