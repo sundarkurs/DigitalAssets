@@ -6,7 +6,7 @@ import SpeedDialAction from "@material-ui/lab/SpeedDialAction";
 
 const useStyles = makeStyles((theme) => ({
   exampleWrapper: {
-    position: "relative",
+    position: "static",
   },
   speedDial: {
     position: "absolute",
@@ -37,7 +37,7 @@ const AppSpeedMenu = (props) => {
 
   return (
     <div className={classes.exampleWrapper}>
-      <SpeedDial
+      <SpeedDial 
         ariaLabel="speed actions"
         className={classes.speedDial}
         hidden={false}

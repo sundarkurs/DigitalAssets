@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     width: "400px",
   },
   drawerExtended: {
-    width: "800px",
+    width: "600px",
   },
 }));
 

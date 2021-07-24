@@ -7,13 +7,17 @@ import ListSubheader from "@material-ui/core/ListSubheader";
 import IconButton from "@material-ui/core/IconButton";
 import InfoIcon from "@material-ui/icons/Info";
 import { Typography } from "@material-ui/core";
+import AppSpeedMenu from "../../UI/AppSpeedMenu";
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteIcon from "@material-ui/icons/Delete";
+import WallpaperIcon from "@material-ui/icons/Wallpaper";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     flexWrap: "wrap",
     justifyContent: "space-around",
-    overflow: "hidden",
+    overflow: "auto",
     backgroundColor: theme.palette.background.paper,
   },
   imageList: {
@@ -29,23 +33,34 @@ const ImageFiles = (props) => {
   const classes = useStyles();
   const { files } = props;
 
+  const defaultHandler = (file) => {};
+
+  const deleteHandler = (file) => {};
+
   return (
     <div className={classes.root}>
       <ImageList rowHeight={180} className={classes.imageList}>
         {files.map((item) => (
-          <ImageListItem key={item.img}>
-            <img src="https://source.unsplash.com/random" alt={item.title} />
+          <ImageListItem key={item.id}>
+            <img
+              src="https://source.unsplash.com/random"
+              alt={item.title}
+            ></img>
+            <AppSpeedMenu
+              actions={[
+                {
+                  icon: <WallpaperIcon onClick={() => defaultHandler(item)} />,
+                  name: "Default",
+                },
+                {
+                  icon: <DeleteIcon onClick={() => deleteHandler(item)} />,
+                  name: "Delete",
+                },
+              ]}
+            ></AppSpeedMenu>
             <ImageListItemBar
-              title={item.title}
-              subtitle={<Typography>{item.name}</Typography>}
-              actionIcon={
-                <IconButton
-                  aria-label={`info about ${item.name}`}
-                  className={classes.icon}
-                >
-                  <InfoIcon />
-                </IconButton>
-              }
+              title={item.name}
+              subtitle={`Version: ${item.version}`}
             />
           </ImageListItem>
         ))}
