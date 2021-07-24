@@ -28,6 +28,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+let IS_FORM_VALID = true;
+
 const EditAssetProductImage = (props) => {
   const classes = useStyles();
   const explorerCtx = useContext(ExplorerContext);
@@ -48,10 +50,83 @@ const EditAssetProductImage = (props) => {
   const [skuValid, setSkuValid] = useState(true);
   const [productValid, setProductValid] = useState(true);
 
+  const submitHandler = (event) => {
+    event.preventDefault();
+
+    if (!isFormVallid()) {
+      return;
+    }
+
+    const updateAsset = {
+      id: asset.id,
+      name: name,
+      countryCode: country,
+      languageCode: language,
+      folderId: props.folderId,
+      sku: sku,
+      product: product,
+    };
+
+    axios
+      .put(`/ProductImage/${asset.id}`, updateAsset)
+      .then((response) => {
+        showSuccess(`Asset "${name}" UPDATED successfully.`);
+        props.refreshAssets();
+      })
+      .catch((error) => {
+        showApiError(error);
+      });
+  };
+
+  const vlaidateForm = () => {
+    IS_FORM_VALID = true;
+
+    if (name.trim().length === 0) {
+      IS_FORM_VALID = false;
+      setNameValid(false);
+    } else {
+      setNameValid(true);
+    }
+
+    if (country.trim().length === 0) {
+      IS_FORM_VALID = false;
+      setCountryValid(false);
+    } else {
+      setCountryValid(true);
+    }
+
+    if (language.trim().length === 0) {
+      IS_FORM_VALID = false;
+      setLanguageValid(false);
+    } else {
+      setLanguageValid(true);
+    }
+
+    if (sku.trim().length === 0) {
+      IS_FORM_VALID = false;
+      setSkuValid(false);
+    } else {
+      setSkuValid(true);
+    }
+
+    if (product.trim().length === 0) {
+      IS_FORM_VALID = false;
+      setProductValid(false);
+    } else {
+      setProductValid(true);
+    }
+  };
+
+  const isFormVallid = () => {
+    vlaidateForm();
+
+    return IS_FORM_VALID;
+  };
+
   return (
-    <>
+    <form onSubmit={submitHandler}>
       <Box display="flex" className={rpStyles.toolbar}>
-        <Typography variant="h6">Asset details</Typography>
+        <Typography variant="h6">Update asset</Typography>
         <CloseIcon
           className={rpStyles.closeIcon}
           onClick={explorerCtx.closeDrawer}
@@ -126,12 +201,11 @@ const EditAssetProductImage = (props) => {
           variant="contained"
           color="primary"
           className={rpStyles.button}
-          onClick={props.openDetailsPanel}
         >
-          Save
+          Update
         </Button>
       </Box>
-    </>
+    </form>
   );
 };
 

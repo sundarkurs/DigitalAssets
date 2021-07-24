@@ -10,12 +10,10 @@ import axios from "../../../store/DbContext/assets-db-context";
 import useShowMessage from "../../../hooks/use-show-message";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import { makeStyles } from "@material-ui/core/styles";
 import ExplorerContext from "../../../store/ExplorerContext/explorer-context";
-import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,6 +25,8 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
   },
 }));
+
+let IS_FORM_VALID = true;
 
 const EditAssetImage = (props) => {
   const classes = useStyles();
@@ -46,10 +46,75 @@ const EditAssetImage = (props) => {
   const [languageValid, setLanguageValid] = useState(true);
   const [abstractValid, setAbstractValid] = useState(true);
 
+  const submitHandler = (event) => {
+    event.preventDefault();
+
+    if (!isFormVallid()) {
+      return;
+    }
+
+    const updateAsset = {
+      id: asset.id,
+      name: name,
+      countryCode: country,
+      languageCode: language,
+      abstract: abstract,
+      folderId: props.asset.folderId,
+    };
+
+    axios
+      .put(`/Image/${asset.id}`, updateAsset)
+      .then((response) => {
+        showSuccess(`Asset "${name}" updated successfully.`);
+        props.refreshAssets();
+      })
+      .catch((error) => {
+        showApiError(error);
+      });
+  };
+
+  const vlaidateForm = () => {
+    IS_FORM_VALID = true;
+
+    if (name.trim().length === 0) {
+      IS_FORM_VALID = false;
+      setNameValid(false);
+    } else {
+      setNameValid(true);
+    }
+
+    if (country.trim().length === 0) {
+      IS_FORM_VALID = false;
+      setCountryValid(false);
+    } else {
+      setCountryValid(true);
+    }
+
+    if (language.trim().length === 0) {
+      IS_FORM_VALID = false;
+      setLanguageValid(false);
+    } else {
+      setLanguageValid(true);
+    }
+
+    if (abstract.trim().length === 0) {
+      IS_FORM_VALID = false;
+      setAbstractValid(false);
+    } else {
+      setAbstractValid(true);
+    }
+  };
+
+  const isFormVallid = () => {
+    vlaidateForm();
+
+    return IS_FORM_VALID;
+  };
+
   return (
-    <>
+    <form onSubmit={submitHandler}>
       <Box display="flex" className={rpStyles.toolbar}>
-        <Typography variant="h6">Edit asset</Typography>
+        <Typography variant="h6">Update asset</Typography>
         <CloseIcon
           className={rpStyles.closeIcon}
           onClick={explorerCtx.closeDrawer}
@@ -115,10 +180,10 @@ const EditAssetImage = (props) => {
           color="primary"
           className={rpStyles.button}
         >
-          Save
+          Update
         </Button>
       </Box>
-    </>
+    </form>
   );
 };
 

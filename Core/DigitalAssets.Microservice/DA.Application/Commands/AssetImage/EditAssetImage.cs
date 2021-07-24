@@ -32,19 +32,24 @@ namespace DA.Application.Commands.AssetImage
 
             public async Task<Response<AssetImageDto>> Handle(Command request, CancellationToken cancellationToken)
             {
-                var asset = _mapper.Map<Domain.Models.AssetImage>(request.Asset);
+                var asset = await _assetRepository.GetByIdAsync(request.Asset.Id);
 
                 if (asset == null)
                 {
                     throw new ApiException($"Asset not found.");
                 }
 
+                asset.Name = request.Asset.Name;
+                asset.CountryCode = request.Asset.CountryCode;
+                asset.LanguageCode = request.Asset.LanguageCode;
+                asset.Abstract = request.Asset.Abstract;
                 asset.UpdatedBy = "Sundar Urs";
                 asset.UpdatedOn = DateTime.UtcNow;
 
                 await _assetRepository.UpdateAsync(asset);
 
-                return new Response<AssetImageDto>(request.Asset);
+                var assetResponse = _mapper.Map<AssetImageDto>(asset);
+                return new Response<AssetImageDto>(assetResponse);
             }
         }
     }

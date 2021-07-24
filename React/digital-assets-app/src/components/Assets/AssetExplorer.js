@@ -48,11 +48,19 @@ const AssetExplorer = (props) => {
     } else if (explorerCtx.actionType === explorerCtx.assetAction.Edit) {
       // drawerClass = styles.drawerExtended;
       if (folderInfo.folder.assetType === explorerCtx.assetType.Image) {
-        drawerContent = <EditAssetImage asset={explorerCtx.selectedAsset} />;
+        drawerContent = (
+          <EditAssetImage
+            asset={explorerCtx.selectedAsset}
+            refreshAssets={refreshAssets}
+          />
+        );
       }
       if (folderInfo.folder.assetType === explorerCtx.assetType.ProductImage) {
         drawerContent = (
-          <EditAssetProductImage asset={explorerCtx.selectedAsset} />
+          <EditAssetProductImage
+            asset={explorerCtx.selectedAsset}
+            refreshAssets={refreshAssets}
+          />
         );
       }
     }
