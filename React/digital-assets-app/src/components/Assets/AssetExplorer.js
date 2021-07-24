@@ -23,7 +23,8 @@ const AssetExplorer = (props) => {
   const styles = useStyles();
   const explorerCtx = useContext(ExplorerContext);
 
-  const { folderInfo, assets, currentFolderId, refreshAssets } = props;
+  const { folderInfo, assets, currentFolderId, refreshAssets, assetTypeCode } =
+    props;
 
   var drawerClass = props.drawerClass;
   var drawerContent = "";
@@ -65,7 +66,12 @@ const AssetExplorer = (props) => {
       }
     } else if (explorerCtx.actionType === explorerCtx.assetAction.Files) {
       drawerClass = styles.drawerExtended;
-      drawerContent = <AssetFiles></AssetFiles>;
+      drawerContent = (
+        <AssetFiles
+          asset={explorerCtx.selectedAsset}
+          assetTypeCode={assetTypeCode}
+        ></AssetFiles>
+      );
     }
   }
 

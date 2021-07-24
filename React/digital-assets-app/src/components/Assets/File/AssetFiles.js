@@ -3,12 +3,32 @@ import Box from "@material-ui/core/Box";
 import CloseIcon from "@material-ui/icons/Close";
 import { Typography } from "@material-ui/core";
 import ExplorerContext from "../../../store/ExplorerContext/explorer-context";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import useRightPanelStyles from "../../Styles/right-panel-styles";
+import axios from "../../../store/DbContext/assets-db-context";
 
 const AssetFiles = (props) => {
   const explorerCtx = useContext(ExplorerContext);
   const rpStyles = useRightPanelStyles();
+  const [files, setFiles] = useState([]);
+
+  const { asset, assetTypeCode } = props;
+
+  useEffect(() => {
+    getAssetFiles(asset.id);
+  }, [asset.id]);
+
+  const getAssetFiles = (assetId) => {
+    axios
+      .get(`${assetTypeCode}/${assetId}/files`)
+      .then((response) => {
+        setFiles(response.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <>
       <Box display="flex" className={rpStyles.toolbar}>
@@ -19,6 +39,10 @@ const AssetFiles = (props) => {
         />
       </Box>
       <Divider className={rpStyles.divider}></Divider>
+      <Typography variant="subtitle1">Asset name: {asset.name}</Typography>
+      {files.map((item) => {
+        return <Typography>{item.name}</Typography>;
+      })}
     </>
   );
 };
