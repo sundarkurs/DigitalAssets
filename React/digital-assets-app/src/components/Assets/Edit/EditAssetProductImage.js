@@ -59,87 +59,78 @@ const EditAssetProductImage = (props) => {
       </Box>
       <Divider className={rpStyles.divider}></Divider>
 
-      <div className={classes.root}>
-        <Grid container spacing={3}>
-          <Grid item xs>
-            <Box mt={2} display="flex" className={rpStyles.content}>
-              <TextField
-                className={rpStyles.inputs}
-                id="txtName"
-                variant="outlined"
-                label="Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                error={!nameValid}
-              />
-              <TextField
-                className={rpStyles.inputs}
-                id="txtSku"
-                variant="outlined"
-                label="SKU"
-                value={sku}
-                onChange={(e) => setSku(e.target.value)}
-                error={!skuValid}
-              />
-              <TextField
-                className={rpStyles.inputs}
-                id="txtProduct"
-                variant="outlined"
-                label="Product"
-                value={product}
-                onChange={(e) => setProduct(e.target.value)}
-                error={!productValid}
-              />
-            </Box>
-          </Grid>
-          <Grid item xs>
-            <Box mt={2} display="flex" className={rpStyles.content}>
-              <FormControl variant="outlined" className={rpStyles.inputs}>
-                <InputLabel id="lblCountry">Country</InputLabel>
-                <Select
-                  labelId="lblCountry"
-                  id="ddlCountry"
-                  value={country}
-                  onChange={(e) => setCountry(e.target.value)}
-                  label="Country"
-                  error={!countryValid}
-                >
-                  <MenuItem value="">
-                    <em>Select</em>
-                  </MenuItem>
-                  <MenuItem value="AU">Australia</MenuItem>
-                  <MenuItem value="IN">India</MenuItem>
-                </Select>
-              </FormControl>
-              <FormControl variant="outlined" className={rpStyles.inputs}>
-                <InputLabel id="lblLanguage">Language</InputLabel>
-                <Select
-                  labelId="lblLanguage"
-                  id="ddlLanguage"
-                  value={language}
-                  onChange={(e) => setLanguage(e.target.value)}
-                  label="Language"
-                  error={!languageValid}
-                >
-                  <MenuItem value="">
-                    <em>Select</em>
-                  </MenuItem>
-                  <MenuItem value="EN">English</MenuItem>
-                </Select>
-              </FormControl>
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                className={rpStyles.button}
-                onClick={props.openDetailsPanel}
-              >
-                Save
-              </Button>
-            </Box>
-          </Grid>
-        </Grid>
-      </div>
+      <Box mt={2} display="flex" className={rpStyles.content}>
+        <TextField
+          className={rpStyles.inputs}
+          id="txtName"
+          variant="outlined"
+          label="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          error={!nameValid}
+        />
+        <FormControl variant="outlined" className={rpStyles.inputs}>
+          <InputLabel id="lblCountry">Country</InputLabel>
+          <Select
+            labelId="lblCountry"
+            id="ddlCountry"
+            value={country}
+            onChange={(e) => setCountry(e.target.value)}
+            label="Country"
+            error={!countryValid}
+          >
+            <MenuItem value="">
+              <em>Select</em>
+            </MenuItem>
+            <MenuItem value="AU">Australia</MenuItem>
+            <MenuItem value="IN">India</MenuItem>
+          </Select>
+        </FormControl>
+        <FormControl variant="outlined" className={rpStyles.inputs}>
+          <InputLabel id="lblLanguage">Language</InputLabel>
+          <Select
+            labelId="lblLanguage"
+            id="ddlLanguage"
+            value={language}
+            onChange={(e) => setLanguage(e.target.value)}
+            label="Language"
+            error={!languageValid}
+          >
+            <MenuItem value="">
+              <em>Select</em>
+            </MenuItem>
+            <MenuItem value="EN">English</MenuItem>
+          </Select>
+        </FormControl>
+        <TextField
+          className={rpStyles.inputs}
+          id="txtSku"
+          variant="outlined"
+          label="SKU"
+          value={sku}
+          onChange={(e) => setSku(e.target.value)}
+          error={!skuValid}
+        />
+        <TextField
+          className={rpStyles.inputs}
+          id="txtProduct"
+          variant="outlined"
+          label="Product"
+          value={product}
+          onChange={(e) => setProduct(e.target.value)}
+          error={!productValid}
+        />
+
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          className={rpStyles.button}
+          onClick={props.openDetailsPanel}
+        >
+          Save
+        </Button>
+      </Box>
     </>
   );
 };
