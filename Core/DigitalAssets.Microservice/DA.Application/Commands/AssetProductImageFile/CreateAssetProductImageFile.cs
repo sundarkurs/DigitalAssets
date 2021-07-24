@@ -16,6 +16,7 @@ namespace DA.Application.Commands.AssetProductImageFile
     {
         public class Command : IRequest<Response<AssetProductImageFileDto>>
         {
+            public Guid AssetId { get; set; }
             public AssetProductImageFileRequest File { get; set; }
         }
 
@@ -32,12 +33,15 @@ namespace DA.Application.Commands.AssetProductImageFile
 
             public async Task<Response<AssetProductImageFileDto>> Handle(Command request, CancellationToken cancellationToken)
             {
-                var asset = _mapper.Map<Domain.Models.AssetProductImageFile>(request.File);
+                // TODO : Asset reference validation
 
-                asset.UpdatedBy = "Sundar Urs";
-                asset.UpdatedOn = DateTime.UtcNow;
+                var file = _mapper.Map<Domain.Models.AssetProductImageFile>(request.File);
 
-                var response = await _assetFileRepository.AddAsync(asset);
+                file.AssetId = request.AssetId;
+                file.UpdatedBy = "Sundar Urs";
+                file.UpdatedOn = DateTime.UtcNow;
+
+                var response = await _assetFileRepository.AddAsync(file);
 
                 var newAssetType = _mapper.Map<AssetProductImageFileDto>(response);
 

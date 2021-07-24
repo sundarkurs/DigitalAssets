@@ -1,6 +1,9 @@
 ﻿using DA.Application.Commands.AssetProductImage;
+using DA.Application.Commands.AssetProductImageFile;
 using DA.Application.DTO.AssetProductImage;
+using DA.Application.DTO.AssetProductImageFile;
 using DA.Application.Queries.AssetProductImage;
+using DA.Application.Queries.AssetProductImageFile;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -57,6 +60,26 @@ namespace DA.WebAPI.Controllers.v1
         {
             var response = await Mediator.Send(new DeleteAssetProductImage.Command { Id = id });
             return Ok(response);
+        }
+
+        [HttpPost("{assetId}/file")]
+        public async Task<IActionResult> CreateFileAsync(Guid assetId, AssetProductImageFileRequest file)
+        {
+            var response = await Mediator.Send(new CreateAssetProductImageFile.Command { AssetId = assetId, File = file });
+            return Ok(response);
+        }
+
+        [HttpDelete("{assetId}/file/{fileId}/delete")]
+        public async Task<IActionResult> CreateFileAsync(Guid assetId, Guid fileId)
+        {
+            var response = await Mediator.Send(new DeleteAssetProductImageFile.Command { AssetId = assetId, Id = fileId });
+            return Ok(response);
+        }
+
+        [HttpGet("{assetId}/files")]
+        public async Task<IActionResult> GetAssetFilesAsync(Guid assetId)
+        {
+            return Ok(await Mediator.Send(new GetAllAssetProductImageFilesWithFilter.Query { AssetId = assetId }));
         }
     }
 }

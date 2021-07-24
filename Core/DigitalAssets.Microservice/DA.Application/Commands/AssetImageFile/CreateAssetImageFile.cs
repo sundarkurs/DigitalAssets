@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using DA.Application.DTO.AssetImage;
 using DA.Application.DTO.AssetImageFile;
 using DA.Application.Interfaces.Repositories;
 using DA.Application.Wrappers;
@@ -16,6 +15,7 @@ namespace DA.Application.Commands.AssetImageFile
         public class Command : IRequest<Response<AssetImageFileDto>>
         {
             public AssetImageFileRequest File { get; set; }
+            public Guid AssetId { get; set; }
         }
 
         public class Handler : IRequestHandler<Command, Response<AssetImageFileDto>>
@@ -31,8 +31,11 @@ namespace DA.Application.Commands.AssetImageFile
 
             public async Task<Response<AssetImageFileDto>> Handle(Command request, CancellationToken cancellationToken)
             {
+                //TODO, Asset relation validation
+
                 var asset = _mapper.Map<Domain.Models.AssetImageFile>(request.File);
 
+                asset.AssetId = request.AssetId;
                 asset.UpdatedBy = "Sundar Urs";
                 asset.UpdatedOn = DateTime.UtcNow;
 

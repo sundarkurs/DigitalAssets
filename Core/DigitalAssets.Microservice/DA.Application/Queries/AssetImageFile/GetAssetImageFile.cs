@@ -1,24 +1,23 @@
 ﻿using AutoMapper;
+using DA.Application.DTO.AssetImageFile;
 using DA.Application.Exceptions;
 using DA.Application.Interfaces.Repositories;
 using DA.Application.Wrappers;
-using FluentValidation;
 using MediatR;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace DA.Application.Commands.AssetImageFile
+namespace DA.Application.Queries.AssetImageFile
 {
-    public class DeleteAssetImageFile
+    public class GetAssetImageFile
     {
-        public class Command : IRequest<Response<bool>>
+        public class Query : IRequest<Response<AssetImageFileDto>>
         {
-            public Guid AssetId { get; set; }
             public Guid Id { get; set; }
         }
 
-        public class Handler : IRequestHandler<Command, Response<bool>>
+        public class Handler : IRequestHandler<Query, Response<AssetImageFileDto>>
         {
             private readonly IAssetFileRepository<Domain.Models.AssetImageFile> _assetFileRepository;
             private readonly IMapper _mapper;
@@ -29,10 +28,8 @@ namespace DA.Application.Commands.AssetImageFile
                 _mapper = mapper;
             }
 
-            public async Task<Response<bool>> Handle(Command request, CancellationToken cancellationToken)
+            public async Task<Response<AssetImageFileDto>> Handle(Query request, CancellationToken cancellationToken)
             {
-                //TODO: Asset reference validation
-
                 var file = await _assetFileRepository.GetByIdAsync(request.Id);
 
                 if (file == null)
@@ -40,9 +37,8 @@ namespace DA.Application.Commands.AssetImageFile
                     throw new ApiException($"File not found.");
                 }
 
-                await _assetFileRepository.DeleteAsync(file);
-
-                return new Response<bool>(true);
+                var assetTypesResponse = _mapper.Map<AssetImageFileDto>(file);
+                return new Response<AssetImageFileDto>(assetTypesResponse);
             }
         }
     }
