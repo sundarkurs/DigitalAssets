@@ -6,6 +6,8 @@ import ExplorerContext from "../../../store/ExplorerContext/explorer-context";
 import { useContext, useEffect, useState } from "react";
 import useRightPanelStyles from "../../Styles/right-panel-styles";
 import axios from "../../../store/DbContext/assets-db-context";
+import AssetFileRow from "./AssetFileRow";
+import AssetImageList from "./AssetImageList";
 
 const AssetFiles = (props) => {
   const explorerCtx = useContext(ExplorerContext);
@@ -40,9 +42,8 @@ const AssetFiles = (props) => {
       </Box>
       <Divider className={rpStyles.divider}></Divider>
       <Typography variant="subtitle1">Asset name: {asset.name}</Typography>
-      {files.map((item) => {
-        return <Typography>{item.name}</Typography>;
-      })}
+      {/* <AssetFileRow files={files}></AssetFileRow> */}
+      <AssetImageList files={files}></AssetImageList>
     </>
   );
 };
