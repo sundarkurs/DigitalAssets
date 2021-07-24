@@ -24,7 +24,7 @@ namespace DA.Persistence
             services.AddTransient<IAssetRepository<Domain.Models.AssetProductImage>, AssetRepository<Domain.Models.AssetProductImage>>();
             services.AddTransient<IAssetRepository<Domain.Models.AssetImage>, AssetRepository<Domain.Models.AssetImage>>();
             services.AddTransient<IAssetFileRepository<Domain.Models.AssetImageFile>, AssetFileRepository<Domain.Models.AssetImageFile>>();
-            services.AddTransient<IAssetFileRepository<Domain.Models.AssetImageFile>, AssetFileRepository<Domain.Models.AssetImageFile>>();
+            services.AddTransient<IAssetFileRepository<Domain.Models.AssetProductImageFile>, AssetFileRepository<Domain.Models.AssetProductImageFile>>();
         }
     }
 }
