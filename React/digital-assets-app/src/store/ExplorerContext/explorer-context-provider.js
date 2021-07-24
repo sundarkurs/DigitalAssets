@@ -17,6 +17,7 @@ const AssetAction = {
   Delete: "delete-asset",
   Edit: "edit-asset",
   Details: "asset-details",
+  Files: "asset-files",
 };
 
 export const ExplorerContextProvider = (props) => {
@@ -52,8 +53,14 @@ export const ExplorerContextProvider = (props) => {
     setOpenDrawer(true);
   };
 
-  const assetDetailsHandler = (asset) => {
-    setActionType(AssetAction.Details);
+  const assetFilesHandler = (asset) => {
+    setActionType(AssetAction.Files);
+    setOpenDrawer(true);
+    setSelectedAsset(asset);
+  };
+
+  const editAssetHandler = (asset) => {
+    setActionType(AssetAction.Edit);
     setOpenDrawer(true);
     setSelectedAsset(asset);
   };
@@ -77,7 +84,8 @@ export const ExplorerContextProvider = (props) => {
         renameFolder: renameFolderHandler,
         deleteFolder: deleteFolderHandler,
         addAsset: addAssetHandler,
-        assetDetails: assetDetailsHandler,
+        editAsset: editAssetHandler,
+        assetFiles: assetFilesHandler,
         setDrawer: setDrawerHandler,
       }}
     >

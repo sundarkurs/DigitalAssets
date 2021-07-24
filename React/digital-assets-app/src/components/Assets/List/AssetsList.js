@@ -7,7 +7,7 @@ const AssetsList = (props) => {
   const explorerCtx = useContext(ExplorerContext);
 
   const onAssetClickHandler = (asset) => {
-    explorerCtx.assetDetails(asset);
+    explorerCtx.editAsset(asset);
   };
 
   const listItems = props.assets.map((item) => {
