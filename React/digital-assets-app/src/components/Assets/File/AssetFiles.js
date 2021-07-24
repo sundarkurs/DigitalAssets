@@ -6,8 +6,7 @@ import ExplorerContext from "../../../store/ExplorerContext/explorer-context";
 import { useContext, useEffect, useState } from "react";
 import useRightPanelStyles from "../../Styles/right-panel-styles";
 import axios from "../../../store/DbContext/assets-db-context";
-import AssetFileRow from "./AssetFileRow";
-import AssetImageList from "./AssetImageList";
+import ImageFiles from "./ImageFiles";
 
 const AssetFiles = (props) => {
   const explorerCtx = useContext(ExplorerContext);
@@ -34,16 +33,18 @@ const AssetFiles = (props) => {
   return (
     <>
       <Box display="flex" className={rpStyles.toolbar}>
-        <Typography variant="h6">Asset files</Typography>
+        <Typography variant="h6">{asset.name}</Typography>
         <CloseIcon
           className={rpStyles.closeIcon}
           onClick={explorerCtx.closeDrawer}
         />
       </Box>
+
       <Divider className={rpStyles.divider}></Divider>
-      <Typography variant="subtitle1">Asset name: {asset.name}</Typography>
-      {/* <AssetFileRow files={files}></AssetFileRow> */}
-      <AssetImageList files={files}></AssetImageList>
+      <br></br>
+
+      {files.length == 0 && <Typography>No files found</Typography>}
+      {files.length > 0 && <ImageFiles files={files}></ImageFiles>}
     </>
   );
 };

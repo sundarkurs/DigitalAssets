@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AssetImageList = (props) => {
+const ImageFiles = (props) => {
   const classes = useStyles();
   const { files } = props;
 
@@ -54,4 +54,4 @@ const AssetImageList = (props) => {
   );
 };
 
-export default AssetImageList;
+export default ImageFiles;
