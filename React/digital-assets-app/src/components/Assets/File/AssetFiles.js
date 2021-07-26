@@ -6,7 +6,7 @@ import ExplorerContext from "../../../store/ExplorerContext/explorer-context";
 import { useContext, useEffect, useState } from "react";
 import useRightPanelStyles from "../../Styles/right-panel-styles";
 import axios from "../../../store/DbContext/assets-db-context";
-import ImageFiles from "./ImageFiles";
+import FileGallery from "./FileGallery";
 
 const AssetFiles = (props) => {
   const explorerCtx = useContext(ExplorerContext);
@@ -44,7 +44,7 @@ const AssetFiles = (props) => {
       <br></br>
 
       {files.length == 0 && <Typography>No files found</Typography>}
-      {files.length > 0 && <ImageFiles files={files}></ImageFiles>}
+      {files.length > 0 && <FileGallery files={files}></FileGallery>}
     </>
   );
 };
