@@ -8,7 +8,7 @@ import EditAssetProductImage from "./Edit/EditAssetProductImage";
 import ExplorerContext from "../../store/ExplorerContext/explorer-context";
 import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import AssetFiles from "./File/AssetFiles";
+import AssetFiles from "../File/AssetFiles";
 
 const useStyles = makeStyles((theme) => ({
   drawerDefault: {
