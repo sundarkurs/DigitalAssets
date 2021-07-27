@@ -3,7 +3,8 @@ import AssetCard from "../Card/AssetCard";
 import Grid from "@material-ui/core/Grid";
 import ExplorerContext from "../../../store/ExplorerContext/explorer-context";
 import EditIcon from "@material-ui/icons/Edit";
-import ImageIcon from "@material-ui/icons/Image";
+import PhotoLibraryIcon from "@material-ui/icons/PhotoLibrary";
+import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
 
 const AssetsList = (props) => {
   const explorerCtx = useContext(ExplorerContext);
@@ -31,11 +32,13 @@ const AssetsList = (props) => {
               name: "Edit",
             },
             {
-              icon: <ImageIcon onClick={() => viewFilesHandler(item)} />,
+              icon: <PhotoLibraryIcon onClick={() => viewFilesHandler(item)} />,
               name: "View files",
             },
             {
-              icon: <ImageIcon onClick={() => addFileHandler(item)} />,
+              icon: (
+                <AddPhotoAlternateIcon onClick={() => addFileHandler(item)} />
+              ),
               name: "Add file",
             },
           ]}
