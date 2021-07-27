@@ -15,8 +15,6 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import ImageIcon from "@material-ui/icons/Image";
-import WorkIcon from "@material-ui/icons/Work";
-import BeachAccessIcon from "@material-ui/icons/BeachAccess";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,16 +34,15 @@ const AddFile = (props) => {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const { showSuccess, showError, showApiError } = useShowMessage();
 
-  let files = [];
   const selectFile = (event) => {
-    setSelectedFiles([...event.target.files]);
-    files = [...event.target.files];
-    console.log(files);
+    setSelectedFiles(event.target.files);
   };
 
   const upload = () => {
     let formData = new FormData();
-    formData.append("file", selectedFiles);
+    for (let i = 0; i < selectedFiles.length; i++) {
+      formData.append("file", selectedFiles[i]);
+    }
 
     axios
       .post(`/Image/${props.asset.id}/file`, formData, {
@@ -54,17 +51,22 @@ const AddFile = (props) => {
         },
       })
       .then((response) => {
-        showSuccess(`File uploaded successfully.`);
+        showSuccess(`File(s) uploaded successfully.`);
       })
       .catch((error) => {
         showApiError(error);
       });
   };
 
+  let filesToMap = [];
+  for (let i = 0; i < selectedFiles.length; i++) {
+    filesToMap.push(selectedFiles[i]);
+  }
+
   return (
     <>
       <Box display="flex" className={rpStyles.toolbar}>
-        <Typography variant="h6">Upload new file</Typography>
+        <Typography variant="h6">Upload files</Typography>
         <CloseIcon
           className={rpStyles.closeIcon}
           onClick={explorerCtx.closeDrawer}
@@ -89,9 +91,9 @@ const AddFile = (props) => {
         <br />
 
         <List>
-          {selectedFiles &&
-            selectedFiles.length > 0 &&
-            selectedFiles.map((file, index) => {
+          {filesToMap &&
+            filesToMap.length > 0 &&
+            filesToMap.map((file, index) => {
               console.log(file);
               return (
                 <ListItem id={index}>
