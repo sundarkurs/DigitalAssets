@@ -45,7 +45,7 @@ const AddFile = (props) => {
     }
 
     axios
-      .post(`/Image/${props.asset.id}/file`, formData, {
+      .post(`/${props.assetTypeCode}/${props.asset.id}/file`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

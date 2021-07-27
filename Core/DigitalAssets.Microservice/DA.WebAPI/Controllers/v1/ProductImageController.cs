@@ -5,9 +5,11 @@ using DA.Application.DTO.AssetProductImageFile;
 using DA.Application.Queries.AssetProductImage;
 using DA.Application.Queries.AssetProductImageFile;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace DA.WebAPI.Controllers.v1
@@ -63,10 +65,9 @@ namespace DA.WebAPI.Controllers.v1
         }
 
         [HttpPost("{assetId}/file")]
-        public async Task<IActionResult> CreateFileAsync(Guid assetId, AssetProductImageFileRequest file)
+        public async Task<IActionResult> UploadFileAsync(Guid assetId, List<IFormFile> file)
         {
-            var response = await Mediator.Send(new CreateAssetProductImageFile.Command { AssetId = assetId, File = file });
-            return Ok(response);
+            return Ok(file.Count);
         }
 
         [HttpDelete("{assetId}/file/{fileId}/delete")]
