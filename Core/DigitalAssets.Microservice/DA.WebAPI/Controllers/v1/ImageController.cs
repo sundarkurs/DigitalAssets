@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 
 
@@ -69,6 +70,16 @@ namespace DA.WebAPI.Controllers.v1
         [HttpPost("{assetId}/file")]
         public async Task<IActionResult> UploadFileAsync(Guid assetId, List<IFormFile> file)
         {
+            var one = file[0];
+            using (var ms = new MemoryStream())
+            {
+                one.CopyTo(ms);
+                var fileBytes = ms.ToArray();
+
+                var response = await Mediator.Send(new CreateAssetImageFile.Command
+                { AssetId = assetId, FileName = one.FileName, FileData = fileBytes });
+            }
+
             return Ok(file.Count);
         }
 

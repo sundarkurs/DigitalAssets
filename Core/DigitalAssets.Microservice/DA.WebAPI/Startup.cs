@@ -1,4 +1,5 @@
 using DA.Application;
+using DA.Infra.Shared;
 using DA.Persistence;
 using DA.WebAPI.Extensions;
 using Microsoft.AspNetCore.Builder;
@@ -24,7 +25,8 @@ namespace DA.WebAPI
         {
             services.AddApplicationServices();
             services.AddPersistenceServices(Configuration);
-            
+            services.AddSharedInfrastructure(Configuration);
+
             services.AddSwaggerExtension();
             services.AddApiVersioningExtension();
             services.AddHealthChecks();
