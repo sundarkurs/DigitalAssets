@@ -12,8 +12,12 @@ const AssetsList = (props) => {
     explorerCtx.editAsset(asset);
   };
 
-  const filesHandler = (asset) => {
+  const viewFilesHandler = (asset) => {
     explorerCtx.assetFiles(asset);
+  };
+
+  const addFileHandler = (asset) => {
+    explorerCtx.addFile(asset);
   };
 
   const listItems = props.assets.map((item) => {
@@ -27,8 +31,12 @@ const AssetsList = (props) => {
               name: "Edit",
             },
             {
-              icon: <ImageIcon onClick={() => filesHandler(item)} />,
-              name: "Files",
+              icon: <ImageIcon onClick={() => viewFilesHandler(item)} />,
+              name: "View files",
+            },
+            {
+              icon: <ImageIcon onClick={() => addFileHandler(item)} />,
+              name: "Add file",
             },
           ]}
         ></AssetCard>

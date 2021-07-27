@@ -18,6 +18,7 @@ const AssetAction = {
   Edit: "edit-asset",
   Details: "asset-details",
   Files: "asset-files",
+  AddFile: "add-file",
 };
 
 export const ExplorerContextProvider = (props) => {
@@ -65,6 +66,12 @@ export const ExplorerContextProvider = (props) => {
     setSelectedAsset(asset);
   };
 
+  const addFileHandler = (asset) => {
+    setActionType(AssetAction.AddFile);
+    setOpenDrawer(true);
+    setSelectedAsset(asset);
+  };
+
   const setDrawerHandler = (open) => {
     setOpenDrawer(open);
   };
@@ -86,6 +93,7 @@ export const ExplorerContextProvider = (props) => {
         addAsset: addAssetHandler,
         editAsset: editAssetHandler,
         assetFiles: assetFilesHandler,
+        addFile: addFileHandler,
         setDrawer: setDrawerHandler,
       }}
     >

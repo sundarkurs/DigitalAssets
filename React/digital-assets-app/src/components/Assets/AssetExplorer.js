@@ -72,6 +72,14 @@ const AssetExplorer = (props) => {
           assetTypeCode={assetTypeCode}
         ></AssetFiles>
       );
+    } else if (explorerCtx.actionType === explorerCtx.assetAction.AddFile) {
+      drawerClass = styles.drawerExtended;
+      drawerContent = (
+        <AssetFiles
+          asset={explorerCtx.selectedAsset}
+          assetTypeCode={assetTypeCode}
+        ></AssetFiles>
+      );
     }
   }
 
