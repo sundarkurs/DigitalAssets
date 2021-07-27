@@ -9,6 +9,7 @@ import ExplorerContext from "../../store/ExplorerContext/explorer-context";
 import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import AssetFiles from "../File/AssetFiles";
+import UploadFile from "../File/Upload/UploadFile";
 
 const useStyles = makeStyles((theme) => ({
   drawerDefault: {
@@ -73,12 +74,11 @@ const AssetExplorer = (props) => {
         ></AssetFiles>
       );
     } else if (explorerCtx.actionType === explorerCtx.assetAction.AddFile) {
-      drawerClass = styles.drawerExtended;
       drawerContent = (
-        <AssetFiles
+        <UploadFile
           asset={explorerCtx.selectedAsset}
           assetTypeCode={assetTypeCode}
-        ></AssetFiles>
+        ></UploadFile>
       );
     }
   }

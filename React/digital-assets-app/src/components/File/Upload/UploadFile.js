@@ -1,68 +1,70 @@
 import React, { Fragment, useContext, useState } from "react";
-import TextField from "@material-ui/core/TextField";
+import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
 import Box from "@material-ui/core/Box";
+import { Typography } from "@material-ui/core";
 import useRightPanelStyles from "../../Styles/right-panel-styles";
 import CloseIcon from "@material-ui/icons/Close";
-import { Typography } from "@material-ui/core";
+import ExplorerContext from "../../../store/ExplorerContext/explorer-context";
 import axios from "../../../store/DbContext/assets-db-context";
 import useShowMessage from "../../../hooks/use-show-message";
-import { makeStyles } from "@material-ui/core/styles";
-import ExplorerContext from "../../../store/ExplorerContext/explorer-context";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import Avatar from "@material-ui/core/Avatar";
+import ImageIcon from "@material-ui/icons/Image";
+import WorkIcon from "@material-ui/icons/Work";
+import BeachAccessIcon from "@material-ui/icons/BeachAccess";
 
-let IS_FORM_VALID = true;
+const useStyles = makeStyles((theme) => ({
+  root: {
+    "& > *": {
+      margin: theme.spacing(1),
+    },
+  },
+  input: {
+    display: "none",
+  },
+}));
 
 const AddFile = (props) => {
+  const classes = useStyles();
   const explorerCtx = useContext(ExplorerContext);
   const rpStyles = useRightPanelStyles();
+  const [selectedFiles, setSelectedFiles] = useState([]);
   const { showSuccess, showError, showApiError } = useShowMessage();
 
-  const [name, setName] = useState("");
+  let files = [];
+  const selectFile = (event) => {
+    setSelectedFiles([...event.target.files]);
+    files = [...event.target.files];
+    console.log(files);
+  };
 
-  const [nameValid, setNameValid] = useState(true);
-
-  const submitHandler = (event) => {
-    event.preventDefault();
-
-    if (!isFormVallid()) {
-      return;
-    }
-
-    const newAsset = {
-      name: name,
-      countryCode: country,
-      languageCode: language,
-      folderId: props.folderId,
-      abstract: abstract,
-    };
+  const upload = () => {
+    let formData = new FormData();
+    formData.append("file", selectedFiles);
 
     axios
-      .post("/Image", newAsset)
+      .post(`/Image/${props.asset.id}/file`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
       .then((response) => {
-        showSuccess(`Asset "${name}" created successfully.`);
-        setName("");
-        props.refreshAssets();
+        showSuccess(`File uploaded successfully.`);
       })
       .catch((error) => {
         showApiError(error);
       });
   };
 
-  const vlaidateForm = () => {
-    IS_FORM_VALID = true;
-  };
-
-  const isFormVallid = () => {
-    vlaidateForm();
-
-    return IS_FORM_VALID;
-  };
-
   return (
-    <form onSubmit={submitHandler}>
+    <>
       <Box display="flex" className={rpStyles.toolbar}>
-        <Typography variant="h6">Upload file</Typography>
+        <Typography variant="h6">Upload new file</Typography>
         <CloseIcon
           className={rpStyles.closeIcon}
           onClick={explorerCtx.closeDrawer}
@@ -70,25 +72,57 @@ const AddFile = (props) => {
       </Box>
       <Divider className={rpStyles.divider}></Divider>
       <Box mt={2} display="flex" className={rpStyles.content}>
-        <TextField
-          className={rpStyles.inputs}
-          id="txtName"
-          variant="outlined"
-          label="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          error={!nameValid}
+        <input
+          accept="image/*"
+          className={classes.input}
+          id="contained-button-file"
+          multiple
+          type="file"
+          onChange={selectFile}
         />
+        <label htmlFor="contained-button-file">
+          <Button variant="contained" color="primary" component="span">
+            Choose files
+          </Button>
+        </label>
+
+        <br />
+
+        <List>
+          {selectedFiles &&
+            selectedFiles.length > 0 &&
+            selectedFiles.map((file, index) => {
+              console.log(file);
+              return (
+                <ListItem id={index}>
+                  <ListItemAvatar>
+                    <Avatar>
+                      <ImageIcon />
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={file.name}
+                    secondary={`Size: ${file.size}`}
+                  />
+                </ListItem>
+              );
+            })}
+        </List>
+
+        <br />
+
         <Button
-          type="submit"
-          variant="contained"
+          className="btn-upload"
           color="primary"
-          className={rpStyles.button}
+          variant="contained"
+          component="span"
+          disabled={!selectedFiles}
+          onClick={upload}
         >
-          Save
+          Upload
         </Button>
       </Box>
-    </form>
+    </>
   );
 };
 
