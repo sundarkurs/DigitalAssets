@@ -9,12 +9,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import ExplorerContext from "../../../store/ExplorerContext/explorer-context";
 import axios from "../../../store/DbContext/assets-db-context";
 import useShowMessage from "../../../hooks/use-show-message";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import Avatar from "@material-ui/core/Avatar";
-import ImageIcon from "@material-ui/icons/Image";
+import AppImageFileList from "../../UI/AppImageFileList";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,11 +37,12 @@ const AddFile = (props) => {
     for (let i = 0; i < selectedFiles.length; i++) {
       let formData = new FormData();
       formData.append("file", selectedFiles[i]);
-      uploadFile(formData);
+      uploadFile(formData, selectedFiles[i].name);
     }
   };
 
-  const uploadFile = (formData) => {
+  const uploadFile = (formData, name) => {
+    console.log(formData);
     axios
       .post(`/${props.assetTypeCode}/${props.asset.id}/file`, formData, {
         headers: {
@@ -54,7 +50,7 @@ const AddFile = (props) => {
         },
       })
       .then((response) => {
-        showSuccess(`File uploaded successfully.`);
+        showSuccess(`File ${name} uploaded successfully.`);
       })
       .catch((error) => {
         showApiError(error);
@@ -93,26 +89,7 @@ const AddFile = (props) => {
 
         <br />
 
-        <List>
-          {filesToMap &&
-            filesToMap.length > 0 &&
-            filesToMap.map((file, index) => {
-              console.log(file);
-              return (
-                <ListItem id={index}>
-                  <ListItemAvatar>
-                    <Avatar>
-                      <ImageIcon />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={file.name}
-                    secondary={`Size: ${file.size}`}
-                  />
-                </ListItem>
-              );
-            })}
-        </List>
+        <AppImageFileList files={filesToMap}></AppImageFileList>
 
         <br />
 
