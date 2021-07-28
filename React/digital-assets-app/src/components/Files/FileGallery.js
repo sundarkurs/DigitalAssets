@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import ImageList from "@material-ui/core/ImageList";
 import ImageListItem from "@material-ui/core/ImageListItem";
@@ -28,10 +28,6 @@ const ImageFiles = (props) => {
   const classes = useStyles();
   const { files } = props;
 
-  const defaultHandler = (file) => {};
-
-  const deleteHandler = (file) => {};
-
   return (
     <div className={classes.root}>
       <ImageList rowHeight={180} className={classes.imageList}>
@@ -44,11 +40,13 @@ const ImageFiles = (props) => {
             <AppSpeedMenu
               actions={[
                 {
-                  icon: <WallpaperIcon onClick={() => defaultHandler(item)} />,
+                  icon: (
+                    <WallpaperIcon onClick={() => props.onDefaultSet(item)} />
+                  ),
                   name: "Default",
                 },
                 {
-                  icon: <DeleteIcon onClick={() => deleteHandler(item)} />,
+                  icon: <DeleteIcon onClick={() => props.onFileDelete(item)} />,
                   name: "Delete",
                 },
               ]}

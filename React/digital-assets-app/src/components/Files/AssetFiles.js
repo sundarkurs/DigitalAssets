@@ -4,11 +4,13 @@ import axios from "../../store/DbContext/assets-db-context";
 import FileGallery from "./FileGallery";
 import Box from "@material-ui/core/Box";
 import useRightPanelStyles from "../Styles/right-panel-styles";
+import useShowMessage from "../../hooks/use-show-message";
 
 const AssetFiles = (props) => {
   const [files, setFiles] = useState([]);
   const rpStyles = useRightPanelStyles();
   const { asset, assetTypeCode } = props;
+  const { showSuccess, showError, showApiError } = useShowMessage();
 
   useEffect(() => {
     getAssetFiles(asset.id);
@@ -25,11 +27,33 @@ const AssetFiles = (props) => {
       });
   };
 
+  const fileDeleteHandler = (file) => {
+    axios
+      .delete(`/${assetTypeCode}/${asset.id}/file/${file.id}/delete`)
+      .then((response) => {
+        showSuccess(`File ${file.name} deleted successfully.`);
+        getAssetFiles(asset.id);
+      })
+      .catch((error) => {
+        showApiError(error);
+      });
+  };
+
+  const setDefaultFileHandler = (file) => {
+    console.log("Default");
+  };
+
   return (
     <>
       <Box mt={2} display="flex" className={rpStyles.content}>
         {files.length == 0 && <Typography>No files found</Typography>}
-        {files.length > 0 && <FileGallery files={files}></FileGallery>}
+        {files.length > 0 && (
+          <FileGallery
+            files={files}
+            onFileDelete={fileDeleteHandler}
+            onDefaultSet={setDefaultFileHandler}
+          ></FileGallery>
+        )}
       </Box>
     </>
   );
