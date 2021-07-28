@@ -9,6 +9,7 @@ import ExplorerContext from "../../store/ExplorerContext/explorer-context";
 import { makeStyles } from "@material-ui/core/styles";
 import AssetFiles from "../Files/AssetFiles";
 import UploadFile from "../Files/Upload/UploadFile";
+import DeleteAsset from "./Delete/DeleteAsset";
 
 const useStyles = makeStyles((theme) => ({
   drawerDefault: {
@@ -89,6 +90,11 @@ const AssetExplorer = (props) => {
     }
   }
 
+  const onDeleteEndHandler = () => {
+    explorerCtx.closeDrawer();
+    refreshAssets();
+  };
+
   return (
     <>
       <AssetsList assets={assets}></AssetsList>
@@ -102,6 +108,14 @@ const AssetExplorer = (props) => {
       >
         {drawerContent}
       </AppRightDrawer>
+
+      {explorerCtx.actionType === explorerCtx.assetAction.Delete && (
+        <DeleteAsset
+          asset={explorerCtx.selectedAsset}
+          assetTypeCode={assetTypeCode}
+          onDeleteEnd={onDeleteEndHandler}
+        ></DeleteAsset>
+      )}
     </>
   );
 };

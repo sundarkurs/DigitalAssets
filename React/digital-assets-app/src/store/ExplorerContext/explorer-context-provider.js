@@ -54,6 +54,12 @@ export const ExplorerContextProvider = (props) => {
     setOpenDrawer(true);
   };
 
+  const deleteAssetHandler = (asset) => {
+    setActionType(AssetAction.Delete);
+    setSelectedAsset(asset);
+    setOpenDrawer(false);
+  };
+
   const assetFilesHandler = (asset) => {
     setActionType(AssetAction.Files);
     setOpenDrawer(true);
@@ -92,6 +98,7 @@ export const ExplorerContextProvider = (props) => {
         deleteFolder: deleteFolderHandler,
         addAsset: addAssetHandler,
         editAsset: editAssetHandler,
+        deleteAsset: deleteAssetHandler,
         assetFiles: assetFilesHandler,
         addFile: addFileHandler,
         setDrawer: setDrawerHandler,

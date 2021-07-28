@@ -14,6 +14,7 @@ const ExplorerContext = React.createContext({
   deleteFolder: (folder) => {},
   addAsset: () => {},
   editAsset: (asset) => {},
+  deleteAsset: (folder) => {},
   assetFiles: (asset) => {},
   addFile: (asset) => {},
   setDrawer: (open) => {},
