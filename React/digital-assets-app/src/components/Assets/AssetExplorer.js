@@ -7,8 +7,8 @@ import EditAssetImage from "./Edit/EditAssetImage";
 import EditAssetProductImage from "./Edit/EditAssetProductImage";
 import ExplorerContext from "../../store/ExplorerContext/explorer-context";
 import { makeStyles } from "@material-ui/core/styles";
-import AssetFiles from "../File/AssetFiles";
-import UploadFile from "../File/Upload/UploadFile";
+import AssetFiles from "../Files/AssetFiles";
+import UploadFile from "../Files/Upload/UploadFile";
 
 const useStyles = makeStyles((theme) => ({
   drawerDefault: {
