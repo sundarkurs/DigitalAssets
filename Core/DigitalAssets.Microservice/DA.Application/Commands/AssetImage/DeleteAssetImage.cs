@@ -33,12 +33,19 @@ namespace DA.Application.Commands.AssetImage
 
                 if (asset == null)
                 {
+                    // TODO: Check message shown on the UI
                     throw new ApiException($"Asset not found.");
                 }
 
-                await _assetRepository.DeleteAsync(asset);
-
-                return new Response<bool>(true);
+                try
+                {
+                    await _assetRepository.DeleteAsync(asset);
+                    return new Response<bool>(true);
+                }
+                catch (Exception ex)
+                {
+                    return new Response<bool>("Error occurred while deleting the asset.");
+                }
             }
         }
     }

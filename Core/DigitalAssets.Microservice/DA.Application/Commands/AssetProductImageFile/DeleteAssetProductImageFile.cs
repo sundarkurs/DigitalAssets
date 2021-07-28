@@ -39,9 +39,15 @@ namespace DA.Application.Commands.AssetProductImageFile
                     throw new ApiException($"File not found.");
                 }
 
-                await _assetFileRepository.DeleteAsync(file);
-
-                return new Response<bool>(true);
+                try
+                {
+                    await _assetFileRepository.DeleteAsync(file);
+                    return new Response<bool>(true);
+                }
+                catch (Exception ex)
+                {
+                    return new Response<bool>("Error occurred while deleting the file.");
+                }
             }
         }
     }

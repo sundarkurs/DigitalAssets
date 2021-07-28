@@ -37,9 +37,15 @@ namespace DA.Application.Commands.AssetProductImage
                     throw new ApiException($"Asset not found.");
                 }
 
-                await _assetRepository.DeleteAsync(asset);
-
-                return new Response<bool>(true);
+                try
+                {
+                    await _assetRepository.DeleteAsync(asset);
+                    return new Response<bool>(true);
+                }
+                catch (Exception ex)
+                {
+                    return new Response<bool>("Error occurred while deleting the asset.");
+                }
             }
         }
     }

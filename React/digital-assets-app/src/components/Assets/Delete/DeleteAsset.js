@@ -23,9 +23,13 @@ const DeleteAsset = (props) => {
       axios
         .delete(`/${assetTypeCode}/${asset.id}`)
         .then((response) => {
-          showSuccess(`Asset "${asset.name}" deleted successfully.`);
-          onDeleteEnd();
-          setOpen(false);
+          if (response.data.succeeded) {
+            showSuccess(`Asset "${asset.name}" deleted successfully.`);
+            onDeleteEnd();
+            setOpen(false);
+          } else {
+            showError(response.data.message);
+          }
         })
         .catch((error) => {
           showApiError(error);
