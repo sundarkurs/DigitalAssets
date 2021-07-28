@@ -6,7 +6,6 @@ import CreateAssetProductImage from "../Assets/Create/CreateAssetProductImage";
 import EditAssetImage from "./Edit/EditAssetImage";
 import EditAssetProductImage from "./Edit/EditAssetProductImage";
 import ExplorerContext from "../../store/ExplorerContext/explorer-context";
-import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import AssetFiles from "../File/AssetFiles";
 import UploadFile from "../File/Upload/UploadFile";

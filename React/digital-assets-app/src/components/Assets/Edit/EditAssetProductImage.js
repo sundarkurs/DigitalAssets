@@ -9,25 +9,10 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-import { makeStyles } from "@material-ui/core/styles";
-import ExplorerContext from "../../../store/ExplorerContext/explorer-context";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  },
-}));
 
 let IS_FORM_VALID = true;
 
 const EditAssetProductImage = (props) => {
-  const classes = useStyles();
-  const explorerCtx = useContext(ExplorerContext);
   const rpStyles = useRightPanelStyles();
   const { showSuccess, showError, showApiError } = useShowMessage();
 

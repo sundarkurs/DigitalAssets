@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { useParams } from "react-router";
 import { useHistory } from "react-router-dom";
 import FoldersList from "../Folders/List/FoldersList";
 import CreateFolder from "../Folders/Create/CreateFolder";

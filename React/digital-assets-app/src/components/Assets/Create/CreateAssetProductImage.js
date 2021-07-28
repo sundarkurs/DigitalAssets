@@ -9,12 +9,10 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-import ExplorerContext from "../../../store/ExplorerContext/explorer-context";
 
 let IS_FORM_VALID = true;
 
 const CreateAssetProductImage = (props) => {
-  const explorerCtx = useContext(ExplorerContext);
   const rpStyles = useRightPanelStyles();
   const { showSuccess, showError, showApiError } = useShowMessage();
   const [name, setName] = useState("");
