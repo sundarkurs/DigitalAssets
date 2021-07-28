@@ -1,10 +1,7 @@
 import React, { Fragment, useContext, useEffect, useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import Divider from "@material-ui/core/Divider";
 import Box from "@material-ui/core/Box";
-import CloseIcon from "@material-ui/icons/Close";
-import { Typography } from "@material-ui/core";
 import axios from "../../../store/DbContext/assets-db-context";
 import AppContext from "../../../store/AppContext/app-context";
 import useRightPanelStyles from "../../Styles/right-panel-styles";
@@ -81,14 +78,6 @@ const EditAssetType = (props) => {
 
   return (
     <form onSubmit={submitHandler}>
-      <Box display="flex" className={rpStyles.toolbar}>
-        <Typography variant="h6">Edit asset type</Typography>
-        <CloseIcon
-          className={rpStyles.closeIcon}
-          onClick={props.closeDetailsPanel}
-        />
-      </Box>
-      <Divider className={rpStyles.divider}></Divider>
       <Box mt={2} display="flex" className={rpStyles.content}>
         <TextField
           className={rpStyles.inputs}

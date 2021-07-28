@@ -56,8 +56,10 @@ const AssetTypes = (props) => {
   };
 
   var drawerContent = "";
+  let drawerTitle = "";
   if (showDrawer) {
     if (mode === "edit") {
+      drawerTitle = "Edit asset type";
       drawerContent = (
         <EditAssetType
           assetType={assetType}
@@ -85,6 +87,7 @@ const AssetTypes = (props) => {
         drawerClass={styles.drawer}
         show={showDrawer}
         onClose={() => toggleDrawer(false)}
+        title={drawerTitle}
       >
         {drawerContent}
       </AppDetailDrawer>

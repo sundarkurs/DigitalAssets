@@ -29,9 +29,11 @@ const AssetExplorer = (props) => {
 
   var drawerClass = props.drawerClass;
   var drawerContent = "";
+  let drawerTitle = "";
   if (explorerCtx.openDrawer) {
     if (explorerCtx.actionType === explorerCtx.assetAction.Create) {
       if (folderInfo.folder.assetType === explorerCtx.assetType.ProductImage) {
+        drawerTitle = "Create Product Image asset";
         drawerContent = (
           <CreateAssetProductImage
             folderId={folderInfo.folder.id}
@@ -40,6 +42,7 @@ const AssetExplorer = (props) => {
           ></CreateAssetProductImage>
         );
       } else if (folderInfo.folder.assetType === explorerCtx.assetType.Image) {
+        drawerTitle = "Create Image asset";
         drawerContent = (
           <CreateAssetImage
             folderId={folderInfo.folder.id}
@@ -50,6 +53,7 @@ const AssetExplorer = (props) => {
       }
     } else if (explorerCtx.actionType === explorerCtx.assetAction.Edit) {
       if (folderInfo.folder.assetType === explorerCtx.assetType.Image) {
+        drawerTitle = "Update Image asset";
         drawerContent = (
           <EditAssetImage
             asset={explorerCtx.selectedAsset}
@@ -58,6 +62,7 @@ const AssetExplorer = (props) => {
         );
       }
       if (folderInfo.folder.assetType === explorerCtx.assetType.ProductImage) {
+        drawerTitle = "Update Product Image asset";
         drawerContent = (
           <EditAssetProductImage
             asset={explorerCtx.selectedAsset}
@@ -66,6 +71,7 @@ const AssetExplorer = (props) => {
         );
       }
     } else if (explorerCtx.actionType === explorerCtx.assetAction.Files) {
+      drawerTitle = "View files";
       drawerClass = styles.drawerExtended;
       drawerContent = (
         <AssetFiles
@@ -74,6 +80,7 @@ const AssetExplorer = (props) => {
         ></AssetFiles>
       );
     } else if (explorerCtx.actionType === explorerCtx.assetAction.AddFile) {
+      drawerTitle = "Upload files";
       drawerContent = (
         <UploadFile
           asset={explorerCtx.selectedAsset}
@@ -92,6 +99,7 @@ const AssetExplorer = (props) => {
         drawerClass={drawerClass}
         show={explorerCtx.openDrawer && drawerContent !== ""}
         onClose={() => explorerCtx.setDrawer(false)}
+        title={drawerTitle}
       >
         {drawerContent}
       </AppDetailDrawer>

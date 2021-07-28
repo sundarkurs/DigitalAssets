@@ -1,11 +1,8 @@
 import React, { Fragment, useContext, useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import Divider from "@material-ui/core/Divider";
 import Box from "@material-ui/core/Box";
 import useRightPanelStyles from "../../Styles/right-panel-styles";
-import CloseIcon from "@material-ui/icons/Close";
-import { Typography } from "@material-ui/core";
 import axios from "../../../store/DbContext/assets-db-context";
 import useShowMessage from "../../../hooks/use-show-message";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -113,15 +110,6 @@ const EditAssetImage = (props) => {
 
   return (
     <form onSubmit={submitHandler}>
-      <Box display="flex" className={rpStyles.toolbar}>
-        <Typography variant="h6">Update asset</Typography>
-        <CloseIcon
-          className={rpStyles.closeIcon}
-          onClick={explorerCtx.closeDrawer}
-        />
-      </Box>
-      <Divider className={rpStyles.divider}></Divider>
-
       <Box mt={2} display="flex" className={rpStyles.content}>
         <TextField
           className={rpStyles.inputs}

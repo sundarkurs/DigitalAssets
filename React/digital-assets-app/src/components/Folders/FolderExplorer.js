@@ -34,8 +34,10 @@ const FolderExplorer = (props) => {
   };
 
   var drawerContent = "";
+  let drawerTitle = "";
   if (exCtx.openDrawer) {
     if (exCtx.actionType === exCtx.folderAction.Add) {
+      drawerTitle = "Add new folder";
       drawerContent = (
         <CreateFolder
           parentId={folderInfo.folder.id}
@@ -44,6 +46,7 @@ const FolderExplorer = (props) => {
         ></CreateFolder>
       );
     } else if (exCtx.actionType === exCtx.folderAction.Rename) {
+      drawerTitle = "Rename folder";
       drawerContent = (
         <RenameFolder
           folder={exCtx.selectedFolder}
@@ -67,6 +70,7 @@ const FolderExplorer = (props) => {
         drawerClass={drawerClass}
         show={exCtx.openDrawer && drawerContent !== ""}
         onClose={() => exCtx.setDrawer(false)}
+        title={drawerTitle}
       >
         {drawerContent}
       </AppDetailDrawer>

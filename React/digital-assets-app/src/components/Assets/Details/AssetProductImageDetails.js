@@ -1,16 +1,11 @@
 import React, { Fragment, useContext, useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import Divider from "@material-ui/core/Divider";
 import Box from "@material-ui/core/Box";
 import useRightPanelStyles from "../../Styles/right-panel-styles";
-import CloseIcon from "@material-ui/icons/Close";
-import { Typography } from "@material-ui/core";
-import axios from "../../../store/DbContext/assets-db-context";
 import useShowMessage from "../../../hooks/use-show-message";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import { makeStyles } from "@material-ui/core/styles";
@@ -50,15 +45,6 @@ const AssetProductImageDetails = (props) => {
 
   return (
     <>
-      <Box display="flex" className={rpStyles.toolbar}>
-        <Typography variant="h6">Asset details</Typography>
-        <CloseIcon
-          className={rpStyles.closeIcon}
-          onClick={explorerCtx.closeDrawer}
-        />
-      </Box>
-      <Divider className={rpStyles.divider}></Divider>
-
       <div className={classes.root}>
         <Grid container spacing={3}>
           <Grid item xs>

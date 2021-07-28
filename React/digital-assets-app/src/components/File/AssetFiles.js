@@ -32,15 +32,15 @@ const AssetFiles = (props) => {
 
   return (
     <>
-      <Box display="flex" className={rpStyles.toolbar}>
+      {/* <Box display="flex" className={rpStyles.toolbar}>
         <Typography variant="h6">{asset.name}</Typography>
         <CloseIcon
           className={rpStyles.closeIcon}
           onClick={explorerCtx.closeDrawer}
         />
-      </Box>
+      </Box> */}
 
-      <Divider className={rpStyles.divider}></Divider>
+      {/* <Divider className={rpStyles.divider}></Divider> */}
       <br></br>
 
       {files.length == 0 && <Typography>No files found</Typography>}

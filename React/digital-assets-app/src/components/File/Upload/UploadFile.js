@@ -64,14 +64,14 @@ const AddFile = (props) => {
 
   return (
     <>
-      <Box display="flex" className={rpStyles.toolbar}>
+      {/* <Box display="flex" className={rpStyles.toolbar}>
         <Typography variant="h6">Upload files</Typography>
         <CloseIcon
           className={rpStyles.closeIcon}
           onClick={explorerCtx.closeDrawer}
         />
       </Box>
-      <Divider className={rpStyles.divider}></Divider>
+      <Divider className={rpStyles.divider}></Divider> */}
       <Box mt={2} display="flex" className={rpStyles.content}>
         <input
           accept="image/*"
