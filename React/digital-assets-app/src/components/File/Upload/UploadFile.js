@@ -39,11 +39,14 @@ const AddFile = (props) => {
   };
 
   const upload = () => {
-    let formData = new FormData();
     for (let i = 0; i < selectedFiles.length; i++) {
+      let formData = new FormData();
       formData.append("file", selectedFiles[i]);
+      uploadFile(formData);
     }
+  };
 
+  const uploadFile = (formData) => {
     axios
       .post(`/${props.assetTypeCode}/${props.asset.id}/file`, formData, {
         headers: {
@@ -51,7 +54,7 @@ const AddFile = (props) => {
         },
       })
       .then((response) => {
-        showSuccess(`File(s) uploaded successfully.`);
+        showSuccess(`File uploaded successfully.`);
       })
       .catch((error) => {
         showApiError(error);

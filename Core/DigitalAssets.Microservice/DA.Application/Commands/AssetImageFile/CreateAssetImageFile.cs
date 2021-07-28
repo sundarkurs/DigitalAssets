@@ -37,23 +37,27 @@ namespace DA.Application.Commands.AssetImageFile
             {
                 //TODO, Asset relation validation
                 var identifier = System.Guid.NewGuid();
-                var aa = _storageService.CreateOrUpdate(request.FileData, identifier.ToString());
+                if (_storageService.CreateOrUpdate(request.FileData, identifier.ToString()))
+                {
+                    var file = new Domain.Models.AssetImageFile();
+                    file.Name = request.FileName;
+                    file.Size = request.FileData.Length;
+                    file.AssetId = request.AssetId;
+                    file.BlobId = identifier;
+                    file.Version = "1";
+                    file.IsDefault = false;
+                    file.UpdatedBy = "Sundar Urs";
+                    file.UpdatedOn = DateTime.UtcNow;
 
-                var asset = new Domain.Models.AssetImageFile();
-                asset.Name = request.FileName;
-                asset.Size = request.FileData.Length;
-                asset.AssetId = request.AssetId;
-                asset.BlobId = identifier;
-                asset.Version = "1";
-                asset.IsDefault = false;
-                asset.UpdatedBy = "Sundar Urs";
-                asset.UpdatedOn = DateTime.UtcNow;
+                    var response = await _assetFileRepository.AddAsync(file);
 
-                var response = await _assetFileRepository.AddAsync(asset);
+                    var newFile = _mapper.Map<AssetImageFileDto>(response);
 
-                var newAssetType = _mapper.Map<AssetImageFileDto>(response);
+                    return new Response<AssetImageFileDto>(newFile);
+                }
 
-                return new Response<AssetImageFileDto>(newAssetType);
+                return new Response<AssetImageFileDto>("Error uploading a file.");
+
             }
         }
     }

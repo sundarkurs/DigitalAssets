@@ -17,8 +17,6 @@ namespace DA.Infra.Shared.Services
         public ILogger<EmailService> _logger { get; }
 
         BlobContainerClient _blobContainer;
-        BlobClient _blobClient;
-
 
         public BlobStorageService(IOptions<StorageSettings> storageSettings, ILogger<EmailService> logger)
         {
@@ -31,9 +29,9 @@ namespace DA.Infra.Shared.Services
 
         public bool CreateOrUpdate(byte[] data, string name)
         {
-            Stream stream = new MemoryStream(data);
-            BlobClient blob = _blobContainer.GetBlobClient(name);
-            var res = blob.Upload(stream);
+            var stream = new MemoryStream(data);
+            var blobClient = _blobContainer.GetBlobClient(name);
+            blobClient.Upload(stream);
             return true;
         }
 
