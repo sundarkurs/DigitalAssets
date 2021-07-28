@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import AssetsList from "../Assets/List/AssetsList";
-import AppDetailDrawer from "../UI/AppDetailDrawer";
+import AppRightDrawer from "../UI/AppRightDrawer";
 import CreateAssetImage from "../Assets/Create/CreateAssetImage";
 import CreateAssetProductImage from "../Assets/Create/CreateAssetProductImage";
 import EditAssetImage from "./Edit/EditAssetImage";
@@ -93,7 +93,7 @@ const AssetExplorer = (props) => {
     <>
       <AssetsList assets={assets}></AssetsList>
 
-      <AppDetailDrawer
+      <AppRightDrawer
         id="assets"
         drawerClass={drawerClass}
         show={explorerCtx.openDrawer && drawerContent !== ""}
@@ -101,7 +101,7 @@ const AssetExplorer = (props) => {
         title={drawerTitle}
       >
         {drawerContent}
-      </AppDetailDrawer>
+      </AppRightDrawer>
     </>
   );
 };

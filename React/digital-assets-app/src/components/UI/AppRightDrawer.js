@@ -1,5 +1,5 @@
 import Drawer from "@material-ui/core/Drawer";
-import AppSection from "../UI/AppSection";
+import AppSection from "./AppSection";
 import PropTypes from "prop-types";
 import Divider from "@material-ui/core/Divider";
 import Box from "@material-ui/core/Box";
@@ -7,7 +7,7 @@ import { Typography } from "@material-ui/core";
 import useRightPanelStyles from "../Styles/right-panel-styles";
 import CloseIcon from "@material-ui/icons/Close";
 
-const AppDetailDrawer = (props) => {
+const AppRightDrawer = (props) => {
   const { show, drawerClass, onClose } = props;
   const rpStyles = useRightPanelStyles();
 
@@ -42,9 +42,9 @@ const AppDetailDrawer = (props) => {
   );
 };
 
-export default AppDetailDrawer;
+export default AppRightDrawer;
 
-AppDetailDrawer.propTypes = {
+AppRightDrawer.propTypes = {
   show: PropTypes.bool,
   onClose: PropTypes.func,
   drawerClass: PropTypes.string,

@@ -4,7 +4,7 @@ import FoldersList from "../Folders/List/FoldersList";
 import CreateFolder from "../Folders/Create/CreateFolder";
 import RenameFolder from "../Folders/Rename/RenameFolder";
 import DeleteFolder from "../Folders/Delete/DeleteFolder";
-import AppDetailDrawer from "../UI/AppDetailDrawer";
+import AppRightDrawer from "../UI/AppRightDrawer";
 import ExplorerContext from "../../store/ExplorerContext/explorer-context";
 
 const FolderExplorer = (props) => {
@@ -64,7 +64,7 @@ const FolderExplorer = (props) => {
         onOpenFolder={onOpenFolderHandler}
       ></FoldersList>
 
-      <AppDetailDrawer
+      <AppRightDrawer
         id="file"
         drawerClass={drawerClass}
         show={exCtx.openDrawer && drawerContent !== ""}
@@ -72,7 +72,7 @@ const FolderExplorer = (props) => {
         title={drawerTitle}
       >
         {drawerContent}
-      </AppDetailDrawer>
+      </AppRightDrawer>
 
       {exCtx.actionType === exCtx.folderAction.Delete && (
         <DeleteFolder
