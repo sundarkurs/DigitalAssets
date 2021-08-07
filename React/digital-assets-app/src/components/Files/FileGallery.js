@@ -6,6 +6,8 @@ import ImageListItemBar from "@material-ui/core/ImageListItemBar";
 import AppSpeedMenu from "../UI/AppSpeedMenu";
 import DeleteIcon from "@material-ui/icons/Delete";
 import WallpaperIcon from "@material-ui/icons/Wallpaper";
+import CenterFocusStrongIcon from "@material-ui/icons/CenterFocusStrong";
+import IconButton from "@material-ui/core/IconButton";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
   },
   imageList: {
-    width: '100%',
+    width: "100%",
     height: 500,
   },
   icon: {
@@ -30,30 +32,38 @@ const ImageFiles = (props) => {
   return (
     <div className={classes.root}>
       <ImageList rowHeight={180} className={classes.imageList}>
-        {files.map((item) => (
-          <ImageListItem key={item.id}>
+        {files.map((file) => (
+          <ImageListItem key={file.id}>
             <img
               src="https://source.unsplash.com/random"
-              alt={item.title}
+              alt={file.title}
             ></img>
             <AppSpeedMenu
               actions={[
                 {
                   icon: (
-                    <WallpaperIcon onClick={() => props.onDefaultSet(item)} />
+                    <WallpaperIcon onClick={() => props.onDefaultSet(file)} />
                   ),
                   name: "Default",
                 },
                 {
-                  icon: <DeleteIcon onClick={() => props.onFileDelete(item)} />,
+                  icon: <DeleteIcon onClick={() => props.onFileDelete(file)} />,
                   name: "Delete",
                 },
               ]}
             ></AppSpeedMenu>
+
             <ImageListItemBar
-              title={item.name}
-              subtitle={`Version: ${item.version}`}
-            />
+              title={file.name}
+              subtitle={`Version: ${file.version}`}
+              actionIcon={
+                file.isDefault && (
+                  <IconButton className={classes.icon}>
+                    <CenterFocusStrongIcon />
+                  </IconButton>
+                )
+              }
+            ></ImageListItemBar>
           </ImageListItem>
         ))}
       </ImageList>

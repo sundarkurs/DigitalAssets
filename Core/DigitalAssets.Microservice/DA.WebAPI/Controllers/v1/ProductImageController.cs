@@ -71,9 +71,21 @@ namespace DA.WebAPI.Controllers.v1
         }
 
         [HttpDelete("{assetId}/file/{fileId}/delete")]
-        public async Task<IActionResult> CreateFileAsync(Guid assetId, Guid fileId)
+        public async Task<IActionResult> DeleteFileAsync(Guid assetId, Guid fileId)
         {
             var response = await Mediator.Send(new DeleteAssetProductImageFile.Command { AssetId = assetId, Id = fileId });
+            return Ok(response);
+        }
+
+        [HttpPut("{assetId}/file/{fileId}/default")]
+        public async Task<IActionResult> SetDefaultAsync(Guid assetId, Guid fileId)
+        {
+            var response = await Mediator.Send(new UpdateAssetProductImageFile.Command
+            {
+                AssetId = assetId,
+                Id = fileId,
+                Type = UpdateAssetProductImageFile.FileUpdateType.SetDefault
+            });
             return Ok(response);
         }
 

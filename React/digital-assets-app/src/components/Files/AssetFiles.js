@@ -40,7 +40,15 @@ const AssetFiles = (props) => {
   };
 
   const setDefaultFileHandler = (file) => {
-    console.log("Default");
+    axios
+      .put(`/${assetTypeCode}/${asset.id}/file/${file.id}/default`)
+      .then((response) => {
+        showSuccess(`File ${file.name} updated successfully.`);
+        getAssetFiles(asset.id);
+      })
+      .catch((error) => {
+        showApiError(error);
+      });
   };
 
   return (
