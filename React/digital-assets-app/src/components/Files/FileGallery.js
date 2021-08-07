@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import ImageList from "@material-ui/core/ImageList";
 import ImageListItem from "@material-ui/core/ImageListItem";
@@ -58,7 +58,7 @@ const ImageFiles = (props) => {
               subtitle={`Version: ${file.version}`}
               actionIcon={
                 file.isDefault && (
-                  <IconButton className={classes.icon}>
+                  <IconButton>
                     <CenterFocusStrongIcon />
                   </IconButton>
                 )

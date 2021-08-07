@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -74,8 +75,18 @@ namespace DA.WebAPI.Controllers.v1
             {
                 file.CopyTo(stream);
 
+                var image = Image.FromStream(stream);
+
+                var aa = image.Height;
+
                 var response = await Mediator.Send(new CreateAssetImageFile.Command
-                { AssetId = assetId, FileName = file.FileName, FileData = stream.ToArray() });
+                {
+                    AssetId = assetId,
+                    FileName = Path.ChangeExtension(file.FileName, null),
+                    Height = image.Height,
+                    Width = image.Width,
+                    FileData = stream.ToArray()
+                });
 
                 if (response.Succeeded)
                 {

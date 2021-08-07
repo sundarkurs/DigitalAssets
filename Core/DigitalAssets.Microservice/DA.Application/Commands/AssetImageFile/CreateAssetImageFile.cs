@@ -17,6 +17,8 @@ namespace DA.Application.Commands.AssetImageFile
         {
             public Guid AssetId { get; set; }
             public string FileName { get; set; }
+            public int Height { get; set; }
+            public int Width { get; set; }
             public byte[] FileData { get; set; }
         }
 
@@ -36,13 +38,18 @@ namespace DA.Application.Commands.AssetImageFile
             public async Task<Response<AssetImageFileDto>> Handle(Command request, CancellationToken cancellationToken)
             {
                 //TODO, Asset relation validation
-                var identifier = System.Guid.NewGuid();
+                var identifier = Guid.NewGuid();
+
+                
+
                 if (_storageService.CreateOrUpdate(request.FileData, identifier.ToString()))
                 {
                     var file = new Domain.Models.AssetImageFile();
+                    file.AssetId = request.AssetId;
                     file.Name = request.FileName;
                     file.Size = request.FileData.Length;
-                    file.AssetId = request.AssetId;
+                    file.Height = request.Height;
+                    file.Width = request.Width;
                     file.BlobId = identifier;
                     file.Version = "1";
                     file.IsDefault = false;

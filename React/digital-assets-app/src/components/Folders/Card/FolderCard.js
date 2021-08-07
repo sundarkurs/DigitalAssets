@@ -15,7 +15,6 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import FolderOptionsMenu from "../FolderOptionsMenu";
 import useFolderCardStyles from "./folder-card-styles";
 import ExplorerContext from "../../../store/ExplorerContext/explorer-context";
-import Folder from "@material-ui/icons/Folder";
 
 const FolderCard = (props) => {
   const explorerCtx = useContext(ExplorerContext);
