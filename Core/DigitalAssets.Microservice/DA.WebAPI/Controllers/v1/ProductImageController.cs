@@ -65,9 +65,20 @@ namespace DA.WebAPI.Controllers.v1
         }
 
         [HttpPost("{assetId}/file")]
-        public async Task<IActionResult> UploadFileAsync(Guid assetId, List<IFormFile> file)
+        public async Task<IActionResult> UploadFileAsync(Guid assetId, IFormFile file)
         {
-            return Ok(file.Count);
+            var response = await Mediator.Send(new CreateAssetProductImageFile.Command
+            {
+                AssetId = assetId,
+                File = file
+            });
+
+            if (response.Succeeded)
+            {
+                return Ok(response);
+            }
+
+            return Ok();
         }
 
         [HttpDelete("{assetId}/file/{fileId}/delete")]

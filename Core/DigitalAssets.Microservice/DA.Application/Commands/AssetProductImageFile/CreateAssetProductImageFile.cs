@@ -1,12 +1,14 @@
 ﻿using AutoMapper;
-using DA.Application.DTO.AssetImage;
-using DA.Application.DTO.AssetImageFile;
 using DA.Application.DTO.AssetProductImageFile;
 using DA.Application.Interfaces.Repositories;
+using DA.Application.Interfaces.Services;
 using DA.Application.Wrappers;
 using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using System;
+using System.Drawing;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -17,35 +19,58 @@ namespace DA.Application.Commands.AssetProductImageFile
         public class Command : IRequest<Response<AssetProductImageFileDto>>
         {
             public Guid AssetId { get; set; }
-            public AssetProductImageFileRequest File { get; set; }
+            public IFormFile File { get; set; }
         }
 
         public class Handler : IRequestHandler<Command, Response<AssetProductImageFileDto>>
         {
             private readonly IAssetFileRepository<Domain.Models.AssetProductImageFile> _assetFileRepository;
             private readonly IMapper _mapper;
+            private readonly IBlobStorageService _storageService;
 
-            public Handler(IAssetFileRepository<Domain.Models.AssetProductImageFile> assetFileRepository, IMapper mapper)
+            public Handler(IAssetFileRepository<Domain.Models.AssetProductImageFile> assetFileRepository, IMapper mapper, IBlobStorageService storageService)
             {
                 _assetFileRepository = assetFileRepository;
                 _mapper = mapper;
+                _storageService = storageService;
             }
 
             public async Task<Response<AssetProductImageFileDto>> Handle(Command request, CancellationToken cancellationToken)
             {
-                // TODO : Asset reference validation
+                var identifier = Guid.NewGuid();
 
-                var file = _mapper.Map<Domain.Models.AssetProductImageFile>(request.File);
 
-                file.AssetId = request.AssetId;
-                file.UpdatedBy = "Sundar Urs";
-                file.UpdatedOn = DateTime.UtcNow;
+                using (var stream = new MemoryStream())
+                {
+                    request.File.CopyTo(stream);
 
-                var response = await _assetFileRepository.AddAsync(file);
+                    var image = Image.FromStream(stream);
 
-                var newAssetType = _mapper.Map<AssetProductImageFileDto>(response);
+                    var fileData = stream.ToArray();
 
-                return new Response<AssetProductImageFileDto>(newAssetType);
+                    if (_storageService.CreateOrUpdate(fileData, identifier.ToString()))
+                    {
+                        var file = new Domain.Models.AssetProductImageFile();
+                        file.AssetId = request.AssetId;
+                        file.Name = Path.ChangeExtension(request.File.FileName, null);
+                        file.Size = fileData.Length;
+                        file.Height = image.Height;
+                        file.Width = image.Width;
+                        file.BlobId = identifier;
+                        file.Version = "1";
+                        file.IsDefault = false;
+                        file.UpdatedBy = "Sundar Urs";
+                        file.UpdatedOn = DateTime.UtcNow;
+
+                        var response = await _assetFileRepository.AddAsync(file);
+
+                        var newFile = _mapper.Map<AssetProductImageFileDto>(response);
+
+                        return new Response<AssetProductImageFileDto>(newFile);
+                    }
+
+                    return new Response<AssetProductImageFileDto>("Error uploading a file.");
+                }
             }
         }
     }

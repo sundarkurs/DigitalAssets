@@ -71,27 +71,15 @@ namespace DA.WebAPI.Controllers.v1
         [HttpPost("{assetId}/file")]
         public async Task<IActionResult> UploadFileAsync(Guid assetId, IFormFile file)
         {
-            using (var stream = new MemoryStream())
+            var response = await Mediator.Send(new CreateAssetImageFile.Command
             {
-                file.CopyTo(stream);
+                AssetId = assetId,
+                File = file
+            });
 
-                var image = Image.FromStream(stream);
-
-                var aa = image.Height;
-
-                var response = await Mediator.Send(new CreateAssetImageFile.Command
-                {
-                    AssetId = assetId,
-                    FileName = Path.ChangeExtension(file.FileName, null),
-                    Height = image.Height,
-                    Width = image.Width,
-                    FileData = stream.ToArray()
-                });
-
-                if (response.Succeeded)
-                {
-                    return Ok(response);
-                }
+            if (response.Succeeded)
+            {
+                return Ok(response);
             }
 
             return Ok();

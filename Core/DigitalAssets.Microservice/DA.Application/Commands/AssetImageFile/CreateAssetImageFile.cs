@@ -5,7 +5,10 @@ using DA.Application.Interfaces.Services;
 using DA.Application.Wrappers;
 using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using System;
+using System.Drawing;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -16,10 +19,7 @@ namespace DA.Application.Commands.AssetImageFile
         public class Command : IRequest<Response<AssetImageFileDto>>
         {
             public Guid AssetId { get; set; }
-            public string FileName { get; set; }
-            public int Height { get; set; }
-            public int Width { get; set; }
-            public byte[] FileData { get; set; }
+            public IFormFile File { get; set; }
         }
 
         public class Handler : IRequestHandler<Command, Response<AssetImageFileDto>>
@@ -40,31 +40,38 @@ namespace DA.Application.Commands.AssetImageFile
                 //TODO, Asset relation validation
                 var identifier = Guid.NewGuid();
 
-                
 
-                if (_storageService.CreateOrUpdate(request.FileData, identifier.ToString()))
+                using (var stream = new MemoryStream())
                 {
-                    var file = new Domain.Models.AssetImageFile();
-                    file.AssetId = request.AssetId;
-                    file.Name = request.FileName;
-                    file.Size = request.FileData.Length;
-                    file.Height = request.Height;
-                    file.Width = request.Width;
-                    file.BlobId = identifier;
-                    file.Version = "1";
-                    file.IsDefault = false;
-                    file.UpdatedBy = "Sundar Urs";
-                    file.UpdatedOn = DateTime.UtcNow;
+                    request.File.CopyTo(stream);
 
-                    var response = await _assetFileRepository.AddAsync(file);
+                    var image = Image.FromStream(stream);
 
-                    var newFile = _mapper.Map<AssetImageFileDto>(response);
+                    var fileData = stream.ToArray();
 
-                    return new Response<AssetImageFileDto>(newFile);
+                    if (_storageService.CreateOrUpdate(fileData, identifier.ToString()))
+                    {
+                        var file = new Domain.Models.AssetImageFile();
+                        file.AssetId = request.AssetId;
+                        file.Name = Path.ChangeExtension(request.File.FileName, null);
+                        file.Size = fileData.Length;
+                        file.Height = image.Height;
+                        file.Width = image.Width;
+                        file.BlobId = identifier;
+                        file.Version = "1";
+                        file.IsDefault = false;
+                        file.UpdatedBy = "Sundar Urs";
+                        file.UpdatedOn = DateTime.UtcNow;
+
+                        var response = await _assetFileRepository.AddAsync(file);
+
+                        var newFile = _mapper.Map<AssetImageFileDto>(response);
+
+                        return new Response<AssetImageFileDto>(newFile);
+                    }
+
+                    return new Response<AssetImageFileDto>("Error uploading a file.");
                 }
-
-                return new Response<AssetImageFileDto>("Error uploading a file.");
-
             }
         }
     }
