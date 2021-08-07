@@ -12,12 +12,11 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexWrap: "wrap",
     justifyContent: "space-around",
-    overflow: "auto",
     backgroundColor: theme.palette.background.paper,
   },
   imageList: {
-    width: 500,
-    height: 450,
+    width: '100%',
+    height: 500,
   },
   icon: {
     color: "rgba(255, 255, 255, 0.54)",

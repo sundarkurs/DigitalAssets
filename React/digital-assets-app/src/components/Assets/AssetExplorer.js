@@ -62,7 +62,7 @@ const AssetExplorer = (props) => {
         );
       }
       if (folderInfo.folder.assetType === explorerCtx.assetType.ProductImage) {
-        drawerTitle = "Update Product Image asset";
+        drawerTitle = "Update Product image asset";
         drawerContent = (
           <EditAssetProductImage
             asset={explorerCtx.selectedAsset}
@@ -71,7 +71,7 @@ const AssetExplorer = (props) => {
         );
       }
     } else if (explorerCtx.actionType === explorerCtx.assetAction.Files) {
-      drawerTitle = "View files";
+      drawerTitle = `${explorerCtx.selectedAsset.name} : Files`;
       drawerClass = styles.drawerExtended;
       drawerContent = (
         <AssetFiles
@@ -80,7 +80,7 @@ const AssetExplorer = (props) => {
         ></AssetFiles>
       );
     } else if (explorerCtx.actionType === explorerCtx.assetAction.AddFile) {
-      drawerTitle = "Upload files";
+      drawerTitle = `${explorerCtx.selectedAsset.name} : Upload files`;
       drawerContent = (
         <UploadFile
           asset={explorerCtx.selectedAsset}
