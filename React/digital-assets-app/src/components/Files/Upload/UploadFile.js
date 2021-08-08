@@ -46,6 +46,7 @@ const AddFile = (props) => {
       })
       .then((response) => {
         showSuccess(`File ${name} uploaded successfully.`);
+        setSelectedFiles([]);
       })
       .catch((error) => {
         showApiError(error);
