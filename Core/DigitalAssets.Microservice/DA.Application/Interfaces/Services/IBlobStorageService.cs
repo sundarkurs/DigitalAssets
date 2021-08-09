@@ -4,7 +4,7 @@ namespace DA.Application.Interfaces.Services
 {
     public interface IBlobStorageService
     {
-        bool CreateOrUpdate(byte[] data, string name);
+        Task<bool> CreateOrUpdate(byte[] data, string name);
 
         Task<string> Get(string name);
 

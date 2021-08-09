@@ -48,7 +48,7 @@ namespace DA.Application.Commands.AssetProductImageFile
 
                     var fileData = stream.ToArray();
 
-                    if (_storageService.CreateOrUpdate(fileData, identifier.ToString()))
+                    if (await _storageService.CreateOrUpdate(fileData, identifier.ToString()))
                     {
                         var file = new Domain.Models.AssetProductImageFile();
                         file.AssetId = request.AssetId;

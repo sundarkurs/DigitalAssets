@@ -28,19 +28,17 @@ namespace DA.Infra.Shared.Services
             _blobContainer.CreateIfNotExists();
         }
 
-        public bool CreateOrUpdate(byte[] data, string name)
+        public async Task<bool> CreateOrUpdate(byte[] data, string name)
         {
             var filePath = string.Format("{0}/{1}/{2}", _storageSettings.RootFolder, _storageSettings.FilesFolder, name);
             var stream = new MemoryStream(data);
             var blobClient = _blobContainer.GetBlobClient(filePath);
-            blobClient.Upload(stream);
+            var info = await blobClient.UploadAsync(stream);
             return true;
         }
 
         public async Task<bool> DirectoryExistsAsync(string name)
         {
-            //throw new NotImplementedException();
-
             Queue<string> prefixes = new Queue<string>();
             prefixes.Enqueue("");
             List<string> directoryNames = new List<string>();
@@ -61,14 +59,38 @@ namespace DA.Infra.Shared.Services
 
         }
 
-        public Task<bool> FileExists(string name)
+        public async Task<bool> FileExists(string name)
         {
-            throw new NotImplementedException();
+            var filePath = string.Format("{0}/{1}/{2}", _storageSettings.RootFolder, _storageSettings.FilesFolder, name);
+
+            var blob = _blobContainer.GetBlobClient(filePath);
+
+            return await blob.ExistsAsync();
         }
 
-        public Task<string> Get(string name)
+        public async Task<string> Get(string name)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var filePath = string.Format("{0}/{1}/{2}", _storageSettings.RootFolder, _storageSettings.FilesFolder, name);
+
+                var blob = _blobContainer.GetBlobClient(filePath);
+
+                if (blob.Exists())
+                {
+                    using (var stream = new MemoryStream())
+                    {
+                        var mm = await blob.DownloadContentAsync();
+                        return Encoding.UTF8.GetString(stream.ToArray());
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+            return null;
         }
     }
 }
