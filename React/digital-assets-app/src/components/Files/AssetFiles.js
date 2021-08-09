@@ -58,6 +58,7 @@ const AssetFiles = (props) => {
         {files.length > 0 && (
           <FileGallery
             files={files}
+            assetTypeCode={assetTypeCode}
             onFileDelete={fileDeleteHandler}
             onDefaultSet={setDefaultFileHandler}
           ></FileGallery>

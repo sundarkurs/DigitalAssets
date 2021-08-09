@@ -105,5 +105,20 @@ namespace DA.WebAPI.Controllers.v1
         {
             return Ok(await Mediator.Send(new GetAllAssetProductImageFilesWithFilter.Query { AssetId = assetId }));
         }
+
+        [HttpGet("{assetId}/file/{fileId}")]
+        public async Task<IActionResult> GetFileAsync(Guid assetId, Guid fileId)
+        {
+            var response = await Mediator.Send(new GetAssetProductImageFile.Query { AssetId = assetId, FileId = fileId });
+
+            Response.Headers.Add("FileName", response.Data.Name);
+            Response.Headers.Add("FileId", response.Data.Id.ToString());
+            Response.Headers.Add("AssetId", response.Data.AssetId.ToString());
+            //Response.Headers.Add("Cache-Control", "public, max-age=" + TimeSpan.FromMinutes(30).TotalSeconds);
+            //Response.Headers.Add("Transformation", "100x100");
+
+
+            return File(response.Data.Content, "image/png");
+        }
     }
 }

@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ImageFiles = (props) => {
   const classes = useStyles();
-  const { files } = props;
+  const { files, assetTypeCode } = props;
 
   return (
     <div className={classes.root}>
@@ -35,7 +35,7 @@ const ImageFiles = (props) => {
         {files.map((file) => (
           <ImageListItem key={file.id}>
             <img
-              src="https://source.unsplash.com/random"
+              src={`http://digitalassets.com/api/v1/${assetTypeCode}/${file.assetId}/file/${file.id}`}
               alt={file.title}
             ></img>
             <AppSpeedMenu
