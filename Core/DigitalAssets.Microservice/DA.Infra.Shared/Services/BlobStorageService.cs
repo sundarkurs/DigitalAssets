@@ -73,7 +73,7 @@ namespace DA.Infra.Shared.Services
             return await blob.ExistsAsync();
         }
 
-        public async Task<string> GetAsync(string blobName)
+        public async Task<byte[]> GetAsync(string blobName)
         {
             try
             {
@@ -81,10 +81,13 @@ namespace DA.Infra.Shared.Services
 
                 if (blob.Exists())
                 {
-                    using (var stream = new MemoryStream())
+                    //var downloadResult = await blob.DownloadContentAsync();
+                    //return downloadResult.GetRawResponse().Content.ToArray();
+
+                    using (var memorystream = new MemoryStream())
                     {
-                        var mm = await blob.DownloadContentAsync();
-                        return Encoding.UTF8.GetString(stream.ToArray());
+                        await blob.DownloadToAsync(memorystream);
+                        return memorystream.ToArray();
                     }
                 }
 

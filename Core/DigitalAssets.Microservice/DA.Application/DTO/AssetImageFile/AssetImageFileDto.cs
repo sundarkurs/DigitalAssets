@@ -15,5 +15,6 @@ namespace DA.Application.DTO.AssetImageFile
         public bool? IsDefault { get; set; }
         public DateTime UpdatedOn { get; set; }
         public string UpdatedBy { get; set; }
+        public byte[] Content { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using DA.Application.DTO.AssetImageFile;
 using DA.Application.Exceptions;
 using DA.Application.Interfaces.Repositories;
+using DA.Application.Interfaces.Services;
 using DA.Application.Wrappers;
 using MediatR;
 using System;
@@ -14,23 +15,28 @@ namespace DA.Application.Queries.AssetImageFile
     {
         public class Query : IRequest<Response<AssetImageFileDto>>
         {
-            public Guid Id { get; set; }
+            public Guid AssetId { get; set; }
+            public Guid FileId { get; set; }
         }
 
         public class Handler : IRequestHandler<Query, Response<AssetImageFileDto>>
         {
             private readonly IAssetFileRepository<Domain.Models.AssetImageFile> _assetFileRepository;
             private readonly IMapper _mapper;
+            private readonly IAssetFileService _assetFileService;
 
-            public Handler(IAssetFileRepository<Domain.Models.AssetImageFile> assetFileRepository, IMapper mapper)
+            public Handler(IAssetFileRepository<Domain.Models.AssetImageFile> assetFileRepository, IMapper mapper, IAssetFileService assetFileService)
             {
                 _assetFileRepository = assetFileRepository;
                 _mapper = mapper;
+                _assetFileService = assetFileService;
             }
 
             public async Task<Response<AssetImageFileDto>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var file = await _assetFileRepository.GetByIdAsync(request.Id);
+                var file = await _assetFileRepository.GetByIdAsync(request.FileId);
+
+                var fileBlob = await _assetFileService.GetAsync(file.BlobId.ToString());
 
                 if (file == null)
                 {
@@ -38,6 +44,7 @@ namespace DA.Application.Queries.AssetImageFile
                 }
 
                 var assetTypesResponse = _mapper.Map<AssetImageFileDto>(file);
+                assetTypesResponse.Content = fileBlob;
                 return new Response<AssetImageFileDto>(assetTypesResponse);
             }
         }

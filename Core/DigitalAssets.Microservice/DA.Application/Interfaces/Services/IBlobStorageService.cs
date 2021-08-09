@@ -6,7 +6,7 @@ namespace DA.Application.Interfaces.Services
     {
         Task<bool> UploadAsync(byte[] content, string blobName);
 
-        Task<string> GetAsync(string blobName);
+        Task<byte[]> GetAsync(string blobName);
 
         Task<bool> FileExistsAsync(string blobName);
 

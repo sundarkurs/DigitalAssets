@@ -20,7 +20,7 @@ namespace DA.Infra.Shared.Services
             _logger = logger;
         }
 
-        public async Task<string> GetAsync(string fileName)
+        public async Task<byte[]> GetAsync(string fileName)
         {
             var filePath = string.Format("{0}/{1}/{2}", _storageSettings.RootFolder, _storageSettings.FilesFolder, fileName);
             return await _blobStorageService.GetAsync(filePath);

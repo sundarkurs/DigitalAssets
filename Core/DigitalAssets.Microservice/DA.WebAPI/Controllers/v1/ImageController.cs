@@ -12,6 +12,9 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 
@@ -108,6 +111,60 @@ namespace DA.WebAPI.Controllers.v1
         public async Task<IActionResult> GetAssetFilesAsync(Guid assetId)
         {
             return Ok(await Mediator.Send(new GetAllAssetImageFilesWithFilter.Query { AssetId = assetId }));
+        }
+
+        [HttpGet("{assetId}/file/{fileId}")]
+        public async Task<IActionResult> GetFileAsync(Guid assetId, Guid fileId)
+        {
+            var response = await Mediator.Send(new GetAssetImageFile.Query { AssetId = assetId, FileId = fileId });
+
+            //HttpResponseMessage reslt = new HttpResponseMessage(HttpStatusCode.OK);
+            //reslt.Content = new ByteArrayContent(response.Data.Content);
+            //reslt.Content.Headers.ContentType = new MediaTypeHeaderValue("image/png");
+            //reslt.Headers.Add("FileName", response.Data.Name);
+            //reslt.Headers.Add("FileId", response.Data.Id.ToString());
+            //reslt.Headers.Add("AssetId", response.Data.AssetId.ToString());
+            //reslt.Headers.Add("Transformation", cdnFile.Transformation);
+            //reslt.Headers.CacheControl = new CacheControlHeaderValue { MaxAge = TimeSpan.FromMinutes(30), Public = true };
+
+            //var fileName = response.Data.Name + ".png";
+            //var mimeType = "application/....";
+
+            //return new FileContentResult(response.Data.Content, mimeType)
+            //{
+            //    FileDownloadName = fileName,
+            //};
+
+            //var fileName = response.Data.Name + ".png";
+
+            //return new FileStreamResult(response.Data.Content, mimeType)
+            //{
+            //    FileDownloadName = fileName,
+            //};
+
+
+
+            //Stream stream = new MemoryStream(response.Data.Content);
+
+            //if (stream == null)
+            //    return NotFound();
+
+            //return File(stream, "application/octet-stream");
+
+            //string mimeType = "image/png";
+            //return new FileStreamResult(stream, mimeType)
+            //{
+            //    FileDownloadName = response.Data.Name + ".png"
+            //};
+
+            Response.Headers.Add("FileName", response.Data.Name);
+            Response.Headers.Add("FileId", response.Data.Id.ToString());
+            Response.Headers.Add("AssetId", response.Data.AssetId.ToString());
+            //Response.Headers.Add("Cache-Control", "public, max-age=" + TimeSpan.FromMinutes(30).TotalSeconds);
+            //Response.Headers.Add("Transformation", "100x100");
+
+
+            return File(response.Data.Content, "image/png");
         }
     }
 }
