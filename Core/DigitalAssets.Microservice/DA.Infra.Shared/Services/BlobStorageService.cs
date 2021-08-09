@@ -1,4 +1,5 @@
 ﻿using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
 using DA.Application.Interfaces.Services;
 using DA.Domain.Settings;
 using Microsoft.Extensions.Logging;
@@ -29,15 +30,35 @@ namespace DA.Infra.Shared.Services
 
         public bool CreateOrUpdate(byte[] data, string name)
         {
+            var filePath = string.Format("{0}/{1}/{2}", _storageSettings.RootFolder, _storageSettings.FilesFolder, name);
             var stream = new MemoryStream(data);
-            var blobClient = _blobContainer.GetBlobClient(name);
+            var blobClient = _blobContainer.GetBlobClient(filePath);
             blobClient.Upload(stream);
             return true;
         }
 
-        public Task<bool> DirectoryExistsAsync(string name)
+        public async Task<bool> DirectoryExistsAsync(string name)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+
+            Queue<string> prefixes = new Queue<string>();
+            prefixes.Enqueue("");
+            List<string> directoryNames = new List<string>();
+            do
+            {
+                string prefix = prefixes.Dequeue();
+                await foreach (BlobHierarchyItem blobHierarchyItem in _blobContainer.GetBlobsByHierarchyAsync(prefix: prefix, delimiter: "/"))
+                {
+                    if (blobHierarchyItem.IsPrefix)
+                    {
+                        directoryNames.Add(blobHierarchyItem.Prefix);
+                        prefixes.Enqueue(blobHierarchyItem.Prefix);
+                    }
+                }
+            } while (prefixes.Count > 0);
+
+            return directoryNames.Contains(name);
+
         }
 
         public Task<bool> FileExists(string name)

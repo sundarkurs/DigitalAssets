@@ -25,6 +25,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DA.Persistence", "DA.Persis
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{341E9923-D439-4DF6-A8E5-63D00BE291EE}"
 	ProjectSection(SolutionItems) = preProject
+		..\..\Design\Database\AssetImageAfterDelete.sql = ..\..\Design\Database\AssetImageAfterDelete.sql
+		..\..\Design\Database\AssetImageAfterInsertOrUpdate.sql = ..\..\Design\Database\AssetImageAfterInsertOrUpdate.sql
+		..\..\Design\Database\AssetProductImageAfterDelete.sql = ..\..\Design\Database\AssetProductImageAfterDelete.sql
+		..\..\Design\Database\AssetProductImageAfterInsertOrUpdate.sql = ..\..\Design\Database\AssetProductImageAfterInsertOrUpdate.sql
 		..\..\Design\Database\CreateScript.sql = ..\..\Design\Database\CreateScript.sql
 		..\..\Design\Database\DropScript.sql = ..\..\Design\Database\DropScript.sql
 		..\..\Design\Database\SeedScript.sql = ..\..\Design\Database\SeedScript.sql
