@@ -14,6 +14,7 @@ namespace DA.Infra.Shared
             services.Configure<StorageSettings>(_config.GetSection("StorageSettings"));
             services.AddTransient<IEmailService, EmailService>();
             services.AddTransient<IBlobStorageService, BlobStorageService>();
+            services.AddTransient<IAssetFileService, AssetFileService>();
         }
     }
 }

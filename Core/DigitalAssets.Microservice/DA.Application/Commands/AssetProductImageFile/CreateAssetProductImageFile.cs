@@ -26,13 +26,13 @@ namespace DA.Application.Commands.AssetProductImageFile
         {
             private readonly IAssetFileRepository<Domain.Models.AssetProductImageFile> _assetFileRepository;
             private readonly IMapper _mapper;
-            private readonly IBlobStorageService _storageService;
+            private readonly IAssetFileService _assetFileService;
 
-            public Handler(IAssetFileRepository<Domain.Models.AssetProductImageFile> assetFileRepository, IMapper mapper, IBlobStorageService storageService)
+            public Handler(IAssetFileRepository<Domain.Models.AssetProductImageFile> assetFileRepository, IMapper mapper, IAssetFileService assetFileService)
             {
                 _assetFileRepository = assetFileRepository;
                 _mapper = mapper;
-                _storageService = storageService;
+                _assetFileService = assetFileService;
             }
 
             public async Task<Response<AssetProductImageFileDto>> Handle(Command request, CancellationToken cancellationToken)
@@ -48,7 +48,7 @@ namespace DA.Application.Commands.AssetProductImageFile
 
                     var fileData = stream.ToArray();
 
-                    if (await _storageService.CreateOrUpdate(fileData, identifier.ToString()))
+                    if (await _assetFileService.SaveAsync(fileData, identifier.ToString()))
                     {
                         var file = new Domain.Models.AssetProductImageFile();
                         file.AssetId = request.AssetId;

@@ -4,13 +4,13 @@ namespace DA.Application.Interfaces.Services
 {
     public interface IBlobStorageService
     {
-        Task<bool> CreateOrUpdate(byte[] data, string name);
+        Task<bool> UploadAsync(byte[] content, string blobName);
 
-        Task<string> Get(string name);
+        Task<string> GetAsync(string blobName);
 
-        Task<bool> FileExists(string name);
+        Task<bool> FileExistsAsync(string blobName);
 
-        Task<bool> DirectoryExistsAsync(string name);
+        Task<bool> DirectoryExistsAsync(string path);
 
     }
 

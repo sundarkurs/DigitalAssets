@@ -28,16 +28,23 @@ namespace DA.Infra.Shared.Services
             _blobContainer.CreateIfNotExists();
         }
 
-        public async Task<bool> CreateOrUpdate(byte[] data, string name)
+        public async Task<bool> UploadAsync(byte[] content, string blobName)
         {
-            var filePath = string.Format("{0}/{1}/{2}", _storageSettings.RootFolder, _storageSettings.FilesFolder, name);
-            var stream = new MemoryStream(data);
-            var blobClient = _blobContainer.GetBlobClient(filePath);
-            var info = await blobClient.UploadAsync(stream);
-            return true;
+            try
+            {
+                var stream = new MemoryStream(content);
+                var blobClient = _blobContainer.GetBlobClient(blobName);
+                var info = await blobClient.UploadAsync(stream);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+            }
+            return false;
         }
 
-        public async Task<bool> DirectoryExistsAsync(string name)
+        public async Task<bool> DirectoryExistsAsync(string path)
         {
             Queue<string> prefixes = new Queue<string>();
             prefixes.Enqueue("");
@@ -55,26 +62,22 @@ namespace DA.Infra.Shared.Services
                 }
             } while (prefixes.Count > 0);
 
-            return directoryNames.Contains(name);
+            return directoryNames.Contains(path);
 
         }
 
-        public async Task<bool> FileExists(string name)
+        public async Task<bool> FileExistsAsync(string blobName)
         {
-            var filePath = string.Format("{0}/{1}/{2}", _storageSettings.RootFolder, _storageSettings.FilesFolder, name);
-
-            var blob = _blobContainer.GetBlobClient(filePath);
+            var blob = _blobContainer.GetBlobClient(blobName);
 
             return await blob.ExistsAsync();
         }
 
-        public async Task<string> Get(string name)
+        public async Task<string> GetAsync(string blobName)
         {
             try
             {
-                var filePath = string.Format("{0}/{1}/{2}", _storageSettings.RootFolder, _storageSettings.FilesFolder, name);
-
-                var blob = _blobContainer.GetBlobClient(filePath);
+                var blob = _blobContainer.GetBlobClient(blobName);
 
                 if (blob.Exists())
                 {
@@ -88,6 +91,7 @@ namespace DA.Infra.Shared.Services
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex.Message);
                 return null;
             }
             return null;
