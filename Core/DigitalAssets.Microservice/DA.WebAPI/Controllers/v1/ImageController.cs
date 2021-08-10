@@ -166,5 +166,17 @@ namespace DA.WebAPI.Controllers.v1
 
             return File(response.Data.Content, "image/png");
         }
+
+        [HttpGet("{assetId}/file")]
+        public async Task<IActionResult> GetAsync(Guid assetId, string file = "")
+        {
+            var response = await Mediator.Send(new GetAssetImageFileWithFilter.Query { AssetId = assetId, File = file });
+
+            Response.Headers.Add("FileName", response.Data.Name);
+            Response.Headers.Add("FileId", response.Data.Id.ToString());
+            Response.Headers.Add("AssetId", response.Data.AssetId.ToString());
+
+            return File(response.Data.Content, "image/png");
+        }
     }
 }

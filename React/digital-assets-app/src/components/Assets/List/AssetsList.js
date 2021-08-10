@@ -26,27 +26,30 @@ const AssetsList = (props) => {
     explorerCtx.deleteAsset(asset);
   };
 
-  const listItems = props.assets.map((item) => {
+  const listItems = props.assets.map((asset) => {
     return (
-      <Grid item xs={12} sm={6} md={4} lg={3} key={item.id}>
+      <Grid item xs={12} sm={6} md={4} lg={3} key={asset.id}>
         <AssetCard
-          asset={item}
+          asset={asset}
+          assetTypeCode={props.assetTypeCode}
           actions={[
             {
-              icon: <EditIcon onClick={() => editHandler(item)} />,
+              icon: <EditIcon onClick={() => editHandler(asset)} />,
               name: "Edit",
             },
             {
-              icon: <DeleteIcon onClick={() => deleteHandler(item)} />,
+              icon: <DeleteIcon onClick={() => deleteHandler(asset)} />,
               name: "Delete",
             },
             {
-              icon: <PhotoLibraryIcon onClick={() => viewFilesHandler(item)} />,
+              icon: (
+                <PhotoLibraryIcon onClick={() => viewFilesHandler(asset)} />
+              ),
               name: "View files",
             },
             {
               icon: (
-                <AddPhotoAlternateIcon onClick={() => addFileHandler(item)} />
+                <AddPhotoAlternateIcon onClick={() => addFileHandler(asset)} />
               ),
               name: "Upload file",
             },

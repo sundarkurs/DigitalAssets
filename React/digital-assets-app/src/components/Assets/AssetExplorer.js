@@ -97,7 +97,7 @@ const AssetExplorer = (props) => {
 
   return (
     <>
-      <AssetsList assets={assets}></AssetsList>
+      <AssetsList assets={assets} assetTypeCode={assetTypeCode}></AssetsList>
 
       <AppRightDrawer
         id="assets"

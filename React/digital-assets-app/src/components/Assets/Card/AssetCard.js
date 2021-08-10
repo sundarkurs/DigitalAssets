@@ -17,7 +17,8 @@ const AssetCard = (props) => {
           component="img"
           alt={asset.name}
           height="200"
-          image={`${window.location.origin}/images/asset-type-images/service-document.jpg`}
+          // image={`${window.location.origin}/images/asset-type-images/service-document.jpg`}
+          image={`http://digitalassets.com/api/v1/${props.assetTypeCode}/${asset.id}/file/`}
           title={asset.name}
         />
         <CardContent>
