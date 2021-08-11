@@ -30,6 +30,8 @@ const Explorer = () => {
     childrens: [],
   });
   const [assets, setAssets] = useState([]);
+  const [loadingFolders, setLoadingFolders] = useState(true);
+  const [loadingAssets, setLoadingAssets] = useState(true);
 
   useEffect(() => {
     getFolderDetails(currentFolderId);
@@ -41,9 +43,11 @@ const Explorer = () => {
       .get(`${params.assetTypeCode}/folder/${id}`)
       .then((response) => {
         setAssets(response.data.data);
+        setLoadingAssets(false);
       })
       .catch((error) => {
         console.log(error);
+        setLoadingAssets(false);
       });
   };
 
@@ -52,9 +56,11 @@ const Explorer = () => {
       .get(`Folder/${id}`)
       .then((response) => {
         setFoderInfo(response.data.data);
+        setLoadingFolders(false);
       })
       .catch((error) => {
         console.log(error);
+        setLoadingFolders(false);
       });
   };
 
@@ -84,6 +90,7 @@ const Explorer = () => {
           refreshFolders={refreshFoldersHandler}
           drawerClass={styles.drawer}
           setCurrentFolderId={setCurrentFolderIdHandler}
+          loadingFolders={loadingFolders}
         ></FolderExplorer>
 
         <div style={{ paddingTop: 50 }}></div>
@@ -95,6 +102,7 @@ const Explorer = () => {
           assets={assets}
           refreshAssets={refreshAssetsHandler}
           drawerClass={styles.drawer}
+          loadingAssets={loadingAssets}
         ></AssetExplorer>
       </AppSection>
     </PageSettings>

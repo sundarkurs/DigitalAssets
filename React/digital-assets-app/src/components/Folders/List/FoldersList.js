@@ -6,7 +6,7 @@ import ExplorerContext from "../../../store/ExplorerContext/explorer-context";
 
 const FoldersList = (props) => {
   const explorerCtx = useContext(ExplorerContext);
-  const { childrens, parent } = props;
+  const { childrens, parent, loadingFolders } = props;
 
   var listItems = [];
 
@@ -48,6 +48,14 @@ const FoldersList = (props) => {
           </Grid>
         );
       })
+    );
+  }
+
+  if (loadingFolders) {
+    listItems.push(
+      <Grid item xs={12} sm={6} md={4} lg={3} key={999}>
+        <FolderCard loadingFolders={loadingFolders}></FolderCard>
+      </Grid>
     );
   }
 
