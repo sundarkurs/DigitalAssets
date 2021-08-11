@@ -8,7 +8,7 @@ const OutRoute = () => {
       <Route path="/login" exact>
         <Login />
       </Route>
-      <Route path="*">
+      <Route path="/" exact>
         <Redirect to="login"></Redirect>
       </Route>
     </Switch>
