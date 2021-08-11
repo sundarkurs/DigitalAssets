@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace DA.Infra.Shared.Services
 {
-    public class AssetFileService : IAssetFileService
+    public class AssetFileStorageService : IAssetFileStorageService
     {
         public StorageSettings _storageSettings { get; }
         public ILogger<EmailService> _logger { get; }
 
         IBlobStorageService _blobStorageService;
 
-        public AssetFileService(IOptions<StorageSettings> storageSettings, ILogger<EmailService> logger, IBlobStorageService blobStorageService)
+        public AssetFileStorageService(IOptions<StorageSettings> storageSettings, ILogger<EmailService> logger, IBlobStorageService blobStorageService)
         {
             _blobStorageService = blobStorageService;
             _storageSettings = storageSettings.Value;

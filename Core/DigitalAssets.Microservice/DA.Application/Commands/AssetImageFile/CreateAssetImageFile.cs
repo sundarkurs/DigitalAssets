@@ -26,9 +26,9 @@ namespace DA.Application.Commands.AssetImageFile
         {
             private readonly IAssetFileRepository<Domain.Models.AssetImageFile> _assetFileRepository;
             private readonly IMapper _mapper;
-            private readonly IAssetFileService _assetFileService;
+            private readonly IAssetFileStorageService _assetFileService;
 
-            public Handler(IAssetFileRepository<Domain.Models.AssetImageFile> assetFileRepository, IMapper mapper, IAssetFileService assetFileService)
+            public Handler(IAssetFileRepository<Domain.Models.AssetImageFile> assetFileRepository, IMapper mapper, IAssetFileStorageService assetFileService)
             {
                 _assetFileRepository = assetFileRepository;
                 _mapper = mapper;

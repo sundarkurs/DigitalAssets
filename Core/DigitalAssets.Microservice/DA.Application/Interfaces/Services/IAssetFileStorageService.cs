@@ -2,7 +2,7 @@
 
 namespace DA.Application.Interfaces.Services
 {
-    public interface IAssetFileService
+    public interface IAssetFileStorageService
     {
         Task<byte[]> GetAsync(string fileName);
 

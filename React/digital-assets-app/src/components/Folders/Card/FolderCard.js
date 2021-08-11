@@ -8,6 +8,11 @@ import CardHeader from "@material-ui/core/CardHeader";
 import FolderIcon from "@material-ui/icons/Folder";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import FolderImage from "../../../media/folder-image.png";
+
+import FolderAdd from "../../../media/folder-add.png";
+import FolderTick from "../../../media/folder-tick.png";
+import FolderUp from "../../../media/folder-up.png";
+
 import CreateNewFolderIcon from "@material-ui/icons/CreateNewFolder";
 import moment from "moment";
 import IconButton from "@material-ui/core/IconButton";
@@ -51,6 +56,13 @@ const FolderCard = (props) => {
     setMoreOptionsEl(null);
     explorerCtx.deleteFolder(folder);
   };
+
+  var folderImageSource = FolderTick;
+  if (isNew) {
+    folderImageSource = FolderAdd;
+  } else if (isBack) {
+    folderImageSource = FolderUp;
+  }
 
   return (
     <>
