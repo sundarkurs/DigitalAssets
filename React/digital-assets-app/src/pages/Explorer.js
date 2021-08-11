@@ -90,7 +90,7 @@ const Explorer = () => {
           refreshFolders={refreshFoldersHandler}
           drawerClass={styles.drawer}
           setCurrentFolderId={setCurrentFolderIdHandler}
-          loadingFolders={loadingFolders}
+          loading={loadingFolders}
         ></FolderExplorer>
 
         <div style={{ paddingTop: 50 }}></div>
@@ -102,7 +102,7 @@ const Explorer = () => {
           assets={assets}
           refreshAssets={refreshAssetsHandler}
           drawerClass={styles.drawer}
-          loadingAssets={loadingAssets}
+          loading={loadingAssets}
         ></AssetExplorer>
       </AppSection>
     </PageSettings>

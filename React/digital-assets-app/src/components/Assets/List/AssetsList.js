@@ -6,9 +6,11 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import PhotoLibraryIcon from "@material-ui/icons/PhotoLibrary";
 import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
+import AssetLoading from "../Card/AssetLoading";
 
 const AssetsList = (props) => {
   const explorerCtx = useContext(ExplorerContext);
+  const { assets, loading, assetTypeCode } = props;
 
   const editHandler = (asset) => {
     explorerCtx.editAsset(asset);
@@ -26,38 +28,54 @@ const AssetsList = (props) => {
     explorerCtx.deleteAsset(asset);
   };
 
-  const listItems = props.assets.map((asset) => {
-    return (
-      <Grid item xs={12} sm={6} md={4} lg={3} key={asset.id}>
-        <AssetCard
-          asset={asset}
-          assetTypeCode={props.assetTypeCode}
-          actions={[
-            {
-              icon: <EditIcon onClick={() => editHandler(asset)} />,
-              name: "Edit",
-            },
-            {
-              icon: <DeleteIcon onClick={() => deleteHandler(asset)} />,
-              name: "Delete",
-            },
-            {
-              icon: (
-                <PhotoLibraryIcon onClick={() => viewFilesHandler(asset)} />
-              ),
-              name: "View files",
-            },
-            {
-              icon: (
-                <AddPhotoAlternateIcon onClick={() => addFileHandler(asset)} />
-              ),
-              name: "Upload file",
-            },
-          ]}
-        ></AssetCard>
+  var listItems = [];
+
+  if (assets && assets.length > 0) {
+    listItems.push(
+      assets.map((asset) => {
+        return (
+          <Grid item xs={12} sm={6} md={4} lg={3} key={asset.id}>
+            <AssetCard
+              asset={asset}
+              assetTypeCode={assetTypeCode}
+              actions={[
+                {
+                  icon: <EditIcon onClick={() => editHandler(asset)} />,
+                  name: "Edit",
+                },
+                {
+                  icon: <DeleteIcon onClick={() => deleteHandler(asset)} />,
+                  name: "Delete",
+                },
+                {
+                  icon: (
+                    <PhotoLibraryIcon onClick={() => viewFilesHandler(asset)} />
+                  ),
+                  name: "View files",
+                },
+                {
+                  icon: (
+                    <AddPhotoAlternateIcon
+                      onClick={() => addFileHandler(asset)}
+                    />
+                  ),
+                  name: "Upload file",
+                },
+              ]}
+            ></AssetCard>
+          </Grid>
+        );
+      })
+    );
+  }
+
+  if (loading) {
+    listItems.push(
+      <Grid item xs={12} sm={6} md={4} lg={3} key={999}>
+        <AssetLoading></AssetLoading>
       </Grid>
     );
-  });
+  }
 
   return (
     <Fragment>

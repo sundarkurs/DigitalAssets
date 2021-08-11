@@ -8,11 +8,9 @@ import CardHeader from "@material-ui/core/CardHeader";
 import FolderIcon from "@material-ui/icons/Folder";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import FolderImage from "../../../media/folder-image.png";
-
 import FolderAdd from "../../../media/folder-add.png";
 import FolderTick from "../../../media/folder-tick.png";
 import FolderUp from "../../../media/folder-up.png";
-
 import CreateNewFolderIcon from "@material-ui/icons/CreateNewFolder";
 import moment from "moment";
 import IconButton from "@material-ui/core/IconButton";
@@ -20,14 +18,13 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import FolderOptionsMenu from "../FolderOptionsMenu";
 import useFolderCardStyles from "./folder-card-styles";
 import ExplorerContext from "../../../store/ExplorerContext/explorer-context";
-import Skeleton from "@material-ui/lab/Skeleton";
+import FolderLoading from "./FolderLoading";
 
 const FolderCard = (props) => {
   const explorerCtx = useContext(ExplorerContext);
   const classes = useFolderCardStyles();
 
-  const { isBack, isFolder, isNew, folder, onFolderClick, loadingFolders } =
-    props;
+  const { isBack, isFolder, isNew, folder, onFolderClick } = props;
 
   const subHeader = () => {
     if (isFolder) {
@@ -68,60 +65,49 @@ const FolderCard = (props) => {
 
   return (
     <>
-      {loadingFolders && (
-        <div>
-          <Skeleton variant="text" />
-          <Skeleton variant="circle" width={40} height={40} />
-          <Skeleton variant="rect" height={118} />
-        </div>
-      )}
-      {!loadingFolders && (
-        <>
-          <Card elevation={10}>
-            <CardActionArea>
-              <CardHeader
-                avatar={
-                  <Avatar aria-label="folder" className={classes.avatar}>
-                    {isFolder && <FolderIcon></FolderIcon>}
-                    {isBack && <ArrowBackIcon></ArrowBackIcon>}
-                    {isNew && <CreateNewFolderIcon></CreateNewFolderIcon>}
-                  </Avatar>
-                }
-                action={
-                  isFolder && (
-                    <IconButton
-                      aria-label="options"
-                      onClick={onMoreOptionsClickHandler}
-                    >
-                      <MoreVertIcon />
-                    </IconButton>
-                  )
-                }
-                title={
-                  <Typography variant="h5" color="textSecondary" component="h2">
-                    {folder.name}
-                  </Typography>
-                }
-                subheader={subHeader()}
-              />
-              <CardContent onClick={onFolderClick} className={classes.center}>
-                <img
-                  src={FolderImage}
-                  alt="folder"
-                  className={classes.folderImg}
-                ></img>
-              </CardContent>
-            </CardActionArea>
-          </Card>
+      <Card elevation={10}>
+        <CardActionArea>
+          <CardHeader
+            avatar={
+              <Avatar aria-label="folder" className={classes.avatar}>
+                {isFolder && <FolderIcon></FolderIcon>}
+                {isBack && <ArrowBackIcon></ArrowBackIcon>}
+                {isNew && <CreateNewFolderIcon></CreateNewFolderIcon>}
+              </Avatar>
+            }
+            action={
+              isFolder && (
+                <IconButton
+                  aria-label="options"
+                  onClick={onMoreOptionsClickHandler}
+                >
+                  <MoreVertIcon />
+                </IconButton>
+              )
+            }
+            title={
+              <Typography variant="h5" color="textSecondary" component="h2">
+                {folder.name}
+              </Typography>
+            }
+            subheader={subHeader()}
+          />
+          <CardContent onClick={onFolderClick} className={classes.center}>
+            <img
+              src={FolderImage}
+              alt="folder"
+              className={classes.folderImg}
+            ></img>
+          </CardContent>
+        </CardActionArea>
+      </Card>
 
-          <FolderOptionsMenu
-            element={moreOptionsEl}
-            onClose={onMoreOptionsCloseHandler}
-            onRename={onRenameFolderHandler}
-            onDelete={onDeleteFolderHandler}
-          ></FolderOptionsMenu>
-        </>
-      )}
+      <FolderOptionsMenu
+        element={moreOptionsEl}
+        onClose={onMoreOptionsCloseHandler}
+        onRename={onRenameFolderHandler}
+        onDelete={onDeleteFolderHandler}
+      ></FolderOptionsMenu>
     </>
   );
 };

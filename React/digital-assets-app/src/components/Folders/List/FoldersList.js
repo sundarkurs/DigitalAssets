@@ -3,10 +3,11 @@ import FolderCard from "../Card/FolderCard";
 import Grid from "@material-ui/core/Grid";
 import uuid from "react-uuid";
 import ExplorerContext from "../../../store/ExplorerContext/explorer-context";
+import FolderLoading from "../Card/FolderLoading";
 
 const FoldersList = (props) => {
   const explorerCtx = useContext(ExplorerContext);
-  const { childrens, parent, loadingFolders } = props;
+  const { childrens, parent, loading } = props;
 
   var listItems = [];
 
@@ -51,10 +52,10 @@ const FoldersList = (props) => {
     );
   }
 
-  if (loadingFolders) {
+  if (loading) {
     listItems.push(
       <Grid item xs={12} sm={6} md={4} lg={3} key={999}>
-        <FolderCard loadingFolders={loadingFolders}></FolderCard>
+        <FolderLoading></FolderLoading>
       </Grid>
     );
   }

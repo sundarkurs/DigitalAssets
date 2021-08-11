@@ -18,7 +18,7 @@ const FolderExplorer = (props) => {
     setCurrentFolderId,
     refreshFolders,
     assetTypeCode,
-    loadingFolders,
+    loading,
   } = props;
 
   const onOpenFolderHandler = (folder) => {
@@ -63,7 +63,7 @@ const FolderExplorer = (props) => {
         parent={folderInfo.parent}
         childrens={folderInfo.childrens}
         onOpenFolder={onOpenFolderHandler}
-        loadingFolders={loadingFolders}
+        loading={loading}
       ></FoldersList>
 
       <AppRightDrawer

@@ -24,8 +24,14 @@ const AssetExplorer = (props) => {
   const styles = useStyles();
   const explorerCtx = useContext(ExplorerContext);
 
-  const { folderInfo, assets, currentFolderId, refreshAssets, assetTypeCode } =
-    props;
+  const {
+    folderInfo,
+    assets,
+    currentFolderId,
+    refreshAssets,
+    assetTypeCode,
+    loading,
+  } = props;
 
   var drawerClass = props.drawerClass;
   var drawerContent = "";
@@ -97,7 +103,11 @@ const AssetExplorer = (props) => {
 
   return (
     <>
-      <AssetsList assets={assets} assetTypeCode={assetTypeCode}></AssetsList>
+      <AssetsList
+        assets={assets}
+        assetTypeCode={assetTypeCode}
+        loading={loading}
+      ></AssetsList>
 
       <AppRightDrawer
         id="assets"
