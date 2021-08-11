@@ -67,7 +67,11 @@ namespace DA.Application.Queries.AssetProductImageFile
                 var transformation = Formatter.GetTransformationModel(request.Transformation);
                 if (transformation != null)
                 {
-                    if (transformation.Resize)
+                    if (transformation.Thumbnail)
+                    {
+                        fileBlob = _imageProcessorService.Resize(fileBlob, transformation.Width, transformation.Height, "image/png");
+                    }
+                    else if (transformation.Resize)
                     {
                         fileBlob = _imageProcessorService.Resize(fileBlob, transformation.Width, transformation.Height, "image/png");
                     }

@@ -29,6 +29,14 @@ namespace DA.Application.Utility
                     response.Resize = field.ToLower() == "resize" ? (value == "true" ? true : false) : response.Resize;
                     response.Height = field.ToLower() == "height" ? Convert.ToInt32(value) : response.Height;
                     response.Width = field.ToLower() == "width" ? Convert.ToInt32(value) : response.Width;
+
+                    if (field.ToLower() == "thumbnail")
+                    {
+                        response.Thumbnail = true;
+                        var dimension = GetThumbnailSize(ParseEnum<Thumbnail>(value));
+                        response.Height = dimension.Item1;
+                        response.Width = dimension.Item2;
+                    }
                 }
             }
             catch (Exception ex) { }
@@ -36,5 +44,34 @@ namespace DA.Application.Utility
 
             return response;
         }
+
+        /// <summary>
+        /// Returns <height, width>
+        /// </summary>
+        /// <param name="thumbnail"></param>
+        /// <returns>Returns <height, width> </returns>
+        public static Tuple<int, int> GetThumbnailSize(Thumbnail thumbnail)
+        {
+            switch (thumbnail)
+            {
+                case Thumbnail.XSmall:
+                    return new Tuple<int, int>(40, 40);
+                case Thumbnail.Small:
+                    return new Tuple<int, int>(75, 75);
+                case Thumbnail.Medium:
+                    return new Tuple<int, int>(128, 128);
+                case Thumbnail.Large:
+                    return new Tuple<int, int>(192, 192);
+                case Thumbnail.XLarge:
+                    return new Tuple<int, int>(240, 240);
+            }
+            return null;
+        }
+
+        public static T ParseEnum<T>(string value)
+        {
+            return (T)Enum.Parse(typeof(T), value, true);
+        }
+
     }
 }

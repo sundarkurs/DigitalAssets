@@ -7,5 +7,6 @@ namespace DA.Application.Models
         public int Width { get; set; }
         public bool Crop { get; set; }
         public bool Resize { get; set; }
+        public bool Thumbnail { get; set; }
     }
 }
