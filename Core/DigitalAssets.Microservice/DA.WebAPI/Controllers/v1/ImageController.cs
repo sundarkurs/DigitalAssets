@@ -170,7 +170,7 @@ namespace DA.WebAPI.Controllers.v1
         [HttpGet("{assetId}/file")]
         public async Task<IActionResult> GetFileAsync(Guid assetId, string file = "", string transformation = "")
         {
-            var response = await Mediator.Send(new GetAssetImageFileWithFilter.Query { AssetId = assetId, File = file });
+            var response = await Mediator.Send(new GetAssetImageFileWithFilter.Query { AssetId = assetId, File = file, Transformation = transformation });
 
             Response.Headers.Add("FileName", response.Data.Name);
             Response.Headers.Add("FileId", response.Data.Id.ToString());
