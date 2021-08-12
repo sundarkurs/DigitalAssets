@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System.Threading.Tasks;
 
 namespace DA.AssetsImporter.Services
 {
@@ -19,13 +20,15 @@ namespace DA.AssetsImporter.Services
         }
 
 
-        public void Run()
+        public async Task RunAsync()
         {
             _logger.LogInformation(_configSettings.Value.AppSettings.LoopTimes.ToString());
             for (int i = 0; i < _configSettings.Value.AppSettings.LoopTimes; i++)
             {
                 _logger.LogInformation("Run number {runNumber}", i);
             }
+
+            return;
         }
     }
 }

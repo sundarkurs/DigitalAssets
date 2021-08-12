@@ -36,9 +36,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{34
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DA.Infra.Shared", "DA.Infra.Shared\DA.Infra.Shared.csproj", "{D8BC4A85-FF28-4C1B-83C9-3BBC36F84044}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Jobs", "Jobs", "{DCEA1C33-EADD-43F2-BBF0-FDE49E8BA47C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebJobs", "WebJobs", "{DCEA1C33-EADD-43F2-BBF0-FDE49E8BA47C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DA.AssetsImporter", "DA.AssetsImporter\DA.AssetsImporter.csproj", "{2D328202-35D5-40BB-9852-E2351368F884}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DA.AssetsImporter", "DA.AssetsImporter\DA.AssetsImporter.csproj", "{2D328202-35D5-40BB-9852-E2351368F884}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

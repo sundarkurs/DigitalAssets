@@ -1,7 +1,9 @@
-﻿namespace DA.AssetsImporter.Services
+﻿using System.Threading.Tasks;
+
+namespace DA.AssetsImporter.Services
 {
     public interface IGreetingService
     {
-        void Run();
+        Task RunAsync();
     }
 }

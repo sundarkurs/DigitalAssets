@@ -1,17 +1,19 @@
 ﻿using DA.AssetsImporter.Configuration;
 using DA.AssetsImporter.Services;
+using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using System;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace DA.AssetsImporter
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
 
             var builder = new ConfigurationBuilder();
@@ -27,6 +29,12 @@ namespace DA.AssetsImporter
             Log.Logger.Information("Application started");
 
             var host = Host.CreateDefaultBuilder()
+                .ConfigureWebJobs(b =>
+                {
+                    b.AddAzureStorageCoreServices()
+                     .AddAzureStorage()
+                     .AddTimers();
+                })
                 .ConfigureServices((context, services) =>
                 {
                     services.AddTransient<IGreetingService, GreetingService>();
@@ -36,19 +44,16 @@ namespace DA.AssetsImporter
                 .UseSerilog()
                 .Build();
 
+            //var service = ActivatorUtilities.CreateInstance<GreetingService>(host.Services);
+            //await service.RunAsync();
 
-            var service = ActivatorUtilities.CreateInstance<GreetingService>(host.Services);
-
-            service.Run();
-
-
-            //.ConfigureWebJobs(b =>
-            //{
-            //    b.AddAzureStorageCoreServices()
-            //     .AddAzureStorage()
-            //     .AddTimers();
-            //})
-
+            using (host)
+            {
+                var jobHost = host.Services.GetService(typeof(IJobHost)) as JobHost;
+                await host.StartAsync();
+                await jobHost.CallAsync(nameof(Functions.Run));
+                await host.StopAsync();
+            }
         }
 
         static void BuildConfig(IConfigurationBuilder builder)
