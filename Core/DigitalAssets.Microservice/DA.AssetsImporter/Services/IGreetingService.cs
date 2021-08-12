@@ -1,4 +1,4 @@
-﻿namespace DA.AssetsImporter
+﻿namespace DA.AssetsImporter.Services
 {
     public interface IGreetingService
     {

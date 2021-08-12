@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using DA.AssetsImporter.Configuration;
+using DA.AssetsImporter.Services;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
@@ -28,6 +30,8 @@ namespace DA.AssetsImporter
                 .ConfigureServices((context, services) =>
                 {
                     services.AddTransient<IGreetingService, GreetingService>();
+
+                    services.Configure<ConfigSettings>(context.Configuration.GetSection("ConfigSettings"));
                 })
                 .UseSerilog()
                 .Build();
@@ -37,24 +41,12 @@ namespace DA.AssetsImporter
 
             service.Run();
 
-            //var build = Host.CreateDefaultBuilder(args)
-
-            //.UseEnvironment(environment)
 
             //.ConfigureWebJobs(b =>
             //{
             //    b.AddAzureStorageCoreServices()
             //     .AddAzureStorage()
             //     .AddTimers();
-            //})
-
-            //.ConfigureAppConfiguration((hostingContext, config) =>
-            //{
-            //    config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-            //        .AddJsonFile($"appsettings.{environment}.json", optional: true, reloadOnChange: true)
-            //        .AddEnvironmentVariables();
-
-            //    config.AddCommandLine(args);
             //})
 
         }
