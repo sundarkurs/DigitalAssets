@@ -1,5 +1,9 @@
-﻿using DA.AssetsImporter.Configuration;
+﻿using DA.Application;
+using DA.AssetsImporter.Configuration;
+using DA.AssetsImporter.Extensions;
 using DA.AssetsImporter.Services;
+using DA.Infra.Shared;
+using DA.Persistence;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,8 +15,10 @@ using System.Threading.Tasks;
 
 namespace DA.AssetsImporter
 {
-    class Program
+    public class Program
     {
+        public static IConfiguration Configuration;
+
         static async Task Main(string[] args)
         {
 
@@ -28,6 +34,8 @@ namespace DA.AssetsImporter
 
             Log.Logger.Information("Application started");
 
+            Configuration = builder.Build();
+
             var host = Host.CreateDefaultBuilder()
                 .ConfigureWebJobs(b =>
                 {
@@ -37,12 +45,12 @@ namespace DA.AssetsImporter
                 })
                 .ConfigureServices((context, services) =>
                 {
-                    services.AddTransient<IGreetingService, GreetingService>();
+                    services.AddServices();
+                    services.AddConfigurations(context);
 
-                    services.Configure<AppSettings>(context.Configuration.GetSection("AppSettings"));
-                    services.Configure<ConnectionStrings>(context.Configuration.GetSection("ConnectionStrings"));
-                    services.Configure<MailSettings>(context.Configuration.GetSection("MailSettings"));
-                    services.Configure<StorageSettings>(context.Configuration.GetSection("StorageSettings"));
+                    services.AddApplicationServices();
+                    services.AddPersistenceServices(Configuration);
+                    services.AddSharedInfrastructure(Configuration);
                 })
                 .UseSerilog()
                 .Build();

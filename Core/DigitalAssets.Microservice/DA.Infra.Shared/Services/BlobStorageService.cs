@@ -68,9 +68,18 @@ namespace DA.Infra.Shared.Services
 
         public async Task<bool> FileExistsAsync(string blobName)
         {
-            var blob = _blobContainer.GetBlobClient(blobName);
+            try
+            {
+                var blob = _blobContainer.GetBlobClient(blobName);
 
-            return await blob.ExistsAsync();
+                return await blob.ExistsAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+            }
+
+            return false;
         }
 
         public async Task<byte[]> GetAsync(string blobName)
@@ -94,9 +103,9 @@ namespace DA.Infra.Shared.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
-                return null;
+                _logger.LogError(ex, ex.Message);
             }
+
             return null;
         }
     }

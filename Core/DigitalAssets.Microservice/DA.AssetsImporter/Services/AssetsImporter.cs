@@ -1,26 +1,25 @@
 ﻿using DA.AssetsImporter.Configuration;
+using DA.AssetsImporter.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System;
 using System.Threading.Tasks;
 
 namespace DA.AssetsImporter.Services
 {
-    public class GreetingService : IGreetingService
+    public class AssetsImporter : IAssetsImporter
     {
-        private readonly ILogger<GreetingService> _logger;
-        private readonly IConfiguration _config;
+        private readonly ILogger<AssetsImporter> _logger;
         private readonly IOptions<AppSettings> _appSettings;
 
-        public GreetingService(ILogger<GreetingService> logger, IConfiguration config, IOptions<AppSettings> appSettings)
+        public AssetsImporter(ILogger<AssetsImporter> logger, IOptions<AppSettings> appSettings)
         {
             _logger = logger;
-            _config = config;
             _appSettings = appSettings;
         }
 
-
-        public async Task RunAsync()
+        public async Task ProcessAsync()
         {
             _logger.LogInformation(_appSettings.Value.LoopTimes.ToString());
             for (int i = 0; i < _appSettings.Value.LoopTimes; i++)
