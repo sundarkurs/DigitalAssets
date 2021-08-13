@@ -10,20 +10,20 @@ namespace DA.AssetsImporter.Services
     {
         private readonly ILogger<GreetingService> _logger;
         private readonly IConfiguration _config;
-        private readonly IOptions<ConfigSettings> _configSettings;
+        private readonly IOptions<AppSettings> _appSettings;
 
-        public GreetingService(ILogger<GreetingService> logger, IConfiguration config, IOptions<ConfigSettings> configSettings)
+        public GreetingService(ILogger<GreetingService> logger, IConfiguration config, IOptions<AppSettings> appSettings)
         {
             _logger = logger;
             _config = config;
-            _configSettings = configSettings;
+            _appSettings = appSettings;
         }
 
 
         public async Task RunAsync()
         {
-            _logger.LogInformation(_configSettings.Value.AppSettings.LoopTimes.ToString());
-            for (int i = 0; i < _configSettings.Value.AppSettings.LoopTimes; i++)
+            _logger.LogInformation(_appSettings.Value.LoopTimes.ToString());
+            for (int i = 0; i < _appSettings.Value.LoopTimes; i++)
             {
                 _logger.LogInformation("Run number {runNumber}", i);
             }
