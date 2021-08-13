@@ -1,9 +1,7 @@
 ﻿using DA.AssetsImporter.Configuration;
 using DA.AssetsImporter.Interfaces;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System;
 using System.Threading.Tasks;
 
 namespace DA.AssetsImporter.Services
