@@ -16,6 +16,7 @@ namespace DA.Infra.Shared
             services.AddTransient<IBlobStorageService, BlobStorageService>();
             services.AddTransient<IAssetFileStorageService, AssetFileStorageService>();
             services.AddTransient<IImageProcessorService, ImageProcessorService>();
+            services.AddTransient<IExtractStorageService, ExtractStorageService>();
         }
     }
 }

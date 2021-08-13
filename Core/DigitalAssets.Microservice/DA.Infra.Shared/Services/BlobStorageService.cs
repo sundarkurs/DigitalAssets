@@ -32,9 +32,25 @@ namespace DA.Infra.Shared.Services
         {
             try
             {
-                var stream = new MemoryStream(content);
+                var data = new MemoryStream(content);
                 var blobClient = _blobContainer.GetBlobClient(blobName);
-                var info = await blobClient.UploadAsync(stream);
+                var info = await blobClient.UploadAsync(data);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+            }
+            return false;
+        }
+
+        public async Task<bool> UploadAsync(string content, string blobName)
+        {
+            try
+            {
+                var data = new BinaryData(content);
+                var blobClient = _blobContainer.GetBlobClient(blobName);
+                var info = await blobClient.UploadAsync(data);
                 return true;
             }
             catch (Exception ex)
@@ -107,6 +123,11 @@ namespace DA.Infra.Shared.Services
             }
 
             return null;
+        }
+
+        public async Task DeleteAsync(string blobName)
+        {
+            await _blobContainer.DeleteBlobAsync(blobName);
         }
     }
 }
