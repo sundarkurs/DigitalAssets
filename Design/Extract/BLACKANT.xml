@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Catalog>
+   <ProjId>CAT-001</ProjId>
+   <Name>BLACKANT</Name>
+   <Description>BLACKANT CATALOG</Description>
+   <Families>
+      <Family>
+         <ProjId>F-10001</ProjId>
+         <Name>RED FAM</Name>
+         <Description>RED FAM</Description>
+         <Products>
+            <Product>
+               <ProjId>P-156900</ProjId>
+               <Name>ESS 1.0</Name>
+               <Description>Basic Product</Description>
+               <Category>HW</Category>
+               <Platform>FRAME</Platform>
+               <Segment>MANUFACTURING</Segment>
+               <EndItems>
+                  <EndItem>
+                     <SKUNumber>10990873</SKUNumber>
+                     <Name>ESS 1.0</Name>
+                     <ProductType>HARDWARE</ProductType>
+                  </EndItem>
+               </EndItems>
+               <Documents>
+                  <Document>
+                     <DocumentId>D00227807</DocumentId>
+                     <Version>2</Version>
+                     <Name>DoC_ESS_1.0</Name>
+                     <Language>EN</Language>
+                  </Document>
+               </Documents>
+            </Product>
+            <Product>
+               <ProjId>P-156988</ProjId>
+               <Name>SOESS 1.0</Name>
+               <Description>Basic Product Software</Description>
+               <Category>SW</Category>
+               <Platform>ANDROID</Platform>
+               <Segment>PROGRAMMING</Segment>
+               <EndItems>
+                  <EndItem>
+                     <SKUNumber>10990999</SKUNumber>
+                     <Name>SOESS 1.0</Name>
+                     <ProductType>SOFTWARE</ProductType>
+                  </EndItem>
+               </EndItems>
+               <Documents>
+                  <Document>
+                     <DocumentId>D00227928</DocumentId>
+                     <Version>2</Version>
+                     <Name>DoC_SOESS_1.0</Name>
+                     <Language>EN</Language>
+                  </Document>
+               </Documents>
+            </Product>
+         </Products>
+      </Family>
+   </Families>
+</Catalog>
