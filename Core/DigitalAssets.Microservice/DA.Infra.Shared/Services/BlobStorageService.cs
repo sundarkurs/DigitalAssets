@@ -82,7 +82,7 @@ namespace DA.Infra.Shared.Services
 
         }
 
-        public async Task<bool> FileExistsAsync(string blobName)
+        public async Task<bool> ExistsAsync(string blobName)
         {
             try
             {

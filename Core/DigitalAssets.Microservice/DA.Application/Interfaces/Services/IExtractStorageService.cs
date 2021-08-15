@@ -4,10 +4,8 @@ namespace DA.Application.Interfaces.Services
 {
     public interface IExtractStorageService
     {
-        Task<byte[]> GetAsync(string fileName);
-
-        Task<bool> ExistsAsync(string fileName);
-
-        Task<bool> SaveAsync(byte[] data, string fileName);
+        Task<bool> IsExtractReadyAsync();
+        Task<bool> StartImportAsync();
+        Task<bool> EndImportAsync();
     }
 }

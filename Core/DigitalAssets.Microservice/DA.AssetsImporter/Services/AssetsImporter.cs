@@ -1,4 +1,5 @@
-﻿using DA.AssetsImporter.Configuration;
+﻿using DA.Application.Interfaces.Services;
+using DA.AssetsImporter.Configuration;
 using DA.AssetsImporter.Interfaces;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -10,19 +11,26 @@ namespace DA.AssetsImporter.Services
     {
         private readonly ILogger<AssetsImporter> _logger;
         private readonly IOptions<AppSettings> _appSettings;
+        private readonly IExtractStorageService _extractStorageService;
 
-        public AssetsImporter(ILogger<AssetsImporter> logger, IOptions<AppSettings> appSettings)
+        public AssetsImporter(ILogger<AssetsImporter> logger, IOptions<AppSettings> appSettings, IExtractStorageService extractStorageService)
         {
             _logger = logger;
             _appSettings = appSettings;
+            _extractStorageService = extractStorageService;
         }
 
         public async Task ProcessAsync()
         {
-            _logger.LogInformation(_appSettings.Value.LoopTimes.ToString());
-            for (int i = 0; i < _appSettings.Value.LoopTimes; i++)
+            _logger.LogInformation("Process started");
+
+            var isExtractReady = await _extractStorageService.IsExtractReadyAsync();
+
+            if (isExtractReady)
             {
-                _logger.LogInformation("Run number {runNumber}", i);
+                await _extractStorageService.StartImportAsync();
+
+                await _extractStorageService.EndImportAsync();
             }
 
             return;

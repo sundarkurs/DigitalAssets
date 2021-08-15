@@ -30,7 +30,7 @@ namespace DA.Infra.Shared.Services
         public async Task<bool> ExistsAsync(string fileName)
         {
             var filePath = string.Format("{0}/{1}/{2}", _storageSettings.RootFolder, _storageSettings.FilesFolder, fileName);
-            return await _blobStorageService.FileExistsAsync(filePath);
+            return await _blobStorageService.ExistsAsync(filePath);
         }
 
         public async Task<bool> SaveAsync(byte[] data, string fileName)

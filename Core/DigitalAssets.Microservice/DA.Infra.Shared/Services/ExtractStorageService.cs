@@ -2,6 +2,7 @@
 using DA.Domain.Settings;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System;
 using System.Threading.Tasks;
 
 namespace DA.Infra.Shared.Services
@@ -21,22 +22,55 @@ namespace DA.Infra.Shared.Services
             _logger = logger;
         }
 
-        public async Task<byte[]> GetAsync(string fileName)
+
+        public async Task<bool> IsExtractReadyAsync()
         {
-            var filePath = string.Format("{0}/{1}/{2}", _storageSettings.RootFolder, _storageSettings.ExtractFolder, fileName);
-            return await _blobStorageService.GetAsync(filePath);
+            var filePath = string.Format("{0}/{1}/{2}", _storageSettings.RootFolder, _storageSettings.ExtractFolder, "DONE.lck");
+            var fileExist = await _blobStorageService.ExistsAsync(filePath);
+            return fileExist;
         }
 
-        public async Task<bool> ExistsAsync(string fileName)
+        public async Task<bool> StartImportAsync()
         {
-            var filePath = string.Format("{0}/{1}/{2}", _storageSettings.RootFolder, _storageSettings.ExtractFolder, fileName);
-            return await _blobStorageService.FileExistsAsync(filePath);
+            try
+            {
+                var lockImportDone = string.Format("{0}/{1}/{2}", _storageSettings.RootFolder, _storageSettings.ExtractFolder, "IMP_DONE.lck");
+
+                if (await _blobStorageService.ExistsAsync(lockImportDone))
+                {
+                    await _blobStorageService.DeleteAsync(lockImportDone);
+                }
+
+                var lockImportInProgress = string.Format("{0}/{1}/{2}", _storageSettings.RootFolder, _storageSettings.ExtractFolder, "IMP_INPROGRESS.lck");
+                return await _blobStorageService.UploadAsync("", lockImportInProgress);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+            }
+
+            return false;
         }
 
-        public async Task<bool> SaveAsync(byte[] data, string fileName)
+        public async Task<bool> EndImportAsync()
         {
-            var filePath = string.Format("{0}/{1}/{2}", _storageSettings.RootFolder, _storageSettings.ExtractFolder, fileName);
-            return await _blobStorageService.UploadAsync(data, filePath);
+            try
+            {
+                var lockImportInProgress = string.Format("{0}/{1}/{2}", _storageSettings.RootFolder, _storageSettings.ExtractFolder, "IMP_INPROGRESS.lck");
+                if (await _blobStorageService.ExistsAsync(lockImportInProgress))
+                {
+                    await _blobStorageService.DeleteAsync(lockImportInProgress);
+                }
+
+                var lockImportDone = string.Format("{0}/{1}/{2}", _storageSettings.RootFolder, _storageSettings.ExtractFolder, "IMP_DONE.lck");
+                return await _blobStorageService.UploadAsync("", lockImportDone);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+            }
+
+            return false;
         }
     }
 }

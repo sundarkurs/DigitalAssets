@@ -62,7 +62,7 @@ namespace DA.AssetsImporter
             {
                 var jobHost = host.Services.GetService(typeof(IJobHost)) as JobHost;
                 await host.StartAsync();
-                await jobHost.CallAsync(nameof(Functions.Run));
+                await jobHost.CallAsync(nameof(Functions.RunAsync));
                 await host.StopAsync();
             }
         }

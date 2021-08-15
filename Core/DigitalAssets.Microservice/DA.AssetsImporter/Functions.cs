@@ -20,9 +20,9 @@ namespace DA.AssetsImporter
         }
 
         [NoAutomaticTrigger]
-        public async Task Run(TextWriter writer, CancellationToken cancellationToken)
+        public async Task RunAsync(TextWriter writer, CancellationToken cancellationToken)
         {
-            writer.WriteLine($"{nameof(Run)} started at {DateTime.UtcNow}");
+            writer.WriteLine($"{nameof(RunAsync)} started at {DateTime.UtcNow}");
             await _assetsImporter.ProcessAsync();
         }
     }
