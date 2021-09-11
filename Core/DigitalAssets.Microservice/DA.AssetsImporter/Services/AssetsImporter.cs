@@ -1,8 +1,10 @@
 ﻿using DA.Application.Interfaces.Services;
+using DA.Application.Models.Extract;
 using DA.AssetsImporter.Configuration;
 using DA.AssetsImporter.Interfaces;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace DA.AssetsImporter.Services
@@ -24,11 +26,25 @@ namespace DA.AssetsImporter.Services
         {
             _logger.LogInformation("Process started");
 
+            var a = await _extractStorageService.GetCatalogAsync();
+
+            return;
+
             var isExtractReady = await _extractStorageService.IsExtractReadyAsync();
 
+            
             if (isExtractReady)
             {
                 await _extractStorageService.StartImportAsync();
+
+                var xmlDoc = await _extractStorageService.GetCatalogAsync();
+
+                //System.Xml.Serialization.XmlSerializer ser = new System.Xml.Serialization.XmlSerializer(typeof(Catalog));
+
+                //using (StreamReader sr = new StreamReader(filepath))
+                //{
+                //     (Catalog)ser.Deserialize(sr);
+                //}
 
                 await _extractStorageService.EndImportAsync();
             }

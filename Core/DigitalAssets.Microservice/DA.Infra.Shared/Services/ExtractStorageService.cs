@@ -1,9 +1,14 @@
 ﻿using DA.Application.Interfaces.Services;
+using DA.Application.Models.Extract;
 using DA.Domain.Settings;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
+using System.IO;
+using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace DA.Infra.Shared.Services
 {
@@ -71,6 +76,29 @@ namespace DA.Infra.Shared.Services
             }
 
             return false;
+        }
+
+        public async Task<XmlDocument> GetCatalogAsync()
+        {
+            var filePath = string.Format("{0}/{1}/{2}", _storageSettings.RootFolder, _storageSettings.ExtractFolder, "BLACKANT.xml");
+            if (await _blobStorageService.ExistsAsync(filePath))
+            {
+                var data = await _blobStorageService.GetAsync(filePath);
+
+                XmlDocument doc = new XmlDocument();
+                string xml = Encoding.UTF8.GetString(data);
+                doc.LoadXml(xml);
+
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(Catalog));
+
+                using (Stream sr = new MemoryStream(data))
+                {
+                    var aa = (Catalog)xmlSerializer.Deserialize(sr);
+                }
+
+                return doc;
+            }
+            return null;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using System.Xml;
 
 namespace DA.Application.Interfaces.Services
 {
@@ -7,5 +8,6 @@ namespace DA.Application.Interfaces.Services
         Task<bool> IsExtractReadyAsync();
         Task<bool> StartImportAsync();
         Task<bool> EndImportAsync();
+        Task<XmlDocument> GetCatalogAsync();
     }
 }
